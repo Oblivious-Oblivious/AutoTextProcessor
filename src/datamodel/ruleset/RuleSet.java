@@ -30,8 +30,12 @@ public class RuleSet {
 	private AbstractRule boldRule;
 	private AbstractRule italicsRule;
 	
-	public RuleSet(String name, AbstractRule omitRule, AbstractRule h1Rule,
-			AbstractRule h2Rule, AbstractRule boldRule, AbstractRule italicsRule) {
+	public RuleSet(String name,
+				   AbstractRule omitRule,
+				   AbstractRule h1Rule,
+				   AbstractRule h2Rule,
+				   AbstractRule boldRule,
+				   AbstractRule italicsRule) {
 		this.name = name;
 		this.omitRule = omitRule;
 		this.h1Rule = h1Rule;
@@ -41,19 +45,19 @@ public class RuleSet {
 	}
 
 	public StyleEnum determineHeadingStatus(LineBlock lineblock) {
-		if (omitRule.isValid(lineblock))
+		if(omitRule.isValid(lineblock))
 			return StyleEnum.OMITTED;
-		if (h1Rule.isValid(lineblock))
+		if(h1Rule.isValid(lineblock))
 			return StyleEnum.H1;
-		if (h2Rule.isValid(lineblock))
+		if(h2Rule.isValid(lineblock))
 			return StyleEnum.H2;
 		return StyleEnum.NORMAL;
 	}
 
 	public FormatEnum determineFormatStatus(LineBlock lineblock) {
-		if (boldRule.isValid(lineblock))
+		if(boldRule.isValid(lineblock))
 			return FormatEnum.BOLD;
-		if (italicsRule.isValid(lineblock))
+		if(italicsRule.isValid(lineblock))
 			return FormatEnum.ITALICS;
 		return FormatEnum.REGULAR;
 	}
@@ -63,4 +67,4 @@ public class RuleSet {
 				"\nBOLD: " + boldRule.toString() + "\nITALICS: " + italicsRule.toString() + "\n";
 	}
 
-}//end class
+}

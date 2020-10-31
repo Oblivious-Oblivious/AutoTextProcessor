@@ -15,7 +15,6 @@ import org.apache.commons.io.FileUtils;
 import engine.Engine;
 import engine.IPlainTextDocumentEngine;
 
-
 /**
  * Test class to test the back-end, server class Engine of the project
  * 
@@ -54,11 +53,11 @@ public class TestEngine {
 		boldList.add("<B>");boldList.add("ALL_CAPS");
 
 		String referenceResult = "inputRuleSet1" + "\n" + 
-				"OMIT:  IN_POS " + "\n" + 
-		"H1:  STARTS_WITH (OATH AND) " + "\n" + 
-		"H2:  UNDEFINED " + "\n" + 
-		"BOLD:  ALL_CAPS " + "\n" +
-		"ITALICS:  UNDEFINED "; 
+								 "OMIT:  IN_POS " + "\n" + 
+								 "H1:  STARTS_WITH (OATH AND) " + "\n" + 
+								 "H2:  UNDEFINED " + "\n" + 
+								 "BOLD:  ALL_CAPS " + "\n" +
+								 "ITALICS:  UNDEFINED "; 
 
 		return referenceResult;
 	}
@@ -75,11 +74,11 @@ public class TestEngine {
 		italicsList.add("<I>");italicsList.add("POSITIONS"); italicsList.add("4,16");
 		
 		String referenceResult = "inputRuleSet2" + "\n" + 
-				"OMIT:  IN_POS " + "\n" + 
-		"H1:  STARTS_WITH (OATH AND) " + "\n" + 
-		"H2:  ALL_CAPS " + "\n" + 
-		"BOLD:  UNDEFINED " + "\n" +
-		"ITALICS:  IN_POS "; 
+								 "OMIT:  IN_POS " + "\n" + 
+								 "H1:  STARTS_WITH (OATH AND) " + "\n" + 
+								 "H2:  ALL_CAPS " + "\n" + 
+								 "BOLD:  UNDEFINED " + "\n" +
+								 "ITALICS:  IN_POS "; 
 
 		return referenceResult;
 	}
@@ -97,15 +96,13 @@ public class TestEngine {
 		boldList.add("<B>");boldList.add("STARTS_WITH"); boldList.add("<b>");
 
 		String referenceResult = "inputRuleSet3" + "\n" + 
-		"H1:  STARTS_WITH (<H1>) " + "\n" + 
-		"H2:  STARTS_WITH (<H2>) " + "\n" +
-		"BOLD:  STARTS_WITH (<b>) " + "\n" +
-		"ITALICS:  STARTS_WITH (<i>) ";
+								 "H1:  STARTS_WITH (<H1>) " + "\n" + 
+								 "H2:  STARTS_WITH (<H2>) " + "\n" +
+								 "BOLD:  STARTS_WITH (<b>) " + "\n" +
+								 "ITALICS:  STARTS_WITH (<i>) ";
 
 		return referenceResult;	
 	}
-	
-	
 
 	@Test
 	public final void testLoadProcessWriteMarkupHippo() {
@@ -183,8 +180,6 @@ public class TestEngine {
 //		assertEquals(true, localComparison);
 	}
 
-	
-	
 	@Test
 	public final void testLoadProcessWriteMarkupHTMLHippo() {
 		String inputFileName = "Resources/SampleDocs/hippocratesOath.html";
@@ -203,16 +198,15 @@ public class TestEngine {
 //		assertEquals(true, localComparison);
 	}
 	
-	
 	private Boolean compareFiles(File outputFile, File outputFileRef, String caller) {
 		Boolean localComparison = false;
 		try {
 			localComparison = FileUtils.contentEquals(outputFile, outputFileRef);
-		} catch (IOException e) {
+		}
+		catch (IOException e) {
 			System.err.println("[TestEngine] IO Exception at "+ caller);
 			e.printStackTrace();
 		}
 		return localComparison;
-	}//end compareFiles
-
-}//end class
+	}
+}

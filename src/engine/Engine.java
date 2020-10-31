@@ -36,8 +36,9 @@ public class Engine implements IPlainTextDocumentEngine {
 	 */
 	public Engine(String pFilePath, String pInputType, String pAlias) {
 		Document.DocumentRawType docType = DocumentRawType.RAW;
-		if (pInputType.equalsIgnoreCase("ANNOTATED"))
+		if(pInputType.equalsIgnoreCase("ANNOTATED"))
 			docType = DocumentRawType.ANNOTATED;
+
 		this.document = new Document(pFilePath, docType);
 		this.lineblocks = this.document.getLineblocks();
 		this.alias = pAlias;
@@ -92,19 +93,19 @@ public class Engine implements IPlainTextDocumentEngine {
 		this.inputSpec = inputSpec;
 		this.prefixes = prefixes;
 		
-		if (this.inputSpec == null)
+		if(this.inputSpec == null)
 			return null;
 		
-		for(List<String> l: this.inputSpec) {
-			if (l.size() != 3 || !l.get(1).strip().toUpperCase().equals("STARTS_WITH")) {
+		for(List<String> l : this.inputSpec) {
+			if(l.size() != 3 || !l.get(1).strip().toUpperCase().equals("STARTS_WITH")) {
 				System.err.println("Error in annotation spec");
 				return null;
 			}
-//			prefixes.add(l.get(2));
+			// prefixes.add(l.get(2));
 		}
 	
 		RuleSetCreator ruleSetCreator = new RuleSetCreator(lineblocks, inputSpec, "inputRuleSet");
-		this.inputRuleSet =  ruleSetCreator.createRuleSet();
+		this.inputRuleSet = ruleSetCreator.createRuleSet();
 		
 		return this.inputRuleSet;
 	}
@@ -122,7 +123,7 @@ public class Engine implements IPlainTextDocumentEngine {
 			loadRawDocument(this.filePath);
 		System.out.println(this.filePath);		
 		
-		if((this.lineblocks !=null) && (this.inputRuleSet!= null))
+		if((this.lineblocks != null) && (this.inputRuleSet != null))
 			characterizeLineblocks(this.document, this.inputRuleSet);
 		
 		return this.lineblocks.size();
@@ -138,7 +139,6 @@ public class Engine implements IPlainTextDocumentEngine {
 	 */
 	@Override
 	public int exportMarkDown(String outputFileName) {
-
 		/*
 		 * if(this.lineblocks.size() == 0) loadRawDocument(this.filePath);
 		 * System.out.println("Loaded: " + this.filePath + " to generate " +
@@ -153,10 +153,10 @@ public class Engine implements IPlainTextDocumentEngine {
 		
 		MarkdownExporter exporter = new MarkdownExporter(this.document, outputFileName);
 		int outputNumParagraphs = exporter.export();
-System.out.println("[Engine.loadProcessMarkup] [file: " + simpleInputFileName + "] exported as " + outputFileName +"\n Input #pars: " + this.lineblocks.size() + " Output #pars: " + outputNumParagraphs);
+		System.out.println("[Engine.loadProcessMarkup] [file: " + simpleInputFileName + "] exported as " + outputFileName +"\n Input #pars: " + this.lineblocks.size() + " Output #pars: " + outputNumParagraphs);
 		
 		return outputNumParagraphs;
-	}//end exportMarkDown
+	}
 
 	/**
 	 * Exports the input file of the constructor as the pdf file at the path specified by outputFileName
@@ -173,10 +173,10 @@ System.out.println("[Engine.loadProcessMarkup] [file: " + simpleInputFileName + 
 
 		PdfExporter exporter = new PdfExporter(this.document, outputFileName);
 		int outputNumParagraphs = exporter.export();
-System.out.println("[Engine.loadProcessPdf] [file: " + simpleInputFileName + "] Input #pars: " + this.lineblocks.size() + " Output #pars: " + outputNumParagraphs);
-		
+        System.out.println("[Engine.loadProcessPdf] [file: " + simpleInputFileName + "] Input #pars: " + this.lineblocks.size() + " Output #pars: " + outputNumParagraphs);
+        
 		return outputNumParagraphs;
-	}//end exportPdf
+	}
 
 	/**
 	 * Outputs a List<String> to be used as a report on the number of paragraphs and words of a file.
@@ -190,30 +190,32 @@ System.out.println("[Engine.loadProcessPdf] [file: " + simpleInputFileName + "] 
 	 * @return the List<String> with the report's elements
 	 */
 	@Override
-	public List<String> reportWithStats(){
+	public List<String> reportWithStats() {
 		List<String> report = new ArrayList<String>();
 		int numWords = 0;
 		int numParagraphs = this.lineblocks.size();
-		if(numParagraphs==0)
+
+        if(numParagraphs == 0)
 			loadFileAndCharacterizeBlocks();
-		report.add("\n"+ "Total number of paragraphs: " + numParagraphs );
+
+        report.add("\n"+ "Total number of paragraphs: " + numParagraphs);
 		report.add("\n"+ "Total number of words: " + numWords);
-		for(LineBlock lineblock: this.lineblocks) {
-			report.add("\n"+ lineblock.getStatsAsString());
+        
+        for(LineBlock lineblock : this.lineblocks) {
+			report.add("\n" + lineblock.getStatsAsString());
 			numWords += lineblock.getNumWords();
 		}
 		report.set(1, "\nTotal number of words: " + numWords);
 		return report;
 	}
-	
-	
+		
 	private int loadRawDocument(String fileName) {
 		RawFileLineLoader loader = new RawFileLineLoader();
 		loader.load(this.filePath, this.lineblocks); 
 		return lineblocks.size();
-	}//end loadRawDocument
-
-		//TODO Can you do better than void? If not kill this comment.
+    }
+    
+    /* TODO -> Can you do better than void? If not kill this comment. */
 	private void characterizeLineblocks(Document document, RuleSet ruleSet) {
 		List<LineBlock> lineblocks = document.getLineblocks();
 		Objects.requireNonNull(document);
@@ -228,22 +230,21 @@ System.out.println("[Engine.loadProcessPdf] [file: " + simpleInputFileName + "] 
 			System.err.println("   WRONG FILE TYPE !!!");
 			System.exit(-100);
 		}
-	}//end characterizeLineblocks
+	}
 
 	private void characterizeRawFile(List<LineBlock> lineblocks, RuleSet ruleSet) {
-		for(LineBlock l: lineblocks) {
+		for(LineBlock l : lineblocks) {
 			l.setStyle(ruleSet.determineHeadingStatus(l));
 			l.setFormat(ruleSet.determineFormatStatus(l));
 		}
-	}//end characterizeRawFile
-	
+	}
 	
 	private int characterizeAnnotatedFile(List<LineBlock> lineblocks, RuleSet ruleSet) {
-	
-		for(LineBlock l: lineblocks) {
+		for(LineBlock l : lineblocks) {
 			l.setStyle(ruleSet.determineHeadingStatus(l));
 			l.setFormat(ruleSet.determineFormatStatus(l));
-			for(String prefix: prefixes) {
+            
+            for(String prefix : prefixes) {
 				if(l.getLines().get(0).startsWith(prefix)) {
 					String newString = l.getLines().get(0).replaceFirst(prefix, "");
 					l.getLines().set(0, newString);
@@ -252,8 +253,5 @@ System.out.println("[Engine.loadProcessPdf] [file: " + simpleInputFileName + "] 
 		}
 		
 		return 0;
-	}//end characterizeRawFile
-	
-	
-	
-}//end class
+	}
+}

@@ -73,52 +73,64 @@ public class RuleSetCreator {
 	public RuleSet createRuleSet() {
 		String lastParameter = "";
 		
-		
-		for(List<String> l: inputSpec) {
+		for(List<String> l : inputSpec) {
 			AbstractRule currentRule = factory.createRuleUndefined();
 			
 			switch(l.get(1).strip().toUpperCase()) {
-				case "STARTS_WITH":	lastParameter = l.get(2);
-									currentRule = factory.createRuleStartWith(lastParameter);
-									break;
-				case "ALL_CAPS":	currentRule = factory.createRuleAllCaps();
-									break;
-				case "POSITIONS":	lastParameter = l.get(2);
-									List<String> stringList = new ArrayList<String>(Arrays.asList(lastParameter.split("\\s*,\\s*")));
-									List<Integer> intList = stringList.stream().map(Integer::parseInt).collect(Collectors.toList());
-									currentRule = factory.createRuleInPosition(lineblocks, intList);
-									break;
-				default: 	;
+				case "STARTS_WITH":
+					lastParameter = l.get(2);
+					currentRule = factory.createRuleStartWith(lastParameter);
+					break;
+				case "ALL_CAPS":
+					currentRule = factory.createRuleAllCaps();
+					break;
+				case "POSITIONS":
+					lastParameter = l.get(2);
+					List<String> stringList = new ArrayList<String>(Arrays.asList(lastParameter.split("\\s*,\\s*")));
+					List<Integer> intList = stringList.stream().map(Integer::parseInt).collect(Collectors.toList());
+					currentRule = factory.createRuleInPosition(lineblocks, intList);
+					break;
+				default:
+					;
 			}
 			
-			if(currentRule==null) {
+			if(currentRule == null) {
 				System.err.println("[RuleSetCreator] null format rule; exiting");
 				System.exit(-1);
 			}
 			
 			switch(l.get(0).strip().toUpperCase()) {
-			case "OMIT":	omitRule = currentRule;System.out.println("[RuleSetCreator] " + currentRule.toString()+"\n");
-						break;
-			case "H1":	h1Rule = currentRule;System.out.println("[RuleSetCreator] " + currentRule.toString()+"\n");
-						break;
-			case "H2":	h2Rule = currentRule;System.out.println("[RuleSetCreator] " + currentRule.toString()+"\n");
-						break;
-			case "<B>":	boldRule = currentRule;System.out.println("[RuleSetCreator] " + currentRule.toString()+"\n");
-						break;
-			case "<I>":	italicsRule = currentRule;System.out.println("[RuleSetCreator] " + currentRule.toString()+"\n");
-						break;
-			default:	System.err.println("[RuleSetCreator] Wrong rule set specification syntax. Aborting");
-						System.exit(-100);
+			case "OMIT":
+				omitRule = currentRule;
+				System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
+				break;
+			case "H1":
+				h1Rule = currentRule;
+				System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
+				break;
+			case "H2":
+				h2Rule = currentRule;
+				System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
+				break;
+			case "<B>":
+				boldRule = currentRule;
+				System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
+				break;
+			case "<I>":
+				italicsRule = currentRule;
+				System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
+				break;
+			default:
+				System.err.println("[RuleSetCreator] Wrong rule set specification syntax. Aborting");
+				System.exit(-100);
 			}
 			
-			if(currentRule==null) {
+			if(currentRule == null) {
 				System.err.println("[RuleSetCreator] null style rule; exiting");
 				System.exit(-1);
 			}
-		}//end outer for
+		}
 		
 		return new RuleSet(name, omitRule, h1Rule, h2Rule, boldRule, italicsRule);
-
-	}//end method
-
-}//end class
+	}
+}

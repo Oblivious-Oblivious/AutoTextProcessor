@@ -5,7 +5,6 @@ import java.util.List;
 import datamodel.ruleset.RuleSet;
 
 public interface IPlainTextDocumentEngine {
-
 	/**
 	 * Registers a global rule set for a plain file at the main engine
 	 * 
@@ -83,5 +82,4 @@ public interface IPlainTextDocumentEngine {
 	 * @return the List<String> with the report's elements
 	 */
 	List<String> reportWithStats();
-
 }

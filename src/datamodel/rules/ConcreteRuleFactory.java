@@ -16,7 +16,6 @@ import datamodel.buildingblocks.LineBlock;
  * @version 0.1
  */
 public class ConcreteRuleFactory {
-
 	public AbstractRule createRuleUndefined() {
 		return new RuleUndefined();	
 	}
@@ -34,11 +33,11 @@ public class ConcreteRuleFactory {
 	}
 
 	public AbstractRule createRuleStartWith(String prefix) {
-		if(prefix == null){
+		if(prefix == null) {
 			System.err.println("[ConcreteRuleFactory] createRuleStartWith with empty parameters");
 			return new RuleUndefined();
 		}
 		return new RuleStartWith(prefix);
 	}
 	
-}//end class
+}

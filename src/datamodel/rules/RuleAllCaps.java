@@ -7,13 +7,11 @@ public class RuleAllCaps extends AbstractRule {
 
 	@Override
 	public boolean isValid(LineBlock paragraph) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
