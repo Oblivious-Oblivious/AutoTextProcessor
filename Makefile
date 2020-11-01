@@ -30,7 +30,7 @@ compiler:
 	@echo
 
 run:
-	cd src && $(JAVA) client/Main
+	cd src && $(JAVA) client/EntryPoint
 
 clean:
 	$(RM) -r $(OUTPUT)
