@@ -34,8 +34,8 @@ public class EntryPoint {
      * @return the return type
      */
     private static boolean mainLoop() {
-        System.out.println("\n1) Register Ruleset.");
-        System.out.println("2) Load data.");
+        System.out.println("\n1) Load data.");
+        System.out.println("2) Register Ruleset.");
         System.out.println("3) Get report with stats.");
         System.out.println("4) Export to filetype.");
         System.out.println("5) Exit.");
@@ -44,9 +44,9 @@ public class EntryPoint {
         System.out.println();
         switch(arg) {
             case "1":
-                return manageExit(s, main.registerRuleset());
-            case "2":
                 return manageExit(s, main.loadData());
+            case "2":
+                return manageExit(s, main.registerRuleset());
             case "3":
                 return manageExit(s, main.getReport());
             case "4":

@@ -1,5 +1,6 @@
 package datamodel.buildingblocks;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Document {
@@ -10,7 +11,8 @@ public class Document {
     public Document(String pFilePath, DocumentRawType docType) {}
 
     public List<LineBlock> getLineblocks() {
-        return null;
+        List<LineBlock> lineblocks = new ArrayList<>();
+        return lineblocks;
     }
 
     public DocumentRawType getInputFileType() {

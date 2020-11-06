@@ -17,9 +17,7 @@ public class Main {
     private Engine engineApi;
     private Scanner s = new Scanner(System.in);
 
-    private String pFilePath;
-    private String pInputType;
-    private String pAlias;
+    String pInputType;
 
     /**
      * @func: scanInput
@@ -39,7 +37,7 @@ public class Main {
      * @return -> false (unchanged)
      */
     private boolean interfaceError(String error) {
-        System.out.println(error);
+        System.err.println(error);
         return false;
     }
 
@@ -48,10 +46,7 @@ public class Main {
      * @desc: Setup engine variables
      */
     private void createEngineApi() {
-        this.pFilePath = scanInput("Input the path of the input document: ");
-        this.pInputType = scanInput("Specify whether the document is raw or annotated (RAW|ANNOTATED): ");
-        this.pAlias = scanInput("Input an alias for the file: ");
-        this.engineApi = new Engine(this.pFilePath, this.pInputType, this.pAlias);
+        this.engineApi = new Engine();
     }
 
     /** @Constructor **/
@@ -66,6 +61,21 @@ public class Main {
      */
     public Engine getEngineApi() {
         return this.engineApi;
+    }
+
+    /**
+     * @func: loadData
+     * @desc: Option for loading a file to edit
+     * @return true
+     */
+	public boolean loadData() {
+        String pFilePath = scanInput("Input the path of the input document: ");
+        this.pInputType = scanInput("Specify whether the document is raw or annotated (RAW|ANNOTATED): ");
+        String pAlias = scanInput("Input an alias for the file: ");
+        
+        // this.engineApi.loadFileAndCharacterizeBlocks();
+        this.engineApi.loadFile(pFilePath, pInputType, pAlias);
+        return true;
     }
     
     /**
@@ -92,9 +102,9 @@ public class Main {
         boldList.add("");
         /* TODO -> ASK FOR INPUTSPEC */
 
-        if(pInputType.equalsIgnoreCase("RAW"))
+        if(this.pInputType.equalsIgnoreCase("RAW"))
             this.engineApi.registerInputRuleSetForPlainFiles(inputSpec);
-        else if(pInputType.equalsIgnoreCase("ANNOTATED")) {
+        else if(this.pInputType.equalsIgnoreCase("ANNOTATED")) {
             List<String> prefixes = new ArrayList<String>();
             prefixes.add("");
             prefixes.add("");
@@ -108,16 +118,6 @@ public class Main {
         else
             return interfaceError("WRONG TYPE");
 		return true;
-    }
-    
-    /**
-     * @func: loadData
-     * @desc: Option for loading a file to edit
-     * @return true
-     */
-	public boolean loadData() {
-        this.engineApi.loadFileAndCharacterizeBlocks();
-        return true;
     }
     
     /**
