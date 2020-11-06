@@ -17,7 +17,9 @@ public class Main {
     private Engine engineApi;
     private Scanner s = new Scanner(System.in);
 
-    String pInputType;
+    private String pFilePath;
+    private String pInputType;
+    private String pAlias;
 
     /**
      * @func: scanInput
@@ -46,7 +48,10 @@ public class Main {
      * @desc: Setup engine variables
      */
     private void createEngineApi() {
-        this.engineApi = new Engine();
+        this.pFilePath = scanInput("Input the path of the input document: ");
+        this.pInputType = scanInput("Specify whether the document is raw or annotated (RAW|ANNOTATED): ");
+        this.pAlias = scanInput("Input an alias for the file: ");
+        this.engineApi = new Engine(this.pFilePath, this.pInputType, this.pAlias);
     }
 
     /** @Constructor **/
@@ -69,12 +74,7 @@ public class Main {
      * @return true
      */
 	public boolean loadData() {
-        String pFilePath = scanInput("Input the path of the input document: ");
-        this.pInputType = scanInput("Specify whether the document is raw or annotated (RAW|ANNOTATED): ");
-        String pAlias = scanInput("Input an alias for the file: ");
-        
-        // this.engineApi.loadFileAndCharacterizeBlocks();
-        this.engineApi.loadFile(pFilePath, pInputType, pAlias);
+        this.engineApi.loadFileAndCharacterizeBlocks();
         return true;
     }
     
