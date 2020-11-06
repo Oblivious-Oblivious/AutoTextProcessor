@@ -28,11 +28,12 @@ public class Engine implements IPlainTextDocumentEngine {
 	/**
 	 * @func: handleError
 	 * @desc: Exit after logging an error the the console
-	 * @param err -> The error message
+	 * @param error -> The error message
 	 * @return null
 	 */
-	private Object handleError(String err) {
-		System.err.println(err);
+	// private Object handleError(String error) {
+	public Object handleError(String error) {
+		System.err.println(error);
 		return null;
 	}
 
@@ -42,7 +43,8 @@ public class Engine implements IPlainTextDocumentEngine {
 	 * @param fileName -> The filename to read
 	 * @return -> The size of the lineblocks List
 	 */
-	private int loadRawDocument(String fileName) {
+	// private int loadRawDocument(String fileName) {
+	public int loadRawDocument(String fileName) {
 		RawFileLineLoader loader = new RawFileLineLoader();
 		loader.load(this.filePath, this.lineblocks); 
 		return lineblocks.size();
@@ -54,7 +56,8 @@ public class Engine implements IPlainTextDocumentEngine {
 	 * @param lineblocks -> The List of lineblocks to modify
 	 * @param ruleSet -> The ruleset according to which we characterize
 	 */
-	private void characterizeRawFile(List<LineBlock> lineblocks, RuleSet ruleSet) {
+	// private void characterizeRawFile(List<LineBlock> lineblocks, RuleSet ruleSet) {
+	public void characterizeRawFile(List<LineBlock> lineblocks, RuleSet ruleSet) {
 		for(LineBlock l : lineblocks) {
 			l.setStyle(ruleSet.determineHeadingStatus(l));
 			l.setFormat(ruleSet.determineFormatStatus(l));
@@ -66,29 +69,28 @@ public class Engine implements IPlainTextDocumentEngine {
 	 * @desc: Set style, format and prefix
 	 * @param lineblocks -> The List of lineblocks to modify
 	 * @param ruleSet -> The ruleset according to which we characterize
-	 * @return 0
 	 */
-	private int characterizeAnnotatedFile(List<LineBlock> lineblocks, RuleSet ruleSet) {
+	// private void characterizeAnnotatedFile(List<LineBlock> lineblocks, RuleSet ruleSet) {
+	public void characterizeAnnotatedFile(List<LineBlock> lineblocks, RuleSet ruleSet) {
 		for(LineBlock l : lineblocks) {
 			l.setStyle(ruleSet.determineHeadingStatus(l));
 			l.setFormat(ruleSet.determineFormatStatus(l));
             
-            for(String prefix : prefixes) {
-				if(l.getLines().get(0).startsWith(prefix)) {
-					String newString = l.getLines().get(0).replaceFirst(prefix, "");
-					l.getLines().set(0, newString);
-				}
-			}
+            for(String prefix : prefixes)
+				if(l.getLines().get(0).startsWith(prefix))
+					l.getLines().set(0, l.getLines().get(0).replaceFirst(prefix, ""));
 		}
-		
-		return 0;
 	}
 	
 	/**
 	 * @func: characterizeLineblocks
 	 * @desc: Change format and prefixes for the document
+	 * @param document -> The document to characterize
+	 * @param ruleSet -> The ruleset according to which we characterize
+	 * @return true if all compiled correctly else false with an error
 	 */
-	private void characterizeLineblocks(Document document, RuleSet ruleSet) {
+	// private boolean characterizeLineblocks(Document document, RuleSet ruleSet) {
+	public boolean characterizeLineblocks(Document document, RuleSet ruleSet) {
 		List<LineBlock> lineblocks = document.getLineblocks();
 		Objects.requireNonNull(document);
 		Objects.requireNonNull(lineblocks);
@@ -98,21 +100,24 @@ public class Engine implements IPlainTextDocumentEngine {
 			characterizeRawFile(lineblocks, ruleSet);
 		else if(document.getInputFileType() == DocumentRawType.ANNOTATED)
 			characterizeAnnotatedFile(lineblocks, ruleSet);
-		else {
-			System.err.println("   WRONG FILE TYPE !!!");
-			System.exit(-100);
-		}
+		else
+			return handleError("   WRONG FILE TYPE !!!") == null;
+		return true;
 	}
 	
 	/**
 	 * @Constructor
-	 * @desc: Constructs a new engine object to serve a specific input file
-	 * 		  The document, lineblocks, alias, filePath and simpleInputFileName attributes are all populated.
+	 */
+	public Engine() {}
+	
+	/**
+	 * @func: loadFile
+	 * @desc: Gets information about filenames and aliases from the
+	 * 		view classes and calls @loadFileAndCharacterizeBlocks
 	 * @param pFilePath the String with the path of the input file
-	 * @param pInputType the String characterizing the document as raw (DocumentRawType.RAW) unless "ANNOTATED" is given as input, in which case, the input file is characterized as annotated (DocumentRawType.ANNOTATED)
 	 * @param pAlias a String with a short name, i.e., an alias for the file
 	 */
-	public Engine(String pFilePath, String pInputType, String pAlias) {
+	public int loadFile(String pFilePath, String pInputType, String pAlias) {
 		Document.DocumentRawType docType = DocumentRawType.RAW;
 		if(pInputType.equalsIgnoreCase("ANNOTATED"))
 			docType = DocumentRawType.ANNOTATED;
@@ -121,8 +126,26 @@ public class Engine implements IPlainTextDocumentEngine {
 		this.lineblocks = this.document.getLineblocks();
 		this.alias = pAlias;
 		this.filePath = pFilePath;
-		Path p = Paths.get(this.filePath);
-		this.simpleInputFileName = p.getFileName().toString();
+
+		return loadFileAndCharacterizeBlocks();
+	}
+
+	/**
+	 * @func: loadFileAndCharacterizeBlocks
+	 * @desc: Takes the input file specified at the constructor, loads it and processes it according to the rule set specified at the constructor
+	 * 		  The blocks of the file are represented in a List in main memory, as the this.lineblocks attribute.
+	 * @return the number of LineBlocks that were identified and represented in-memory from the input file
+	 */
+	@Override
+	public int loadFileAndCharacterizeBlocks() {
+		if(this.lineblocks.size() == 0)
+			loadRawDocument(this.filePath);
+		System.out.println(this.filePath);		
+		
+		if((this.lineblocks != null) && (this.inputRuleSet != null))
+			characterizeLineblocks(this.document, this.inputRuleSet);
+		
+		return this.lineblocks.size();
 	}
 	
 	/**
@@ -175,31 +198,13 @@ public class Engine implements IPlainTextDocumentEngine {
 		
 		for(List<String> l : this.inputSpec)
 			if(l.size() != 3 || !l.get(1).strip().toUpperCase().equals("STARTS_WITH"))
-				return (RuleSet)handleError("Error in annotation spec");
+				return (RuleSet)handleError("Error in annotation input spec");
 			// prefixes.add(l.get(2));
 	
 		RuleSetCreator ruleSetCreator = new RuleSetCreator(lineblocks, inputSpec, "inputRuleSet");
 		this.inputRuleSet = ruleSetCreator.createRuleSet();
 		
 		return this.inputRuleSet;
-	}
-		
-	/**
-	 * @func: loadFileAndCharacterizeBlocks
-	 * @desc: Takes the input file specified at the constructor, loads it and processes it according to the rule set specified at the constructor
-	 * 		  The blocks of the file are represented in a List in main memory, as the this.lineblocks attribute.
-	 * @return the number of LineBlocks that were identified and represented in-memory from the input file
-	 */
-	@Override
-	public int loadFileAndCharacterizeBlocks() {
-		if(this.lineblocks.size() == 0)
-			loadRawDocument(this.filePath);
-		System.out.println(this.filePath);		
-		
-		if((this.lineblocks != null) && (this.inputRuleSet != null))
-			characterizeLineblocks(this.document, this.inputRuleSet);
-		
-		return this.lineblocks.size();
 	}
 
 	/**
@@ -229,6 +234,7 @@ public class Engine implements IPlainTextDocumentEngine {
 			numWords += lineblock.getNumWords();
 		}
 		report.set(1, "\nTotal number of words: " + numWords);
+
 		return report;
 	}
 
@@ -241,6 +247,8 @@ public class Engine implements IPlainTextDocumentEngine {
 	 */
 	@Override
 	public int exportMarkDown(String outputFileName) {
+		Path p = Paths.get(this.filePath);
+		this.simpleInputFileName = p.getFileName().toString();
 		/*
 		 * if(this.lineblocks.size() == 0) loadRawDocument(this.filePath);
 		 * System.out.println("Loaded: " + this.filePath + " to generate " +
@@ -255,7 +263,12 @@ public class Engine implements IPlainTextDocumentEngine {
 		
 		MarkdownExporter exporter = new MarkdownExporter(this.document, outputFileName);
 		int outputNumParagraphs = exporter.export();
-		System.out.println("[Engine.loadProcessMarkup] [file: " + simpleInputFileName + "] exported as " + outputFileName +"\n Input #pars: " + this.lineblocks.size() + " Output #pars: " + outputNumParagraphs);
+		System.out.println(
+			"[Engine.loadProcessMarkup] [file: " + simpleInputFileName
+			+ "] exported as " + outputFileName
+			+ "\n Input #pars: " + this.lineblocks.size()
+			+ " Output #pars: " + outputNumParagraphs
+		);
 		
 		return outputNumParagraphs;
 	}
@@ -269,12 +282,19 @@ public class Engine implements IPlainTextDocumentEngine {
 	 */
 	@Override
 	public int exportPdf(String outputFileName) {
+		Path p = Paths.get(this.filePath);
+		this.simpleInputFileName = p.getFileName().toString();
+
 		if(this.lineblocks.size() == 0)
 			loadFileAndCharacterizeBlocks();
 
 		PdfExporter exporter = new PdfExporter(this.document, outputFileName);
 		int outputNumParagraphs = exporter.export();
-        System.out.println("[Engine.loadProcessPdf] [file: " + simpleInputFileName + "] Input #pars: " + this.lineblocks.size() + " Output #pars: " + outputNumParagraphs);
+        System.out.println(
+			"[Engine.loadProcessPdf] [file: " + simpleInputFileName
+			+ "] Input #pars: " + this.lineblocks.size()
+			+ " Output #pars: " + outputNumParagraphs
+		);
         
 		return outputNumParagraphs;
 	}
