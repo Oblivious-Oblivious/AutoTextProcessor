@@ -7,5 +7,6 @@ import datamodel.buildingblocks.LineBlock;
 public class RawFileLineLoader {
     public RawFileLineLoader() {}
 
-    public void load(String filePath, List<LineBlock> lineblocks) {}
+    public void load(String filePath, List<LineBlock> lineblocks) {
+    }
 }

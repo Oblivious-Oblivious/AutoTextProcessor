@@ -3,7 +3,7 @@ package datamodel.buildingblocks;
 import java.util.List;
 
 public class LineBlock {
-    LineBlock() {}
+    public LineBlock() {}
 
     public String getStatsAsString() {
         return "";
