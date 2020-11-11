@@ -44,4 +44,6 @@ public class TestConcreteRuleFactory {
         String prefix = "STH";
         assertNotNull(this.ruleApi.createRuleStartWith(prefix));
     }
+
+    /* TODO -> COMPLETE */
 }
