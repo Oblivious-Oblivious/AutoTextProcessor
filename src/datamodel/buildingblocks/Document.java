@@ -38,7 +38,7 @@ public class Document {
                 if(arr.length() > 1)
                     block.add(arr.toString());
                 else {
-                    this.lineblocks.add(new LineBlock(block, "STH"));
+                    this.lineblocks.add(new LineBlock(block));
                     block = new ArrayList<String>();
                 }
 
@@ -49,15 +49,15 @@ public class Document {
         }
 
         block.add(arr.toString());
-        this.lineblocks.add(new LineBlock(block, "STH"));
+        this.lineblocks.add(new LineBlock(block));
     }
 
     private void setupAnnotatedBlocks() {
-        this.lineblocks.add(new LineBlock(new ArrayList<String>(), "STH2"));
-        this.lineblocks.add(new LineBlock(new ArrayList<String>(), "STH2"));
-        this.lineblocks.add(new LineBlock(new ArrayList<String>(), "STH2"));
-        this.lineblocks.add(new LineBlock(new ArrayList<String>(), "STH2"));
-        this.lineblocks.add(new LineBlock(new ArrayList<String>(), "STH2"));
+        this.lineblocks.add(new LineBlock(new ArrayList<String>()));
+        this.lineblocks.add(new LineBlock(new ArrayList<String>()));
+        this.lineblocks.add(new LineBlock(new ArrayList<String>()));
+        this.lineblocks.add(new LineBlock(new ArrayList<String>()));
+        this.lineblocks.add(new LineBlock(new ArrayList<String>()));
 
         // TODO -> COMPLETE
         // List<String> block = new ArrayList<String>();
@@ -69,7 +69,7 @@ public class Document {
         //         if(arr.length() > 1)
         //             block.add(arr.toString());
         //         else {
-        //             lineblocks.add(new LineBlock(block, "STH"));
+        //             lineblocks.add(new LineBlock(block));
         //             block = new ArrayList<String>();
         //         }
 
@@ -80,7 +80,7 @@ public class Document {
         // }
 
         // block.add(arr.toString());
-        // lineblocks.add(new LineBlock(block, "STH"));
+        // lineblocks.add(new LineBlock(block));
     }
 
     public Document(String pFilePath, DocumentRawType docType) {
