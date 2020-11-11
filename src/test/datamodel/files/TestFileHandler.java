@@ -6,7 +6,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.io.FileWriter;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +19,20 @@ import org.junit.Test;
 public class TestFileHandler {
     @Before
     public final void setup_file_structure() {
-        // String pwd = System.getProperty("user.dir");
+        File file;
+        try {
+            file = new File("existing.txt"); 
+            FileWriter fw = new FileWriter(file);
+            fw.write("data");
+            fw.close();
+        }
+        catch(Exception e) {
+            System.out.println("Setup error: `" + e + "`");
+        }
+    }
+
+    @After
+    public final void teardown_file_structure() {
         File file;
         try {
             file = new File("_test_new_file.txt"); 
@@ -25,8 +40,12 @@ public class TestFileHandler {
 
             file = new File("new_file.txt");
             file.delete();
+
+            file = new File("existing.txt");
+            file.delete();
         }
         catch(Exception e) {
+            System.out.println("Teardown error: `" + e + "`");
         }
     }
 

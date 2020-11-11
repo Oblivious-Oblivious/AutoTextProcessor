@@ -135,6 +135,21 @@ public class FileHandler {
     }
 
     /**
+     * @func: readCharacterFromFile
+     * @desc: Reads a single character
+     * @return -> The result of `read`
+     */
+    public int readCharacterFromFile() {
+        try {
+            return getReaderFD().read();
+        }
+        catch(Exception e) {
+            System.out.println("There was an error in reading character from file");
+            return -1;
+        }
+    }
+
+    /**
      * @func: writeToFile
      * @desc: Write data to file (NOT APPEND)
      * @param data A string of data to write
