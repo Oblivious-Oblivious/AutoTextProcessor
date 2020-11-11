@@ -44,6 +44,7 @@ public class Document {
 
                 arr = new StringBuilder();
             }
+            else if(sb.charAt(i) == '\r'); /* Skip carriage returns */
             else
                 arr.append(sb.charAt(i));
         }
@@ -53,34 +54,26 @@ public class Document {
     }
 
     private void setupAnnotatedBlocks() {
-        this.lineblocks.add(new LineBlock(new ArrayList<String>()));
-        this.lineblocks.add(new LineBlock(new ArrayList<String>()));
-        this.lineblocks.add(new LineBlock(new ArrayList<String>()));
-        this.lineblocks.add(new LineBlock(new ArrayList<String>()));
-        this.lineblocks.add(new LineBlock(new ArrayList<String>()));
-
-        // TODO -> COMPLETE
-        // List<String> block = new ArrayList<String>();
-        // StringBuilder arr = new StringBuilder();
-        // StringBuilder sb = readFile();
+        List<String> block = new ArrayList<String>();
+        StringBuilder arr = new StringBuilder();
+        StringBuilder sb = readFile();
         
-        // for(int i = 0; i < sb.length(); i++) {
-        //     if(sb.charAt(i) == '<') {
-        //         if(arr.length() > 1)
-        //             block.add(arr.toString());
-        //         else {
-        //             lineblocks.add(new LineBlock(block));
-        //             block = new ArrayList<String>();
-        //         }
+        String stuff[] = sb.toString().split("\r\n");
+        for(int i = 0; i < stuff.length; i++) {
+            if(!stuff[i].equals("")) {
+                if(stuff[i].charAt(0) == '<') {
+                    lineblocks.add(new LineBlock(block));
+                    block = new ArrayList<String>();
+                }
+                block.add(stuff[i].replaceAll("<[^>]*>", ""));
+            }
+        }
 
-        //         arr = new StringBuilder();
-        //     }
-        //     else
-        //         arr.append(sb.charAt(i));
-        // }
+        block.add(arr.toString());
+        this.lineblocks.add(new LineBlock(block));
 
-        // block.add(arr.toString());
-        // lineblocks.add(new LineBlock(block));
+        /* First is empty */
+        this.lineblocks.remove(0);
     }
 
     public Document(String pFilePath, DocumentRawType docType) {

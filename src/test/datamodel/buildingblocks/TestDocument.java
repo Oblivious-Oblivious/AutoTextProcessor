@@ -32,7 +32,7 @@ public class TestDocument {
 
     @BeforeClass
     public final static void setup_files() {
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        // System.out.println("Working Directory = " + System.getProperty("user.dir"));
         FileHandler handler = new FileHandler("test_document_raw.txt");
         handler.createWriterFD();
         // handler.writeToFile("TITLE AND STUFF\nparagraph1\nsub1.1\nsub1.2\n\nparagraph2\nsub2.1\n\nparagraph3\n\nparagraph4 line4\n\n");
