@@ -58,7 +58,12 @@ public class RuleSetCreator {
 		this.name = name;
 
 		AbstractRule currentRule = factory.createRuleUndefined();
-		omitRule=currentRule; h1Rule=currentRule; h2Rule=currentRule; boldRule=currentRule; italicsRule=currentRule;
+
+		omitRule = currentRule;
+		h1Rule = currentRule;
+		h2Rule = currentRule;
+		boldRule = currentRule;
+		italicsRule = currentRule;
 	}
 	
 	/**
@@ -73,7 +78,7 @@ public class RuleSetCreator {
 	public RuleSet createRuleSet() {
 		String lastParameter = "";
 		
-		for(List<String> l : inputSpec) {
+		for(List<String> l : this.inputSpec) {
 			AbstractRule currentRule = factory.createRuleUndefined();
 			
 			switch(l.get(1).strip().toUpperCase()) {
@@ -87,8 +92,13 @@ public class RuleSetCreator {
 				case "POSITIONS":
 					lastParameter = l.get(2);
 					List<String> stringList = new ArrayList<String>(Arrays.asList(lastParameter.split("\\s*,\\s*")));
-					List<Integer> intList = stringList.stream().map(Integer::parseInt).collect(Collectors.toList());
-					currentRule = factory.createRuleInPosition(lineblocks, intList);
+					List<Integer> intList =
+						stringList
+						.stream()
+						.map(Integer::parseInt)
+						.collect(Collectors.toList());
+					
+					currentRule = factory.createRuleInPosition(this.lineblocks, intList);
 					break;
 				default:
 					;
@@ -100,30 +110,30 @@ public class RuleSetCreator {
 			}
 			
 			switch(l.get(0).strip().toUpperCase()) {
-			case "OMIT":
-				omitRule = currentRule;
-				System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
-				break;
-			case "H1":
-				h1Rule = currentRule;
-				System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
-				break;
-			case "H2":
-				h2Rule = currentRule;
-				System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
-				break;
-			case "<B>":
-				boldRule = currentRule;
-				System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
-				break;
-			case "<I>":
-				italicsRule = currentRule;
-				System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
-				break;
-			default:
-				System.err.println("[RuleSetCreator] Wrong rule set specification syntax. Aborting");
-				System.exit(-100);
-			}
+				case "OMIT":
+					this.omitRule = currentRule;
+					System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
+					break;
+				case "H1":
+					this.h1Rule = currentRule;
+					System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
+					break;
+				case "H2":
+					this.h2Rule = currentRule;
+					System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
+					break;
+				case "<B>":
+					this.boldRule = currentRule;
+					System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
+					break;
+				case "<I>":
+					this.italicsRule = currentRule;
+					System.out.println("[RuleSetCreator] " + currentRule.toString() + "\n");
+					break;
+				default:
+					System.err.println("[RuleSetCreator] Wrong rule set specification syntax. Aborting");
+					System.exit(-100);
+				}
 			
 			if(currentRule == null) {
 				System.err.println("[RuleSetCreator] null style rule; exiting");
@@ -131,6 +141,6 @@ public class RuleSetCreator {
 			}
 		}
 		
-		return new RuleSet(name, omitRule, h1Rule, h2Rule, boldRule, italicsRule);
+		return new RuleSet(this.name, this.omitRule, this.h1Rule, this.h2Rule, this.boldRule, this.italicsRule);
 	}
 }

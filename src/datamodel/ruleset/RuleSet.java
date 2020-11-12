@@ -63,8 +63,12 @@ public class RuleSet {
 	}
 	
 	public String toString() {
-		return this.name + "\nOMIT: " + omitRule.toString() + "\nH1: " + h1Rule.toString() + "\nH2: " + h2Rule.toString() +
-				"\nBOLD: " + boldRule.toString() + "\nITALICS: " + italicsRule.toString() + "\n";
+		return this.name
+			+ "\nOMIT: " + omitRule.toString()
+			+ "\nH1: " + h1Rule.toString()
+			+ "\nH2: " + h2Rule.toString()
+			+ "\nBOLD: " + boldRule.toString()
+			+ "\nITALICS: " + italicsRule.toString()
+			+ "\n";
 	}
-
 }
