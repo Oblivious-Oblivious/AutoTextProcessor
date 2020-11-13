@@ -33,9 +33,9 @@ public class TestRawFileLineLoader {
     @Test
     public final void test_load_lineblocks_size_negative() {
         List<LineBlock> lineblocks = new ArrayList<LineBlock>();
-        lineblocks.add(new LineBlock());
-        lineblocks.add(new LineBlock());
-        lineblocks.add(new LineBlock());
+        // lineblocks.add(new LineBlock());
+        // lineblocks.add(new LineBlock());
+        // lineblocks.add(new LineBlock());
         this.rawApi.load("nonexistentfile", lineblocks);
     }
 

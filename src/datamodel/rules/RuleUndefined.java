@@ -7,11 +7,11 @@ public class RuleUndefined extends AbstractRule {
 
 	@Override
 	public boolean isValid(LineBlock paragraph) {
-		return false;
+		return false; /* ALWAYS RETURNS FALSE */
 	}
 
 	@Override
 	public String toString() {
-		return null;
+		return "RuleUndefined";
 	}
 }

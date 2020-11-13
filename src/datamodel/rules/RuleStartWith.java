@@ -3,15 +3,19 @@ package datamodel.rules;
 import datamodel.buildingblocks.LineBlock;
 
 public class RuleStartWith extends AbstractRule {
-    public RuleStartWith(String prefix) {}
+	private String prefix;
+
+	public RuleStartWith(String prefix) {
+		this.prefix = prefix;
+	}
 
 	@Override
 	public boolean isValid(LineBlock paragraph) {
-		return false;
+		return paragraph.getLines().get(0).contains(this.prefix);
 	}
 
 	@Override
 	public String toString() {
-		return null;
+		return "RuleStartWith";
 	}
 }
