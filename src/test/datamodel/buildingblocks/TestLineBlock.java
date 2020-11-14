@@ -1,7 +1,9 @@
 package test.datamodel.buildingblocks;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,20 +59,20 @@ public class TestLineBlock {
 
     @Test
     public final void test_startsWith_correct() {
-        assertEquals(false, this.lbApi.startsWith("not this"));
+        assertFalse(this.lbApi.startsWith("not this"));
         
-        assertEquals(true, this.lbApi.startsWith(""));
-        assertEquals(true, this.lbApi.startsWith("p"));
-        assertEquals(true, this.lbApi.startsWith("pa"));
-        assertEquals(true, this.lbApi.startsWith("par"));
-        assertEquals(true, this.lbApi.startsWith("para"));
-        assertEquals(true, this.lbApi.startsWith("parag"));
-        assertEquals(true, this.lbApi.startsWith("paragr"));
-        assertEquals(true, this.lbApi.startsWith("paragra"));
-        assertEquals(true, this.lbApi.startsWith("paragrap"));
-        assertEquals(true, this.lbApi.startsWith("paragraph"));
-        assertEquals(true, this.lbApi.startsWith("paragraph "));
-        assertEquals(true, this.lbApi.startsWith("paragraph 1"));
+        assertTrue(this.lbApi.startsWith(""));
+        assertTrue(this.lbApi.startsWith("p"));
+        assertTrue(this.lbApi.startsWith("pa"));
+        assertTrue(this.lbApi.startsWith("par"));
+        assertTrue(this.lbApi.startsWith("para"));
+        assertTrue(this.lbApi.startsWith("parag"));
+        assertTrue(this.lbApi.startsWith("paragr"));
+        assertTrue(this.lbApi.startsWith("paragra"));
+        assertTrue(this.lbApi.startsWith("paragrap"));
+        assertTrue(this.lbApi.startsWith("paragraph"));
+        assertTrue(this.lbApi.startsWith("paragraph "));
+        assertTrue(this.lbApi.startsWith("paragraph 1"));
     }
 
     @Test

@@ -10,6 +10,8 @@ import java.util.List;
  */
 public class LineBlock {
     private List<String> lines;
+    private StyleEnum style;
+    private FormatEnum format;
 
     public LineBlock(List<String> lines) {
         this.lines = lines;
@@ -28,9 +30,21 @@ public class LineBlock {
         return res;
     }
 
+
     /* TODO -> Implement */
-    public void setStyle(StyleEnum style) {}
-    public void setFormat(FormatEnum format) {}
+    public void setStyle(StyleEnum style) {
+        this.style = style;
+    }
+    public void setFormat(FormatEnum format) {
+        this.format = format;
+    }
+    public StyleEnum getStyle() {
+        return this.style;
+    }
+    public FormatEnum getFormat() {
+        return this.format;
+    }
+
 
     public List<String> getLines() {
         return this.lines;
