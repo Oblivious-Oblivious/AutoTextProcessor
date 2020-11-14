@@ -117,8 +117,8 @@ public class TestRuleSet {
         assertEquals(StyleEnum.NORMAL, result.determineHeadingStatus(lineblocks.get(0)));
         assertEquals(StyleEnum.NORMAL, result.determineHeadingStatus(lineblocks.get(1)));
         assertEquals(StyleEnum.NORMAL, result.determineHeadingStatus(lineblocks.get(2)));
-        assertEquals(StyleEnum.OMITTED, result.determineHeadingStatus(lineblocks.get(3)));
+        assertEquals(StyleEnum.NORMAL, result.determineHeadingStatus(lineblocks.get(3)));
         assertEquals(StyleEnum.OMITTED, result.determineHeadingStatus(lineblocks.get(4)));
-        assertEquals(StyleEnum.NORMAL, result.determineHeadingStatus(lineblocks.get(5)));
+        assertEquals(StyleEnum.OMITTED, result.determineHeadingStatus(lineblocks.get(5)));
     }
 }

@@ -73,8 +73,8 @@ public class TestRuleInPosition {
         assertFalse(ruleApi.isValid(lineblocks.get(0)));
         assertFalse(ruleApi.isValid(lineblocks.get(1)));
         assertFalse(ruleApi.isValid(lineblocks.get(2)));
-        assertTrue(ruleApi.isValid(lineblocks.get(3)));
+        assertFalse(ruleApi.isValid(lineblocks.get(3)));
         assertTrue(ruleApi.isValid(lineblocks.get(4)));
-        assertFalse(ruleApi.isValid(lineblocks.get(5)));
+        assertTrue(ruleApi.isValid(lineblocks.get(5)));
     }
 }

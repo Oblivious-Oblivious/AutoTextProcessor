@@ -16,7 +16,7 @@ public class RuleInPosition extends AbstractRule {
     @Override
     public boolean isValid(LineBlock paragraph) {
         for(int p : this.pPositions)
-            if(pLineblocks.get(p-1).equals(paragraph))
+            if(pLineblocks.get(p).equals(paragraph))
                 return true;
         return false;
     }
