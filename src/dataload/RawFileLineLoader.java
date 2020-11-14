@@ -38,8 +38,10 @@ public class RawFileLineLoader {
                     // block.add(stuff[i].replaceAll("<[^>]*>", ""));
                     block.add(arr.toString());
                 else {
-                    this.lineblocks.add(new LineBlock(block));
-                    block = new ArrayList<String>();
+                    if(block.size() > 0) {
+                        this.lineblocks.add(new LineBlock(block));
+                        block = new ArrayList<String>();
+                    }
                 }
 
                 arr = new StringBuilder();
@@ -49,8 +51,11 @@ public class RawFileLineLoader {
                 arr.append(sb.charAt(i));
         }
 
-        block.add(arr.toString());
-        this.lineblocks.add(new LineBlock(block));
+        /* Get the last token in */
+        if(block.size() > 0) {
+            block.add(arr.toString());
+            this.lineblocks.add(new LineBlock(block));
+        }
     }
 
     public void load(String filePath, List<LineBlock> lineblocks) {

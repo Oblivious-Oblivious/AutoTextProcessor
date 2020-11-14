@@ -1,6 +1,6 @@
 package test.dataload;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
@@ -32,9 +32,9 @@ public class TestRawFileLineLoader {
     }
 
     @Test
-    public final void test_load_lineblock_change_state() {
+    public final void test_load_lineblock_wrong_file() {
         List<LineBlock> lineblocks = new ArrayList<LineBlock>();
         this.rawApi.load("randomfile.txt", lineblocks);
-        assertNotEquals(0, lineblocks.size());
+        assertEquals(0, lineblocks.size());
     }
 }
