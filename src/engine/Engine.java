@@ -14,6 +14,7 @@ import datamodel.ruleset.RuleSet;
 import datamodel.ruleset.RuleSetCreator;
 import exporters.MarkdownExporter;
 import exporters.PdfExporter;
+import reporter.Reporter;
 
 public class Engine implements IPlainTextDocumentEngine {
 	private String alias; 
@@ -214,22 +215,13 @@ public class Engine implements IPlainTextDocumentEngine {
 	 */
 	@Override
 	public List<String> reportWithStats() {
-		List<String> report = new ArrayList<String>();
-		int numWords = 0;
 		int numParagraphs = this.lineblocks.size();
 
         if(numParagraphs == 0)
 			loadFileAndCharacterizeBlocks();
 
-        report.add("\n"+ "Total number of paragraphs: " + numParagraphs);
-		report.add("\n"+ "Total number of words: " + numWords);
-        
-        for(LineBlock lineblock : this.lineblocks) {
-			report.add("\n" + lineblock.getStatsAsString());
-			numWords += lineblock.getNumWords();
-		}
-		report.set(1, "\nTotal number of words: " + numWords);
-		return report;
+		Reporter reporter = new Reporter(this.lineblocks);
+		return reporter.generateReport();
 	}
 
 	/**
