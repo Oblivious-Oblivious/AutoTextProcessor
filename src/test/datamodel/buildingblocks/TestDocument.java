@@ -11,6 +11,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import dataload.RawFileLineLoader;
 import datamodel.buildingblocks.Document;
 import datamodel.buildingblocks.LineBlock;
 import datamodel.buildingblocks.Document.DocumentRawType;
@@ -23,16 +24,28 @@ public class TestDocument {
     private Document docApi;
 
     private Document get_raw_api() {
-        return new Document("test_document_raw.txt", DocumentRawType.RAW);
+        Document doc = new Document("test_document_raw.txt", DocumentRawType.RAW);
+
+        /* Load the file */
+        RawFileLineLoader loader = new RawFileLineLoader();
+        loader.load("test_document_raw.txt", doc.getLineblocks());
+
+        return doc;
     }
 
     private Document get_annotated_api() {
-        return new Document("test_document_annotated.html", DocumentRawType.ANNOTATED);
+        Document doc = new Document("test_document_annotated.html", DocumentRawType.ANNOTATED);
+
+        /* Load the file */
+        RawFileLineLoader loader = new RawFileLineLoader();
+        loader.load("test_document_annotated.html", doc.getLineblocks());
+
+        return doc;
     }
 
     @BeforeClass
     public final static void setup_files() {
-        // System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
         FileHandler handler = new FileHandler("test_document_raw.txt");
         handler.createWriterFD();
         // handler.writeToFile("TITLE AND STUFF\nparagraph1\nsub1.1\nsub1.2\n\nparagraph2\nsub2.1\n\nparagraph3\n\nparagraph4 line4\n\n");

@@ -1,5 +1,6 @@
 package test.dataload;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
@@ -24,24 +25,16 @@ public class TestRawFileLineLoader {
     }
 
     @Test
-    public final void test_load_lineblock_state_unchanged() {
+    public final void test_load_lineblock_is_an_object() {
         List<LineBlock> lineblocks = new ArrayList<LineBlock>();
-        this.rawApi.load("randomfile", lineblocks);
+        this.rawApi.load("randomfile.txt", lineblocks);
         assertNotNull(lineblocks);
     }
 
     @Test
-    public final void test_load_lineblocks_size_negative() {
+    public final void test_load_lineblock_change_state() {
         List<LineBlock> lineblocks = new ArrayList<LineBlock>();
-        // lineblocks.add(new LineBlock());
-        // lineblocks.add(new LineBlock());
-        // lineblocks.add(new LineBlock());
-        this.rawApi.load("nonexistentfile", lineblocks);
+        this.rawApi.load("randomfile.txt", lineblocks);
+        assertNotEquals(0, lineblocks.size());
     }
-
-    // @Test
-    // public final void test_load_lineblocks_size_zero() {}
-
-    // @Test
-    // public final void test_load_lineblocks_positive() {}
 }
