@@ -148,11 +148,11 @@ public class TestDocument {
         assertEquals(5, docApi.getLineblocks().size());
 
         String actual0 = this.docApi.getLineblocks().get(0).getLines().get(0);
-        String expected0 = "TITLE AND STUFF";
+        String expected0 = "<H1>TITLE AND STUFF";
         assertEquals(expected0, actual0);
 
         String actual1 = this.docApi.getLineblocks().get(1).getLines().get(0);
-        String expected1 = "paragraph1";
+        String expected1 = "<p>paragraph1";
         assertEquals(expected1, actual1);
 
         String actual11 = this.docApi.getLineblocks().get(1).getLines().get(1);
@@ -164,7 +164,7 @@ public class TestDocument {
         assertEquals(expected12, actual12);
 
         String actual2 = this.docApi.getLineblocks().get(2).getLines().get(0);
-        String expected2 = "paragraph2";
+        String expected2 = "<p>paragraph2";
         assertEquals(expected2, actual2);
 
         String actual21 = this.docApi.getLineblocks().get(2).getLines().get(1);
@@ -172,11 +172,11 @@ public class TestDocument {
         assertEquals(expected21, actual21);
 
         String actual3 = this.docApi.getLineblocks().get(3).getLines().get(0);
-        String expected3 = "paragraph3";
+        String expected3 = "<p>paragraph3";
         assertEquals(expected3, actual3);
 
         String actual4 = this.docApi.getLineblocks().get(4).getLines().get(0);
-        String expected4 = "paragraph4 line4";
+        String expected4 = "<p>paragraph4 line4";
         assertEquals(expected4, actual4);
     }
 }

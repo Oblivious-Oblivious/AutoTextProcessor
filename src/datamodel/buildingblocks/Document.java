@@ -28,7 +28,7 @@ public class Document {
         return sb;
     }
 
-    private void setupRawBlocks() {
+    private void setupBlocks() {
         List<String> block = new ArrayList<String>();
         StringBuilder arr = new StringBuilder();
         StringBuilder sb = readFile();
@@ -36,6 +36,7 @@ public class Document {
         for(int i = 0; i < sb.length(); i++) {
             if(sb.charAt(i) == '\n') {
                 if(arr.length() > 1)
+                    // block.add(stuff[i].replaceAll("<[^>]*>", ""));
                     block.add(arr.toString());
                 else {
                     this.lineblocks.add(new LineBlock(block));
@@ -53,38 +54,11 @@ public class Document {
         this.lineblocks.add(new LineBlock(block));
     }
 
-    private void setupAnnotatedBlocks() {
-        List<String> block = new ArrayList<String>();
-        StringBuilder arr = new StringBuilder();
-        StringBuilder sb = readFile();
-        
-        String stuff[] = sb.toString().split("\r\n");
-        for(int i = 0; i < stuff.length; i++) {
-            if(!stuff[i].equals("")) {
-                if(stuff[i].charAt(0) == '<') {
-                    lineblocks.add(new LineBlock(block));
-                    block = new ArrayList<String>();
-                }
-                block.add(stuff[i].replaceAll("<[^>]*>", ""));
-            }
-        }
-
-        block.add(arr.toString());
-        this.lineblocks.add(new LineBlock(block));
-
-        /* First is empty */
-        this.lineblocks.remove(0);
-    }
-
     public Document(String pFilePath, DocumentRawType docType) {
         this.pFilePath = pFilePath;
         this.docType = docType;
         this.lineblocks = new ArrayList<LineBlock>();
-
-        if(this.docType == DocumentRawType.RAW)
-            setupRawBlocks();
-        else
-            setupAnnotatedBlocks();
+        setupBlocks();
     }
 
     public List<LineBlock> getLineblocks() {
