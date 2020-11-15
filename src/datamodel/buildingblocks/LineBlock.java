@@ -25,7 +25,7 @@ public class LineBlock {
         int res = 0;
         
         for(String line : this.lines)
-            res += line.split(" ").length;
+            res += line.strip().split(" ").length;
         
         return res;
     }

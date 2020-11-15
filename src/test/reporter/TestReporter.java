@@ -34,6 +34,23 @@ public class TestReporter {
             .strip();
         return Integer.parseInt(pLine);
     }
+
+    private List<LineBlock> getLoadedLineBlocks(String filename) {
+        String inputFileName = filename;
+        List<LineBlock> lineblocks = new ArrayList<LineBlock>();
+        RawFileLineLoader loader = new RawFileLineLoader();
+        loader.load(inputFileName, lineblocks);
+
+        return lineblocks;
+    }
+
+    private int get_words_from_file(String filename) {
+        return getWords(getLoadedLineBlocks(filename));
+    }
+
+    private int get_paragraphs_from_file(String filename) {
+        return getParagraphs(getLoadedLineBlocks(filename));
+    }
     
     @Test
     public final void test_correct_number_of_paragraphs() {
@@ -120,15 +137,99 @@ public class TestReporter {
         assertEquals(20, words);
     }
 
-    /* TODO -> READS ONE MORE WORD */
-    @Test
-    public final void test_words_on_input_file() {
-        String inputFileName = "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\hippocratesOath.txt";
-        List<LineBlock> lineblocks = new ArrayList<LineBlock>();
-        RawFileLineLoader loader = new RawFileLineLoader();
-        loader.load(inputFileName, lineblocks);
+    /* TODO -> READS WRONG */
 
-        int words = getWords(lineblocks);
+    /**
+     * adam_mt.txt     -> 4459
+     * atlantis.txt    -> 15546
+     * beagle.txt      -> 207476
+     * crito_plato.txt -> 6591
+     * economy_mt.txt  -> 2451
+     * ghost_mt.txt    -> 2546
+     * hippoOath.html  -> 1145
+     * hippoOath.txt   -> 1145
+     * suntzu.txt      -> 10993
+     */
+
+    @Test
+    public final void test_on_adam_mt() {
+        String inputFileName = "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\adam_mt.txt";
+        int words = get_words_from_file(inputFileName);
+
+        assertEquals(40, get_paragraphs_from_file(inputFileName));
+        assertEquals(4459, words);
+    }
+
+    @Test
+    public final void test_on_atlantis() {
+        String inputFileName = "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\atlantis.txt";
+        int words = get_words_from_file(inputFileName);
+
+        assertEquals(96, get_paragraphs_from_file(inputFileName));
+        assertEquals(15546, words);
+    }
+
+    /* TODO -> ALSO CHECK TEST BELOW */
+    // @Test
+    // public final void test_on_beagle() {
+    //     String inputFileName = "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\beagle.txt";
+    //     int words = get_words_from_file(inputFileName);
+
+    //     assertEquals(1147, get_paragraphs_from_file(inputFileName));
+    //     assertEquals(209476, words);
+    // }
+
+    @Test
+    public final void test_on_crito_plato() {
+        String inputFileName = "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\crito_plato.txt";
+        int words = get_words_from_file(inputFileName);
+
+        assertEquals(118, get_paragraphs_from_file(inputFileName));
+        assertEquals(6591, words);
+    }
+
+    @Test
+    public final void test_on_economy_mt() {
+        String inputFileName = "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\economy_mt.txt";
+        int words = get_words_from_file(inputFileName);
+
+        assertEquals(19, get_paragraphs_from_file(inputFileName));
+        assertEquals(2451, words);
+    }
+
+    @Test
+    public final void test_on_ghost_mt() {
+        String inputFileName = "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\ghost_mt.txt";
+        int words = get_words_from_file(inputFileName);
+
+        assertEquals(37, get_paragraphs_from_file(inputFileName));
+        assertEquals(2546, words);
+    }
+
+    @Test
+    public final void test_on_hippoOathTxt() {
+        String inputFileName = "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\hippocratesOath.txt";
+        int words = get_words_from_file(inputFileName);
+
+        assertEquals(17, get_paragraphs_from_file(inputFileName));
         assertEquals(1145, words);
+    }
+
+    @Test
+    public final void test_on_hippoOathHtml() {
+        String inputFileName = "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\hippocratesOath.html";
+        int words = get_words_from_file(inputFileName);
+
+        assertEquals(17, get_paragraphs_from_file(inputFileName));
+        assertEquals(1145, words);
+    }
+
+    @Test
+    public final void test_on_suntzu() {
+        String inputFileName = "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\suntzu.txt";
+        int words = get_words_from_file(inputFileName);
+
+        assertEquals(401, get_paragraphs_from_file(inputFileName));
+        assertEquals(10993, words);
     }
 }

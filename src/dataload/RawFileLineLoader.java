@@ -14,47 +14,51 @@ public class RawFileLineLoader {
 
     public RawFileLineLoader() {}
 
-    private StringBuilder readFile() {
-        StringBuilder sb = new StringBuilder();
+    // private StringBuilder readFile() {
+    private List<String> readFile() {
+        // StringBuilder sb = new StringBuilder();
+        List<String> sb = new ArrayList<String>();
         FileHandler handler = new FileHandler(this.filePath);
 
-        handler.createReaderFD();
+        if(handler.createReaderFD() == -1)
+            return null;
 
-        int ch;
-        while((ch = handler.readCharacterFromFile()) >= 0)
-            sb.append((char)ch);
+        // int ch;
+        // while((ch = handler.readCharacterFromFile()) >= 0)
+        //     sb.append((char)ch);
+
+        String data = handler.readLineFromFile();
+        while(data != null) {
+            sb.add(data);
+            data = handler.readLineFromFile();
+        }
 
         return sb;
     }
 
     private void setupBlocks() {
         List<String> block = new ArrayList<String>();
-        StringBuilder arr = new StringBuilder();
-        StringBuilder sb = readFile();
-        
-        for(int i = 0; i < sb.length(); i++) {
-            if(sb.charAt(i) == '\n') {
-                if(arr.length() > 1)
-                    // block.add(stuff[i].replaceAll("<[^>]*>", ""));
-                    block.add(arr.toString());
-                else {
-                    if(block.size() > 0) {
-                        this.lineblocks.add(new LineBlock(block));
-                        block = new ArrayList<String>();
-                    }
+        List<String> sb = readFile();
+        if(sb == null) 
+            return;
+
+        for(int i = 0; i < sb.size(); i++) {
+            if(sb.get(i).equals("")) {
+                if(sb.get(i-1).equals("")) {
+                    block = new ArrayList<String>();
+                    continue;
                 }
 
-                arr = new StringBuilder();
+                this.lineblocks.add(new LineBlock(block));
+                block = new ArrayList<String>();
             }
-            else if(sb.charAt(i) == '\r'); /* Skip carriage returns */
             else
-                arr.append(sb.charAt(i));
+                block.add(sb.get(i));
         }
 
-        /* Get the last token in */
         if(block.size() > 0) {
-            block.add(arr.toString());
             this.lineblocks.add(new LineBlock(block));
+            block = new ArrayList<String>();
         }
     }
 
