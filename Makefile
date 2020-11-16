@@ -2,26 +2,26 @@ JAVA = java
 CC = $(JAVA)c
 OPT =
 VERSION =
-OUTPUT = text_editor
 
 FLAGS =
 WARNINGS =
 REMOVE_WARN =
 HEADERS =
-LIBS =
+LIBS = -classpath ./libs/commons-io-2.6.jar:./libs/itext5-itextpdf-5.5.12.jar
 
 INPUT = src/client/*.java \
 		src/dataload/*.java \
 		src/datamodel/*/*.java \
 		src/engine/*.java \
-		src/exporters/*.java
+		src/exporters/*.java \
+		src/reporter/*.java
 
 OUTPUT = src/client/*.class \
 		 src/dataload/*.class \
 		 src/datamodel/*/*.class \
 		 src/engine/*.class \
 		 src/exporters/*.class \
-		 src/test/*.class
+		 src/reporter/*.class
 
 all: compiler
 
