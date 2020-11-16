@@ -28,6 +28,7 @@ public class EntryPoint {
         return returnType;
     }
 
+    /* TODO -> MAKE AUTOMATIC INSTEAD OF A CHOICE */
     /**
      * @func: mainLoop
      * @desc: Implements a main function but called from a loop
