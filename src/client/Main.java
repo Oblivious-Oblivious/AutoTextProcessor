@@ -78,6 +78,31 @@ public class Main {
         return true;
     }
     
+    public void addRule(List<List<String>> inputSpec, String inputString) {
+        List<String> list = new ArrayList<String>();
+        String rule = scanInput(inputString + "\nsyntax -> <\"OMIT\"> <\"ALL_CAPS\"|\"STARTS_WITH\"|\"POSITIONS\"> <(opt. for STARTS_WITH) \"BEGINNING PHRASE\" | (opt. for POSITIONS) \"p1,p2,p3\">\n(press <Enter> for no rule): ");
+
+        if(rule.equals("")) {
+            System.out.println("");
+            return;
+        }
+
+        String ruleArr[] = rule.split(" ");
+        list.add(ruleArr[0].replaceAll("^\"+|\"+$", ""));
+        list.add(ruleArr[1].replaceAll("^\"+|\"+$", ""));
+
+        if(ruleArr.length > 2)
+            list.add(ruleArr[2].replaceAll("^\"+|\"+$", ""));
+
+        inputSpec.add(list);
+        System.out.println("");
+    }
+
+    /* TODO -> MAKE EXCEPTIONS FOR RULES OF ANNOTATED FILES */
+    /* TODO -> INSTEAD OF INTERFACE MAKE USER UPLOAD FILE WITH RULES */
+    /* TODO -> INSTEAD OF SPLITTING USE FOR LOOPS WITH STRINGS */
+    
+    /* TODO -> USE QUOTES ON STARTING PHRASE, OR QUOTES ON ALL RULES */
     /**
      * @func: registerRuleset
      * @desc: Option for registering a specific ruleset for the editing
@@ -85,22 +110,12 @@ public class Main {
      */
 	public boolean registerRuleset() {
         List<List<String>> inputSpec = new ArrayList<List<String>>();
-        List<String> omList = new ArrayList<String>();
-        List<String> h1List = new ArrayList<String>();
-        List<String> boldList = new ArrayList<String>();
-        inputSpec.add(omList);
-        inputSpec.add(h1List);
-        inputSpec.add(boldList);
-        omList.add("");
-        omList.add("");
-        omList.add("");
-        h1List.add("");
-        h1List.add("");
-        h1List.add("");
-        boldList.add("");
-        boldList.add("");
-        boldList.add("");
-        /* TODO -> ASK FOR INPUTSPEC */
+        addRule(inputSpec, "Define which paragraphs should be ommited");
+        addRule(inputSpec, "Define which paragraphs should be H1 headings");
+        addRule(inputSpec, "Define which paragraphs should be H2 headings");
+        addRule(inputSpec, "Define which paragraphs will have a bold format");
+        addRule(inputSpec, "Define which paragraphs will have a italics format");
+        
 
         if(this.pInputType.equalsIgnoreCase("RAW"))
             this.engineApi.registerInputRuleSetForPlainFiles(inputSpec);
