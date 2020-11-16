@@ -26,8 +26,10 @@ public class FileHandler {
     private int writeLineToFile(String data) {
         try {
             /* Reset the file stream */
-            getWriterFD().write(data);
-            getWriterFD().write("\n");
+            // getWriterFD().write(data);
+            // getWriterFD().write("\n");
+            this.writer.write(data);
+            this.writer.write("\n");
             return 0;
         }
         catch(Exception e) {
@@ -39,13 +41,13 @@ public class FileHandler {
     /**
      * @func: readLineFromFile
      * @desc: Manages the errors of reading data from a file
-     * @param fd The file descriptor buffered reader to read from
      * @return the line read
      */
-    private String readLineFromFile(BufferedReader fd) {
+    private String readLineFromFile() {
         try {
             /* Reset the file stream */
-            return getReaderFD().readLine();
+            // return getReaderFD().readLine();
+            return this.fd.readLine();
         }
         catch(Exception e) {
             System.out.println("There was an error with reading a line from the input file. | `" + this.filename + '`');
@@ -53,33 +55,33 @@ public class FileHandler {
         }
     }
 
-    /**
-     * @func: getReaderFD
-     * @desc: Manages the errors of a file descriptor getter
-     * @return the file descriptor
-     */
-    private BufferedReader getReaderFD() {
-        try {
-            return this.fd;
-        }
-        catch(Exception e) {
-            return null;
-        }
-    }
+    // /**
+    //  * @func: getReaderFD
+    //  * @desc: Manages the errors of a file descriptor getter
+    //  * @return the file descriptor
+    //  */
+    // private BufferedReader getReaderFD() {
+    //     try {
+    //         return this.fd;
+    //     }
+    //     catch(Exception e) {
+    //         return null;
+    //     }
+    // }
 
-    /**
-     * @func: getWriterFD
-     * @desc: Manages the errors of a file descriptor getter
-     * @return the file descriptor
-     */
-    private FileWriter getWriterFD() {
-        try {
-            return this.writer;
-        }
-        catch(Exception e) {
-            return null;
-        }
-    }
+    // /**
+    //  * @func: getWriterFD
+    //  * @desc: Manages the errors of a file descriptor getter
+    //  * @return the file descriptor
+    //  */
+    // private FileWriter getWriterFD() {
+    //     try {
+    //         return this.writer;
+    //     }
+    //     catch(Exception e) {
+    //         return null;
+    //     }
+    // }
 
     /**
      * @func: createWriterFD
@@ -130,23 +132,25 @@ public class FileHandler {
      * @return The data captured from the file descriptor 
      */
     public String readLine() {
-        return readLineFromFile(getReaderFD());
+        // return readLineFromFile(getReaderFD());
+        return readLineFromFile();
     }
 
-    /**
-     * @func: readCharacterFromFile
-     * @desc: Reads a single character
-     * @return -> The result of `read`
-     */
-    public int readCharacterFromFile() {
-        try {
-            return getReaderFD().read();
-        }
-        catch(Exception e) {
-            System.out.println("There was an error in reading character from file | `" + this.filename + '`');
-            return -1;
-        }
-    }
+    // /**
+    //  * @func: readCharacterFromFile
+    //  * @desc: Reads a single character
+    //  * @return -> The result of `read`
+    //  */
+    // public int readCharacterFromFile() {
+    //     try {
+    //         // return getReaderFD().read();
+    //         return this.fd.read();
+    //     }
+    //     catch(Exception e) {
+    //         System.out.println("There was an error in reading character from file | `" + this.filename + '`');
+    //         return -1;
+    //     }
+    // }
 
     /**
      * @func: appendLine

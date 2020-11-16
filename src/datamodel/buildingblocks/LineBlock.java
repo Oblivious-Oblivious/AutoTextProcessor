@@ -30,21 +30,19 @@ public class LineBlock {
         return res;
     }
 
-
-    /* TODO -> Implement */
     public void setStyle(StyleEnum style) {
         this.style = style;
     }
     public void setFormat(FormatEnum format) {
         this.format = format;
     }
+
     public StyleEnum getStyle() {
         return this.style;
     }
     public FormatEnum getFormat() {
         return this.format;
     }
-
 
     public List<String> getLines() {
         return this.lines;
@@ -55,7 +53,7 @@ public class LineBlock {
     }
 
     public String replaceFirst(String prefix, String new_prefix) {
-        /* TODO -> CHECK IF CORRECT */
+        /* TODO -> CHECK WHERE IS THIS USED AT */
         this.lines.set(0, this.lines.get(0).replaceFirst(prefix, new_prefix));
         return this.lines.get(0);
     }

@@ -16,6 +16,7 @@ import exporters.PdfExporter;
 import reporter.Reporter;
 
 public class Engine implements IPlainTextDocumentEngine {
+	/* TODO -> CHECK WHERE ALIAS IS USED AT */
 	private String alias; 
 	private String filePath = null;
 	private String simpleInputFileName = null;
