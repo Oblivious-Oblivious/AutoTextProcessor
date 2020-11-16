@@ -7,6 +7,7 @@ import datamodel.buildingblocks.StyleEnum;
 import datamodel.files.FileHandler;
 import datamodel.files.WriteHandler;
 
+/* TODO TURN STYLE AND FORMAT NOTATION INTO A SINGLE CHECK */
 public class MarkdownExporter {
     private Document document;
     private String outputFileName;

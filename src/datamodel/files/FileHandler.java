@@ -4,6 +4,10 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileWriter;
 
+/* CHECK THAT FILES ONLY APPEND */
+/* TODO -> MAKE FILEHANDLER MORE PORTABLE */
+/* FAIL ON FILE EXISTANCE */
+
 /**
  * @class: FileHandler
  * @desc: Implements the funcitons of reading data from and writing to a file
