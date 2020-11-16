@@ -59,34 +59,6 @@ public class FileHandler {
         }
     }
 
-    // /**
-    //  * @func: getReaderFD
-    //  * @desc: Manages the errors of a file descriptor getter
-    //  * @return the file descriptor
-    //  */
-    // private BufferedReader getReaderFD() {
-    //     try {
-    //         return this.fd;
-    //     }
-    //     catch(Exception e) {
-    //         return null;
-    //     }
-    // }
-
-    // /**
-    //  * @func: getWriterFD
-    //  * @desc: Manages the errors of a file descriptor getter
-    //  * @return the file descriptor
-    //  */
-    // private FileWriter getWriterFD() {
-    //     try {
-    //         return this.writer;
-    //     }
-    //     catch(Exception e) {
-    //         return null;
-    //     }
-    // }
-
     /**
      * @func: createWriterFD
      * @desc: Manages the errors of creating a writer file object
