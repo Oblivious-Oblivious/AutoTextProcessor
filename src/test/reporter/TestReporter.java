@@ -171,7 +171,6 @@ public class TestReporter {
         assertEquals(15870, words);
     }
 
-    /* TODO -> ALSO CHECK TEST BELOW */
     @Test
     public final void test_on_beagle() {
         String inputFileName = "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\beagle.txt";
