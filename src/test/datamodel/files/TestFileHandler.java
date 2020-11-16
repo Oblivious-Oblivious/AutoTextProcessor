@@ -8,8 +8,7 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.io.FileWriter;
 
-import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -17,9 +16,23 @@ import org.junit.Test;
  * @desc: Tests for reading and writting files
  */
 public class TestFileHandler {
-    @Before
-    public final void setup_file_structure() {
+    @BeforeClass
+    public final static void setup_file_structure() {
         File file;
+        try {
+            file = new File("newfile.txt");
+            file.delete();
+
+            file = new File("existing.txt");
+            file.delete();
+
+            file = new File("test");
+            file.delete();
+        }
+        catch(Exception e) {
+            System.out.println("Teardown error: `" + e + "`");
+        }
+
         try {
             file = new File("existing.txt"); 
             FileWriter fw = new FileWriter(file);
@@ -31,66 +44,22 @@ public class TestFileHandler {
         }
     }
 
-    @After
-    public final void teardown_file_structure() {
-        File file;
-        try {
-            file = new File("_test_new_file.txt"); 
-            file.delete();
-
-            file = new File("new_file.txt");
-            file.delete();
-
-            file = new File("existing.txt");
-            file.delete();
-        }
-        catch(Exception e) {
-            System.out.println("Teardown error: `" + e + "`");
-        }
-    }
-
-    @Test
-    public final void test_createWriterFD_new() {
-        FileHandler handler = new FileHandler("_test_new_file.txt");
-        int result = handler.createWriterFD();
-        assertEquals(0, result);
-    }
-
-    @Test
-    public final void test_createWriterFD_existing() {
-        FileHandler handler = new FileHandler("existing.txt");
-        int result = handler.createWriterFD();
-        assertEquals(-1, result);
-    }
-
-    @Test
-    public final void test_createReaderFD_new() {
-        FileHandler handler = new FileHandler("_test_new_file.txt");
-        int result = handler.createReaderFD();
-        assertEquals(-1, result);
-    }
-
-    @Test
-    public final void test_createReaderFD_existing() {
-        FileHandler handler = new FileHandler("existing.txt");
-        int result = handler.createReaderFD();
-        assertEquals(0, result);
-
-        handler.closeFD();
-    }
-
     @Test
     public final void test_reading_existing_file() {
         FileHandler handler = new FileHandler("existing.txt");
-        handler.createReaderFD();
-        assertNotNull(handler.readLineFromFile());
+        assertNotNull(handler.readLine());
     }
 
     @Test
-    public final void test_writing_to_non_existing_file() {
-        FileHandler handler = new FileHandler("new_file.txt");
-        handler.createWriterFD();
-        // assertEquals(0, handler.writeToFile("test data"));
+    public final void test_writing_to_new_file() {
+        FileHandler handler = new FileHandler("newfile.txt");
+        assertEquals(0, handler.appendLine("sth"));
+    }
+
+    @Test
+    public final void test_writing_to_existing_file() {
+        FileHandler handler = new FileHandler("existing.txt");
+        assertEquals(0, handler.appendLine("sth"));
     }
 
     @Test

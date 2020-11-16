@@ -20,17 +20,14 @@ public class RawFileLineLoader {
         List<String> sb = new ArrayList<String>();
         FileHandler handler = new FileHandler(this.filePath);
 
-        if(handler.createReaderFD() == -1)
-            return null;
-
         // int ch;
         // while((ch = handler.readCharacterFromFile()) >= 0)
         //     sb.append((char)ch);
 
-        String data = handler.readLineFromFile();
+        String data = handler.readLine();
         while(data != null) {
             sb.add(data);
-            data = handler.readLineFromFile();
+            data = handler.readLine();
         }
 
         return sb;

@@ -2,7 +2,6 @@ package datamodel.files;
 
 import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileWriter;
 
 /**
@@ -20,35 +19,36 @@ public class FileHandler {
     private String filename;
 
     /**
-     * @func: write
+     * @func: writeLineToFile
      * @desc: Manages the errors of writing data to a file
      * @param data the data to write
      */
-    private int write(String data) {
+    private int writeLineToFile(String data) {
         try {
             /* Reset the file stream */
             getWriterFD().write(data);
+            getWriterFD().write("\n");
             return 0;
         }
         catch(Exception e) {
-            System.out.println("There was an error with writing data to the output file.");
+            System.out.println("There was an error with writing data to the output file. | `" + this.filename + '`');
             return -1;
         }
     }
 
     /**
-     * @func: readLine
+     * @func: readLineFromFile
      * @desc: Manages the errors of reading data from a file
      * @param fd The file descriptor buffered reader to read from
      * @return the line read
      */
-    private String readLine(BufferedReader fd) {
+    private String readLineFromFile(BufferedReader fd) {
         try {
             /* Reset the file stream */
             return getReaderFD().readLine();
         }
         catch(Exception e) {
-            System.out.println("There was an error with reading a line from the input file.");
+            System.out.println("There was an error with reading a line from the input file. | `" + this.filename + '`');
             return null;
         }
     }
@@ -82,30 +82,16 @@ public class FileHandler {
     }
 
     /**
-     * @Constructor
-     */
-    public FileHandler(String filename) {
-        this.reader = null;
-        this.writer = null;
-        this.fd = null;
-        this.filename = filename;
-    }
-
-    /**
      * @func: createWriterFD
      * @desc: Manages the errors of creating a writer file object
      */
-    public int createWriterFD() {
+    private FileWriter createWriterFD() {
         try {
-            File f = new File(this.filename);
-            if(f.exists()) return -1;
-
-            this.writer = new FileWriter(this.filename);
-            return 0;
+            return new FileWriter(this.filename, true); /* APPEND */
         }
         catch(Exception e) {
-            System.out.println("There was an error with creating the output file.");
-            return -1;
+            System.out.println("There was an error with creating the output file. | `" + this.filename + '`');
+            return null;
         }
     }
 
@@ -113,25 +99,35 @@ public class FileHandler {
      * @func: createReaderFD
      * @desc: Manages the errors of creating a reader file object as well as its buffered reader
      */
-    public int createReaderFD() {
+    private FileReader createReaderFD() {
         try {
             this.reader = new FileReader(this.filename);
             this.fd = new BufferedReader(this.reader);
-            return 0;
+            return this.reader;
         }
         catch(Exception e) {
-            System.out.println("There was an error with creating the input file.");
-            return -1;
+            System.out.println("There was an error with creating the input file. | `" + this.filename + '`');
+            return null;
         }
     }
 
     /**
-     * @func: readFromFile
+     * @Constructor
+     */
+    public FileHandler(String filename) {
+        this.filename = filename;
+        this.fd = null;
+        this.reader = createReaderFD();
+        this.writer = createWriterFD();
+    }
+
+    /**
+     * @func: readLine
      * @desc: Read data from a file
      * @return The data captured from the file descriptor 
      */
-    public String readLineFromFile() {
-        return readLine(getReaderFD());
+    public String readLine() {
+        return readLineFromFile(getReaderFD());
     }
 
     /**
@@ -144,21 +140,18 @@ public class FileHandler {
             return getReaderFD().read();
         }
         catch(Exception e) {
-            System.out.println("There was an error in reading character from file");
+            System.out.println("There was an error in reading character from file | `" + this.filename + '`');
             return -1;
         }
     }
 
     /**
-     * @func: writeToFile
-     * @desc: Write data to file (NOT APPEND)
-     * @param data A string of data to write
+     * @func: appendLine
+     * @desc: Appends a new line to the file without ovewritting
+     * @return -> The result of write
      */
-    public int writeToFile(String data) {
-        if(write(data) == 0)
-            return 0;
-        else
-            return -1;
+    public int appendLine(String data) {
+        return writeLineToFile(data);
     }
 
     /**
@@ -173,7 +166,7 @@ public class FileHandler {
             return 0;
         }
         catch(Exception e) {
-            System.out.println("There was an error with closing the files.");
+            System.out.println("There was an error with closing the files. | `" + this.filename + '`');
             return -1;
         }
     }
