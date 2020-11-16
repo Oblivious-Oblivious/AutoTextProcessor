@@ -28,6 +28,7 @@ public class PdfExporter {
         if(l.getStyle() == StyleEnum.OMITTED) /* OMMITED */
             return null;
         else if(l.getStyle() == StyleEnum.H1)
+            /* TODO -> TRY DIFFERENT CLASSES FOR HEADINGS */
             return new Font(FontFamily.HELVETICA, 28);
         else if(l.getStyle() == StyleEnum.H2)
             return new Font(FontFamily.HELVETICA, 20);
