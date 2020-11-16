@@ -65,10 +65,16 @@ public class MarkdownExporter {
         }
     }
 
-    private int exportParagraphs(FileHandler handler) {
+    public MarkdownExporter(Document document, String outputFileName) {
+        this.document = document;
+        this.outputFileName = outputFileName;
+        this.handler = createOutputFileHandler();
+    }
+
+    public int export() {
         int par = 0;
 
-        for(LineBlock l : document.getLineblocks()) {
+        for(LineBlock l : this.document.getLineblocks()) {
             addParagraph(l);
             par++;
         }
@@ -78,15 +84,5 @@ public class MarkdownExporter {
         this.handler.closeFD();
 
         return par;
-    }
-
-    public MarkdownExporter(Document document, String outputFileName) {
-        this.document = document;
-        this.outputFileName = outputFileName;
-        this.handler = createOutputFileHandler();
-    }
-
-    public int export() {
-        return exportParagraphs(handler);
     }
 }
