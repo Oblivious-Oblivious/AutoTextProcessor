@@ -7,7 +7,6 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.util.List;
 
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -16,6 +15,7 @@ import datamodel.buildingblocks.Document;
 import datamodel.buildingblocks.LineBlock;
 import datamodel.buildingblocks.Document.DocumentRawType;
 import datamodel.files.FileHandler;
+import datamodel.files.WriteHandler;
 
 /**
  * TestDocument
@@ -45,30 +45,27 @@ public class TestDocument {
 
     @BeforeClass
     public final static void setup_files() {
+        /* Handle files */
+        File file;
+        try {
+            file = new File("test_document_raw.txt"); 
+            file.delete();
+
+            file = new File("test_document_annotated.html");
+            file.delete();
+        }
+        catch(Exception e) {
+            System.out.println("Error in deleting: `" + e + "`");
+        }
+
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        FileHandler handler = new FileHandler("test_document_raw.txt");
-        handler.createWriterFD();
-        // handler.writeToFile("TITLE AND STUFF\nparagraph1\nsub1.1\nsub1.2\n\nparagraph2\nsub2.1\n\nparagraph3\n\nparagraph4 line4\n\n");
+        FileHandler handler = new WriteHandler("test_document_raw.txt");
+        handler.appendLine("TITLE AND STUFF\n\nparagraph1\nsub1.1\nsub1.2\n\nparagraph2\nsub2.1\n\nparagraph3\n\nparagraph4 line4\n\n");
+        handler.closeFD();
 
-        handler = new FileHandler("test_document_annotated.html");
-        handler.createWriterFD();
-        // handler.writeToFile("<H1>TITLE AND STUFF\n<p>paragraph1\nsub1.1\nsub1.2\n\n<p>paragraph2\nsub2.1\n\n<p>paragraph3\n\n<p>paragraph4 line4\n\n");
-    }
-
-    @AfterClass
-    public final static void teardown_files() {
-        /* We supposedly tested FileHandler */
-        // File file;
-        // try {
-        //     file = new File("test_document_raw.txt"); 
-        //     file.delete();
-
-        //     file = new File("test_document_annotated.html");
-        //     file.delete();
-        // }
-        // catch(Exception e) {
-        //     System.out.println("Error in deleting: `" + e + "`");
-        // }
+        handler = new WriteHandler("test_document_annotated.html");
+        handler.appendLine("<H1>TITLE AND STUFF\n\n<p>paragraph1\nsub1.1\nsub1.2\n\n<p>paragraph2\nsub2.1\n\n<p>paragraph3\n\n<p>paragraph4 line4\n\n");
+        handler.closeFD();
     }
 
     @Test
