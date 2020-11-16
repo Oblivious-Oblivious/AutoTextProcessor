@@ -1,6 +1,8 @@
 package test.datamodel.files;
 
 import datamodel.files.FileHandler;
+import datamodel.files.ReadHandler;
+import datamodel.files.WriteHandler;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -46,25 +48,25 @@ public class TestFileHandler {
 
     @Test
     public final void test_reading_existing_file() {
-        FileHandler handler = new FileHandler("existing.txt");
+        FileHandler handler = new ReadHandler("existing.txt");
         assertNotNull(handler.readLine());
     }
 
     @Test
     public final void test_writing_to_new_file() {
-        FileHandler handler = new FileHandler("newfile.txt");
+        FileHandler handler = new WriteHandler("newfile.txt");
         assertEquals(0, handler.appendLine("sth"));
     }
 
     @Test
     public final void test_writing_to_existing_file() {
-        FileHandler handler = new FileHandler("existing.txt");
+        FileHandler handler = new WriteHandler("existing.txt");
         assertEquals(0, handler.appendLine("sth"));
     }
 
     @Test
     public final void test_that_closing_files_always_succeeds() {
-        FileHandler handler = new FileHandler("test");
+        FileHandler handler = new WriteHandler("test");
         assertNotNull(handler.closeFD());
     }
 }

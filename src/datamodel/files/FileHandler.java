@@ -114,11 +114,14 @@ public class FileHandler {
     /**
      * @Constructor
      */
-    public FileHandler(String filename) {
+    public FileHandler(String filename, boolean w) {
         this.filename = filename;
         this.fd = null;
-        this.reader = createReaderFD();
-        this.writer = createWriterFD();
+
+        if(w)
+            this.writer = createWriterFD();
+        else
+            this.reader = createReaderFD();
     }
 
     /**

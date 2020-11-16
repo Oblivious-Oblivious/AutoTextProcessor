@@ -5,6 +5,7 @@ import java.util.List;
 
 import datamodel.buildingblocks.LineBlock;
 import datamodel.files.FileHandler;
+import datamodel.files.ReadHandler;
 
 /* TODO -> IMPLEMENT READ LINE INSTEAD OF READ CHARACTER */
 
@@ -18,7 +19,7 @@ public class RawFileLineLoader {
     private List<String> readFile() {
         // StringBuilder sb = new StringBuilder();
         List<String> sb = new ArrayList<String>();
-        FileHandler handler = new FileHandler(this.filePath);
+        FileHandler handler = new ReadHandler(this.filePath);
 
         // int ch;
         // while((ch = handler.readCharacterFromFile()) >= 0)
