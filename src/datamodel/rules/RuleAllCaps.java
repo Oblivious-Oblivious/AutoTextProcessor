@@ -5,6 +5,7 @@ import datamodel.buildingblocks.LineBlock;
 public class RuleAllCaps extends AbstractRule {
 	public RuleAllCaps() {}
 	
+	/* TODO -> CHECK FOR ALL LINES CAPS */
 	@Override
 	public boolean isValid(LineBlock paragraph) {
 		String line = paragraph.getLines().get(0);
