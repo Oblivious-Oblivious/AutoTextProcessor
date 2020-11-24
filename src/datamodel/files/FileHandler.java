@@ -2,6 +2,7 @@ package datamodel.files;
 
 import java.io.FileReader;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileWriter;
 
 /* CHECK THAT FILES ONLY APPEND */
@@ -65,6 +66,10 @@ public class FileHandler {
      */
     private FileWriter createWriterFD() {
         try {
+            File f = new File(this.filename);
+            if(f.exists())
+                f.delete();
+
             return new FileWriter(this.filename, true); /* APPEND */
         }
         catch(Exception e) {
@@ -79,6 +84,10 @@ public class FileHandler {
      */
     private FileReader createReaderFD() {
         try {
+            File f = new File(this.filename);
+            if(!f.exists())
+                throw new Exception("File does not exist");
+                
             this.reader = new FileReader(this.filename);
             this.fd = new BufferedReader(this.reader);
             return this.reader;
