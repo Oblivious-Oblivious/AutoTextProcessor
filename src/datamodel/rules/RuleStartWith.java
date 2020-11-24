@@ -11,7 +11,7 @@ public class RuleStartWith extends AbstractRule {
 
 	@Override
 	public boolean isValid(LineBlock paragraph) {
-		return paragraph.getLines().get(0).contains(this.prefix);
+		return paragraph.startsWith(this.prefix);
 	}
 
 	@Override
