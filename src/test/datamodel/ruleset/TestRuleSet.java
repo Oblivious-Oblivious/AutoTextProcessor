@@ -25,7 +25,7 @@ public class TestRuleSet {
     public final void test_H1_BOLD_ALL_CAPS() {
         List<String> block = new ArrayList<String>();
         block.add("TITLE");
-        block.add("something else");
+        block.add("SOMETHING ELSE");
 
         List<LineBlock> lineblocks = new ArrayList<LineBlock>();
         lineblocks.add(new LineBlock(block));

@@ -52,6 +52,13 @@ public class LineBlock {
         return this.lines.get(0).contains(prefix);
     }
 
+    public boolean isCapital() {
+        for(String line : this.lines)
+            if(!line.equals(line.toUpperCase()))
+                return false;
+        return true;
+    }
+
     public String replaceFirst(String prefix, String new_prefix) {
         /* TODO -> CHECK WHERE IS THIS USED AT */
         this.lines.set(0, this.lines.get(0).replaceFirst(prefix, new_prefix));

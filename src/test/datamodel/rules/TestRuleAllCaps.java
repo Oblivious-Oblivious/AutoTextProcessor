@@ -43,7 +43,7 @@ public class TestRuleAllCaps {
     public final void test_isValid_for_correct_lineblock() {
         List<String> block = new ArrayList<String>();
         block.add("CAPITAL STUFF");
-        block.add("dont care");
+        block.add("AND MORE");
         LineBlock lineblock = new LineBlock(block);
         
         assertTrue(this.ruleApi.isValid(lineblock));
