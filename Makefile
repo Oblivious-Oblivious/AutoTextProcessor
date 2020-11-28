@@ -23,6 +23,7 @@ OUTPUT = src/client/*.class \
 		 src/engine/*.class \
 		 src/exporters/*.class \
 		 src/reporter/*.class \
+		 src/test/*/*.class \
 		 src/test/*/*/*.class
 
 all: compiler
@@ -31,7 +32,7 @@ compiler:
 	$(CC) $(OPT) $(VERSION) $(HEADERS) $(FLAGS) $(WARNINGS) $(REMOVE_WARN) $(LIBS) $(INPUT)
 	@echo
 
-run: compiler
+run:
 	cd src && $(JAVA) client/EntryPoint
 
 #test: compiler
