@@ -14,8 +14,8 @@ INPUT = src/client/*.java \
 		src/datamodel/*/*.java \
 		src/engine/*.java \
 		src/exporters/*.java \
-		src/reporter/*.java \
-		src/test/*/*/*.java
+		src/reporter/*.java
+		#src/test/**/**/*.java
 
 OUTPUT = src/client/*.class \
 		 src/dataload/*.class \
@@ -23,8 +23,7 @@ OUTPUT = src/client/*.class \
 		 src/engine/*.class \
 		 src/exporters/*.class \
 		 src/reporter/*.class \
-		 src/test/*/*.class \
-		 src/test/*/*/*.class
+		 src/test/**/**/*.class
 
 all: compiler
 
@@ -39,4 +38,4 @@ run:
 #	cd src && $(JAVA) org.junit.runner.JUnitCore ./test/*/*/*.class
 
 clean:
-	$(RM) -r bin/ $(OUTPUT) existing.txt newfile.txt test test_document_raw.txt test_document_annotated.html
+	$(RM) $(OUTPUT) existing.txt newfile.txt test test_document_raw.txt test_document_annotated.html
