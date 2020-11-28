@@ -42,25 +42,18 @@ public class MarkdownExporter {
     private void addParagraph(LineBlock l) {
         StringBuilder parBlock = new StringBuilder();
 
-        for(String block : l.getLines()) {
-            // System.out.println("APP: `" + block + "`");
+        for(String block : l.getLines())
             parBlock.append(block + " ");
-            // parBlock.append(" ");
-        }
 
         String styleNotation = getStyleNotation(l);
         String formatNotation = getFormatNotation(l);
 
         /* TODO -> UGLY CODE */
         if(styleNotation != null) { /* OMMITED */
-            if(styleNotation.equals("")) /* NORMAL */ {
+            if(styleNotation.equals("")) /* NORMAL */
                 handler.appendLine(formatNotation + parBlock + formatNotation);
-                System.out.println("A: `" + formatNotation + parBlock + formatNotation + "`");
-            }
-            else {
+            else
                 handler.appendLine(styleNotation + parBlock);
-                System.out.println("A: `" + styleNotation + parBlock + "`");
-            }
             handler.appendLine("");
         }
     }

@@ -2,7 +2,6 @@ package exporters;
 
 import java.io.FileOutputStream;
 
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -56,7 +55,7 @@ public class PdfExporter {
             this.pdfDoc.add(new Paragraph());
             this.pdfDoc.add(new Phrase("\n"));
         }
-        catch(DocumentException e) {
+        catch(Exception e) {
             System.out.println("Error in creating a PDF handler: " + e);
         }
 
@@ -78,9 +77,6 @@ public class PdfExporter {
         try {
             PdfWriter.getInstance(this.pdfDoc, new FileOutputStream(this.outputFileName));
             this.pdfDoc.open();
-        }
-        catch(DocumentException e) {
-            System.out.println("Error in creating a PDF handler: " + e);
         }
         catch(Exception e) {
             System.out.println("Error in creating a PDF handler");
