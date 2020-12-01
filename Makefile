@@ -7,8 +7,7 @@ FLAGS =
 WARNINGS =
 REMOVE_WARN =
 HEADERS =
-#LIBS = -classpath ../../resources/junit-4.13.1.jar:./libs/commons-io-2.6.jar:./libs/itext5-itextpdf-5.5.12.jar
-LIBS = -classpath ./libs/itext5-itextpdf-5.5.12.jar
+LIBS = -classpath ../../resources/junit-4.13.1.jar:./libs/commons-io-2.6.jar:./libs/itext5-itextpdf-5.5.12.jar
 
 INPUT = src/client/*.java \
 		src/dataload/*.java \

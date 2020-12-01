@@ -16,6 +16,7 @@ import engine.Engine;
 public class Main {
     private Engine engineApi;
     private Scanner s = new Scanner(System.in);
+    private String pwdOffset;
 
     private String pFilePath;
     private String pInputType;
@@ -48,7 +49,9 @@ public class Main {
      * @desc: Setup engine variables
      */
     private void createEngineApi() {
-        this.pFilePath = scanInput("Input the path of the input document: ");
+        this.pwdOffset = System.getProperty("user.dir") + "/../";
+
+        this.pFilePath = this.pwdOffset + scanInput("Input the path of the input document: ");
         this.pInputType = scanInput("Specify whether the document is raw or annotated (RAW|ANNOTATED): ");
         this.pAlias = scanInput("Input an alias for the file: ");
         this.engineApi = new Engine(this.pFilePath, this.pInputType, this.pAlias);
@@ -80,7 +83,7 @@ public class Main {
     
     public void addRule(List<List<String>> inputSpec, String inputString) {
         List<String> list = new ArrayList<String>();
-        String rule = scanInput(inputString + "\nsyntax -> <\"OMIT\"> <\"ALL_CAPS\"|\"STARTS_WITH\"|\"POSITIONS\"> <(opt. for STARTS_WITH) \"BEGINNING PHRASE\" | (opt. for POSITIONS) \"p1,p2,p3\">\n(press <Enter> for no rule): ");
+        String rule = scanInput(inputString + "\nsyntax -> <OMIT> <ALL_CAPS|STARTS_WITH|POSITIONS> <(opt. for STARTS_WITH) \"BEGINNING PHRASE\" | (opt. for POSITIONS) \"p1,p2,p3\">\n(press <Enter> for no rule): ");
 
         if(rule.equals("")) {
             System.out.println("");
@@ -88,8 +91,8 @@ public class Main {
         }
 
         String ruleArr[] = rule.split(" ");
-        list.add(ruleArr[0].replaceAll("^\"+|\"+$", ""));
-        list.add(ruleArr[1].replaceAll("^\"+|\"+$", ""));
+        list.add(ruleArr[0]);
+        list.add(ruleArr[1]);
 
         if(ruleArr.length > 2)
             list.add(ruleArr[2].replaceAll("^\"+|\"+$", ""));
@@ -152,7 +155,7 @@ public class Main {
      */
 	public boolean exportToFiletype() {
         String outputType = scanInput("Please input the output type to export to (MD|PDF): ");
-        String outputFileName = scanInput("Please input an output file name: ");
+        String outputFileName = this.pwdOffset + scanInput("Please input an output file name: ");
 
         if(outputType.equalsIgnoreCase("MD"))
             this.engineApi.exportMarkDown(outputFileName);
