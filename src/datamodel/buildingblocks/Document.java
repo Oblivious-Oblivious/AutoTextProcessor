@@ -3,11 +3,9 @@ package datamodel.buildingblocks;
 import java.util.ArrayList;
 import java.util.List;
 
-// import datamodel.files.FileHandler;
-
 public class Document {
     private DocumentRawType docType;
-    private String pFilePath;
+    // private String pFilePath;
     private List<LineBlock> lineblocks;
 
     public enum DocumentRawType {
@@ -15,7 +13,7 @@ public class Document {
     }
 
     public Document(String pFilePath, DocumentRawType docType) {
-        this.pFilePath = pFilePath;
+        // this.pFilePath = pFilePath;
         this.docType = docType;
         this.lineblocks = new ArrayList<LineBlock>();
     }
@@ -28,7 +26,7 @@ public class Document {
         return this.docType;
     }
 
-    public String getPFilePath() {
-        return this.pFilePath;
-    }
+    // public String getPFilePath() {
+    //     return this.pFilePath;
+    // }
 }

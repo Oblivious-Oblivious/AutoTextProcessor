@@ -32,8 +32,8 @@ public class TestRuleAllCaps {
     @Test
     public final void test_isValid_for_invalid_lineblock() {
         List<String> block = new ArrayList<String>();
-        block.add("more stuff");
-        block.add("CAPITAL STUFF UNDERNEATH");
+        block.add("CAPITAL STUFF");
+        block.add("more stuff underneath");
         LineBlock lineblock = new LineBlock(block);
 
         assertFalse(this.ruleApi.isValid(lineblock));

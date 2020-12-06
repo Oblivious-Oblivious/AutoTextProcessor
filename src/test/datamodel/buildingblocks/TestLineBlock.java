@@ -41,8 +41,8 @@ public class TestLineBlock {
     }
 
     @Test
-    public final void test_getNumWords_is_six() {
-        assertEquals(6, this.lbApi.getNumWords());
+    public final void test_getWords_is_six() {
+        assertEquals(6, this.lbApi.getWords());
     }
 
     @Test

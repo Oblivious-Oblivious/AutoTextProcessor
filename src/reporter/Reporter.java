@@ -15,7 +15,7 @@ public class Reporter {
     private int calculateWordsAndSetupStats(int numWords) {
         for(LineBlock lineblock : this.lineblocks) {
 			this.report.add("\n" + lineblock.getStatsAsString());
-			numWords += lineblock.getNumWords();
+			numWords += lineblock.getWords();
         }
 
         return numWords;

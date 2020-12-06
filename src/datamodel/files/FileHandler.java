@@ -5,9 +5,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 
-/* CHECK THAT FILES ONLY APPEND */
+/* TODO -> CHECK THAT FILES ONLY APPEND */
 /* TODO -> MAKE FILEHANDLER MORE PORTABLE */
-/* FAIL ON FILE EXISTANCE */
+/* TODO -> FAIL ON FILE EXISTANCE */
 
 /**
  * @class: FileHandler
@@ -31,8 +31,6 @@ public class FileHandler {
     private int writeLineToFile(String data) {
         try {
             /* Reset the file stream */
-            // getWriterFD().write(data);
-            // getWriterFD().write("\n");
             this.writer.write(data);
             this.writer.write("\n");
             return 0;
@@ -51,7 +49,6 @@ public class FileHandler {
     private String readLineFromFile() {
         try {
             /* Reset the file stream */
-            // return getReaderFD().readLine();
             return this.fd.readLine();
         }
         catch(Exception e) {
@@ -117,25 +114,8 @@ public class FileHandler {
      * @return The data captured from the file descriptor 
      */
     public String readLine() {
-        // return readLineFromFile(getReaderFD());
         return readLineFromFile();
     }
-
-    // /**
-    //  * @func: readCharacterFromFile
-    //  * @desc: Reads a single character
-    //  * @return -> The result of `read`
-    //  */
-    // public int readCharacterFromFile() {
-    //     try {
-    //         // return getReaderFD().read();
-    //         return this.fd.read();
-    //     }
-    //     catch(Exception e) {
-    //         System.out.println("There was an error in reading character from file | `" + this.filename + '`');
-    //         return -1;
-    //     }
-    // }
 
     /**
      * @func: appendLine

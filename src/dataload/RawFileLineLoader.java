@@ -15,15 +15,9 @@ public class RawFileLineLoader {
 
     public RawFileLineLoader() {}
 
-    // private StringBuilder readFile() {
     private List<String> readFile() {
-        // StringBuilder sb = new StringBuilder();
         List<String> sb = new ArrayList<String>();
         FileHandler handler = new ReadHandler(this.filePath);
-
-        // int ch;
-        // while((ch = handler.readCharacterFromFile()) >= 0)
-        //     sb.append((char)ch);
 
         String data = handler.readLine();
         while(data != null) {

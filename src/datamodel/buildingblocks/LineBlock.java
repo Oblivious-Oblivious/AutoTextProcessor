@@ -12,22 +12,24 @@ public class LineBlock {
     private List<String> lines;
     private StyleEnum style;
     private FormatEnum format;
+    private int words;
 
-    public LineBlock(List<String> lines) {
-        this.lines = lines;
-    }
-
-    public String getStatsAsString() {
-        return "Lines: " + this.lines.size() + ", Words: " + getNumWords();
-    }
-
-    public int getNumWords() {
+    private int getNumWords() {
         int res = 0;
         
         for(String line : this.lines)
             res += line.strip().split(" ").length;
         
         return res;
+    }
+
+    public LineBlock(List<String> lines) {
+        this.lines = lines;
+        this.words = getNumWords();
+    }
+
+    public String getStatsAsString() {
+        return "Lines: " + this.lines.size() + ", Words: " + getWords();
     }
 
     public void setStyle(StyleEnum style) {
@@ -46,6 +48,10 @@ public class LineBlock {
 
     public List<String> getLines() {
         return this.lines;
+    }
+
+    public int getWords() {
+        return this.words;
     }
 
     public boolean startsWith(String prefix) {
