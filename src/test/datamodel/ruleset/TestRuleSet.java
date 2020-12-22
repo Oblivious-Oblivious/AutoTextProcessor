@@ -7,11 +7,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import datamodel.buildingblocks.FormatEnum;
-import datamodel.buildingblocks.LineBlock;
-import datamodel.buildingblocks.StyleEnum;
-import datamodel.ruleset.RuleSet;
-import datamodel.ruleset.RuleSetCreator;
+import datamodel.FormatEnum;
+import datamodel.LineBlock;
+import datamodel.StyleEnum;
+import rules.RuleSet;
+import rules.RuleSetCreator;
 
 /**
  * TestRuleSet

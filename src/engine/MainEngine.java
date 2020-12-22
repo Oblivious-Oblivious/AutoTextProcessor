@@ -1,6 +1,6 @@
 package engine;
 
-import datamodel.buildingblocks.Document;
+import datamodel.Document;
 
 import java.util.ArrayList;
 import java.util.List;

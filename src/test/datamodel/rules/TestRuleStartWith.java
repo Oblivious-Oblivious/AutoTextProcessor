@@ -10,8 +10,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import datamodel.buildingblocks.LineBlock;
-import datamodel.rules.RuleStartWith;
+import datamodel.LineBlock;
+import rules.RuleStartWith;
 
 /**
  * @class TestRuleStartWith

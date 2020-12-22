@@ -3,9 +3,9 @@ package engine;
 import dataload.ILoader;
 import dataload.RawFileLineLoader;
 
-import datamodel.buildingblocks.Document;
-import datamodel.buildingblocks.LineBlock;
-import datamodel.ruleset.RuleSet;
+import datamodel.Document;
+import datamodel.LineBlock;
+import rules.RuleSet;
 
 import java.util.List;
 import java.util.Objects;

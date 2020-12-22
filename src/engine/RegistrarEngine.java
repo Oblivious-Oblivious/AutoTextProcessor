@@ -1,7 +1,7 @@
 package engine;
 
-import datamodel.buildingblocks.Document;
-import datamodel.ruleset.RuleSetCreator;
+import datamodel.Document;
+import rules.RuleSetCreator;
 
 import java.util.List;
 

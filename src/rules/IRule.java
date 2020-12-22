@@ -1,6 +1,6 @@
-package datamodel.rules;
+package rules;
 
-import datamodel.buildingblocks.LineBlock;
+import datamodel.LineBlock;
 
 /**
  * Abstract class to be concreted by specific subclasses for the handling of paragraph characterization

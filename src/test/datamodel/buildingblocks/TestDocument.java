@@ -12,11 +12,11 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import dataload.RawFileLineLoader;
-import datamodel.buildingblocks.Document;
-import datamodel.buildingblocks.LineBlock;
-import datamodel.buildingblocks.DocumentLoadType;
-import datamodel.files.FileHandler;
-import datamodel.files.WriteHandler;
+import datamodel.Document;
+import datamodel.LineBlock;
+import datamodel.DocumentLoadType;
+import files.FileHandler;
+import files.WriteHandler;
 
 /**
  * TestDocument

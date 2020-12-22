@@ -1,4 +1,4 @@
-package datamodel.buildingblocks;
+package datamodel;
 
 import java.util.List;
 

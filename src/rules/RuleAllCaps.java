@@ -1,6 +1,6 @@
-package datamodel.rules;
+package rules;
 
-import datamodel.buildingblocks.LineBlock;
+import datamodel.LineBlock;
 
 public class RuleAllCaps implements IRule {
 	public RuleAllCaps() {}

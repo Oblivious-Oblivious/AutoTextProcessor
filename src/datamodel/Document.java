@@ -1,6 +1,6 @@
-package datamodel.buildingblocks;
+package datamodel;
 
-import datamodel.ruleset.RuleSet;
+import rules.RuleSet;
 
 import java.util.ArrayList;
 import java.util.List;

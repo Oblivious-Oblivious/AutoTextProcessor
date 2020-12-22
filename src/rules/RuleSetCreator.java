@@ -1,12 +1,10 @@
-package datamodel.ruleset;
+package rules;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import datamodel.buildingblocks.LineBlock;
-import datamodel.rules.IRule;
-import datamodel.rules.ConcreteRuleFactory;
+import datamodel.LineBlock;
 
 /**
  * The class is responsible for creating a RuleSet, given a set of strings as input.

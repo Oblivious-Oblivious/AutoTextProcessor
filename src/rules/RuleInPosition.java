@@ -1,8 +1,8 @@
-package datamodel.rules;
+package rules;
 
 import java.util.List;
 
-import datamodel.buildingblocks.LineBlock;
+import datamodel.LineBlock;
 
 public class RuleInPosition implements IRule {
     private final List<LineBlock> p_line_blocks;

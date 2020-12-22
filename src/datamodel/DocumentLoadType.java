@@ -1,4 +1,4 @@
-package datamodel.buildingblocks;
+package datamodel;
 
 public enum DocumentLoadType {
     RAW, ANNOTATED

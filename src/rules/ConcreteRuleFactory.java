@@ -1,8 +1,8 @@
-package datamodel.rules;
+package rules;
 
 import java.util.List;
 
-import datamodel.buildingblocks.LineBlock;
+import datamodel.LineBlock;
 
 /**
  * Creator of concrete rule objects

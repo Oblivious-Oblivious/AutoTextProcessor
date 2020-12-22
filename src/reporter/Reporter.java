@@ -3,7 +3,7 @@ package reporter;
 import java.util.ArrayList;
 import java.util.List;
 
-import datamodel.buildingblocks.LineBlock;
+import datamodel.LineBlock;
 
 /**
  * Reporter

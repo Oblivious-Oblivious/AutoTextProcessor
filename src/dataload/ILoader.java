@@ -1,6 +1,6 @@
 package dataload;
 
-import datamodel.buildingblocks.LineBlock;
+import datamodel.LineBlock;
 
 import java.util.List;
 

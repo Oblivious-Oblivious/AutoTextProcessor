@@ -9,8 +9,8 @@ import java.util.List;
 
 import org.junit.Test;
 
-import datamodel.buildingblocks.LineBlock;
-import datamodel.rules.RuleInPosition;
+import datamodel.LineBlock;
+import rules.RuleInPosition;
 
 /**
  * @class TestRuleInPosition

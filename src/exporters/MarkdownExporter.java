@@ -1,11 +1,11 @@
 package exporters;
 
-import datamodel.buildingblocks.Document;
-import datamodel.buildingblocks.FormatEnum;
-import datamodel.buildingblocks.LineBlock;
-import datamodel.buildingblocks.StyleEnum;
-import datamodel.files.FileHandler;
-import datamodel.files.WriteHandler;
+import datamodel.Document;
+import datamodel.FormatEnum;
+import datamodel.LineBlock;
+import datamodel.StyleEnum;
+import files.FileHandler;
+import files.WriteHandler;
 
 public class MarkdownExporter implements IExporter {
     private final Document document;

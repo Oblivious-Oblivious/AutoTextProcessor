@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import datamodel.buildingblocks.LineBlock;
-import datamodel.rules.ConcreteRuleFactory;
+import datamodel.LineBlock;
+import rules.ConcreteRuleFactory;
 
 /**
  * @class TestConcreteRuleFactory

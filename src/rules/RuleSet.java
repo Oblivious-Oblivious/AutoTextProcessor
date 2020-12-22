@@ -1,9 +1,8 @@
-package datamodel.ruleset;
+package rules;
 
-import datamodel.buildingblocks.FormatEnum;
-import datamodel.buildingblocks.StyleEnum;
-import datamodel.buildingblocks.LineBlock;
-import datamodel.rules.IRule;
+import datamodel.FormatEnum;
+import datamodel.StyleEnum;
+import datamodel.LineBlock;
 
 /**
  * Class to represent a set of rules

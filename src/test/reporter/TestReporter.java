@@ -9,7 +9,7 @@ import dataload.ILoader;
 import org.junit.Test;
 
 import dataload.RawFileLineLoader;
-import datamodel.buildingblocks.LineBlock;
+import datamodel.LineBlock;
 import reporter.IReporter;
 import reporter.Reporter;
 

@@ -8,10 +8,10 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Font.FontFamily;
 import com.itextpdf.text.pdf.PdfWriter;
 
-import datamodel.buildingblocks.Document;
-import datamodel.buildingblocks.FormatEnum;
-import datamodel.buildingblocks.LineBlock;
-import datamodel.buildingblocks.StyleEnum;
+import datamodel.Document;
+import datamodel.FormatEnum;
+import datamodel.LineBlock;
+import datamodel.StyleEnum;
 
 /**
  * PdfExporter

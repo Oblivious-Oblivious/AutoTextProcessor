@@ -10,8 +10,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import datamodel.buildingblocks.LineBlock;
-import datamodel.rules.RuleAllCaps;
+import datamodel.LineBlock;
+import rules.RuleAllCaps;
 
 /**
  * @class TestRuleAllCaps

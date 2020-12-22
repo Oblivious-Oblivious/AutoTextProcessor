@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import datamodel.buildingblocks.FormatEnum;
+import datamodel.FormatEnum;
 
 /**
  * TestFormatEnum

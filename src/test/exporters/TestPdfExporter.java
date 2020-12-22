@@ -6,7 +6,7 @@ import dataload.ILoader;
 import org.junit.Test;
 
 import dataload.RawFileLineLoader;
-import datamodel.buildingblocks.Document;
+import datamodel.Document;
 import exporters.PdfExporter;
 
 /**
