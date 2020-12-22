@@ -14,7 +14,7 @@ import datamodel.buildingblocks.LineBlock;
 import datamodel.rules.RuleStartWith;
 
 /**
- * @class: TestRuleStartWith
+ * @class TestRuleStartWith
  */
 public class TestRuleStartWith {
     RuleStartWith ruleApi;
@@ -30,21 +30,21 @@ public class TestRuleStartWith {
     }
 
     @Test
-    public final void test_isValid_for_invalid_lineblock() {
-        List<String> block = new ArrayList<String>();
+    public final void test_is_valid_for_invalid_line_block() {
+        List<String> block = new ArrayList<>();
         block.add("sth else");
-        LineBlock lineblock = new LineBlock(block);
-        assertFalse(this.ruleApi.isValid(lineblock));
+        LineBlock line_block = new LineBlock(block);
+        assertFalse(this.ruleApi.is_valid(line_block));
     }
 
     @Test
-    public final void test_isValid_for_correct_lineblock() {
-        List<String> block = new ArrayList<String>();
+    public final void test_is_valid_for_correct_line_block() {
+        List<String> block = new ArrayList<>();
         block.add("paragraph 1");
         block.add("sub 1.1");
         block.add("sub 1.2");
-        LineBlock lineblock = new LineBlock(block);
+        LineBlock line_block = new LineBlock(block);
 
-        assertTrue(this.ruleApi.isValid(lineblock));
+        assertTrue(this.ruleApi.is_valid(line_block));
     }
 }

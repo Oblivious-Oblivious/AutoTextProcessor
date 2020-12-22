@@ -12,7 +12,7 @@ import datamodel.buildingblocks.LineBlock;
 import datamodel.rules.ConcreteRuleFactory;
 
 /**
- * @class: TestConcreteRuleFactory
+ * @class TestConcreteRuleFactory
  */
 public class TestConcreteRuleFactory {
     private ConcreteRuleFactory ruleApi = new ConcreteRuleFactory();
@@ -24,24 +24,24 @@ public class TestConcreteRuleFactory {
 
     @Test
     public final void test_createRuleUndefined() {
-        assertNotNull(this.ruleApi.createRuleUndefined());
+        assertNotNull(this.ruleApi.create_rule_undefined());
     }
 
     @Test
     public final void test_createRuleAllCaps() {
-        assertNotNull(this.ruleApi.createRuleAllCaps());
+        assertNotNull(this.ruleApi.create_rule_undefined());
     }
 
     @Test
     public final void test_createRuleInPosition() {
-        List<LineBlock> pLineblocks = new ArrayList<LineBlock>();
-        List<Integer> pPositions = new ArrayList<Integer>();
-        assertNotNull(this.ruleApi.createRuleInPosition(pLineblocks, pPositions));
+        List<LineBlock> p_line_blocks = new ArrayList<>();
+        List<Integer> pPositions = new ArrayList<>();
+        assertNotNull(this.ruleApi.create_rule_in_position(p_line_blocks, pPositions));
     }
 
     @Test
     public final void test_createRuleStartWith() {
         String prefix = "STH";
-        assertNotNull(this.ruleApi.createRuleStartWith(prefix));
+        assertNotNull(this.ruleApi.create_rule_start_with(prefix));
     }
 }

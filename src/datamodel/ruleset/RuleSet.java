@@ -3,7 +3,7 @@ package datamodel.ruleset;
 import datamodel.buildingblocks.FormatEnum;
 import datamodel.buildingblocks.StyleEnum;
 import datamodel.buildingblocks.LineBlock;
-import datamodel.rules.AbstractRule;
+import datamodel.rules.IRule;
 
 /**
  * Class to represent a set of rules
@@ -23,19 +23,14 @@ import datamodel.rules.AbstractRule;
  * @version 0.1
  */
 public class RuleSet {
-	private String name;	
-	private AbstractRule omitRule;
-	private AbstractRule h1Rule;
-	private AbstractRule h2Rule;
-	private AbstractRule boldRule;
-	private AbstractRule italicsRule;
+	private final String name;
+	private final IRule omitRule;
+	private final IRule h1Rule;
+	private final IRule h2Rule;
+	private final IRule boldRule;
+	private final IRule italicsRule;
 	
-	public RuleSet(String name,
-				   AbstractRule omitRule,
-				   AbstractRule h1Rule,
-				   AbstractRule h2Rule,
-				   AbstractRule boldRule,
-				   AbstractRule italicsRule) {
+	public RuleSet(String name, IRule omitRule, IRule h1Rule, IRule h2Rule, IRule boldRule, IRule italicsRule) {
 		this.name = name;
 		this.omitRule = omitRule;
 		this.h1Rule = h1Rule;
@@ -45,30 +40,30 @@ public class RuleSet {
 	}
 
 	public StyleEnum determineHeadingStatus(LineBlock lineblock) {
-		if(omitRule.isValid(lineblock))
+		if(this.omitRule.is_valid(lineblock))
 			return StyleEnum.OMITTED;
-		if(h1Rule.isValid(lineblock))
+		if(this.h1Rule.is_valid(lineblock))
 			return StyleEnum.H1;
-		if(h2Rule.isValid(lineblock))
+		if(this.h2Rule.is_valid(lineblock))
 			return StyleEnum.H2;
 		return StyleEnum.NORMAL;
 	}
 
 	public FormatEnum determineFormatStatus(LineBlock lineblock) {
-		if(boldRule.isValid(lineblock))
+		if(this.boldRule.is_valid(lineblock))
 			return FormatEnum.BOLD;
-		if(italicsRule.isValid(lineblock))
+		if(this.italicsRule.is_valid(lineblock))
 			return FormatEnum.ITALICS;
 		return FormatEnum.REGULAR;
 	}
 	
 	public String toString() {
 		return this.name
-			+ "\nOMIT: " + omitRule.toString()
-			+ "\nH1: " + h1Rule.toString()
-			+ "\nH2: " + h2Rule.toString()
-			+ "\nBOLD: " + boldRule.toString()
-			+ "\nITALICS: " + italicsRule.toString()
+			+ "\nOMIT: " + this.omitRule.toString()
+			+ "\nH1: " + this.h1Rule.toString()
+			+ "\nH2: " + this.h2Rule.toString()
+			+ "\nBOLD: " + this.boldRule.toString()
+			+ "\nITALICS: " + this.italicsRule.toString()
 			+ "\n";
 	}
 }

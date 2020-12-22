@@ -2,11 +2,11 @@ package datamodel.rules;
 
 import datamodel.buildingblocks.LineBlock;
 
-public class RuleUndefined extends AbstractRule {
+public class RuleUndefined implements IRule {
     public RuleUndefined() {}
 
 	@Override
-	public boolean isValid(LineBlock paragraph) {
+	public boolean is_valid(LineBlock paragraph) {
 		return false; /* ALWAYS RETURNS FALSE */
 	}
 

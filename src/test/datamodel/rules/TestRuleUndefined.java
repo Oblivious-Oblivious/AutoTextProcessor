@@ -12,7 +12,7 @@ import datamodel.buildingblocks.LineBlock;
 import datamodel.rules.RuleUndefined;
 
 /**
- * @class: TestRuleUndefined
+ * @class TestRuleUndefined
  */
 public class TestRuleUndefined {
     RuleUndefined ruleApi;
@@ -24,7 +24,7 @@ public class TestRuleUndefined {
 
     @Test
     public final void test_isValid_for_invalid_rule() {
-        assertFalse(this.ruleApi.isValid(new LineBlock(new ArrayList<String>())));
+        assertFalse(this.ruleApi.is_valid(new LineBlock(new ArrayList<>())));
     }
 
     @Test

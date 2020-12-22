@@ -4,17 +4,19 @@ import java.util.List;
 
 /**
  * @class LineBlock
- * @desc: The list of lines read from the file
- * @param lines -> The List of lines read on Document
- * @param prefix -> A string with which out text starts with
+ * @brief The list of lines read from the file
  */
 public class LineBlock {
-    private List<String> lines;
+    /**
+     * lines -> The List of lines read on Document
+     * words -> The number of words in the specific lineBlock
+     */
+    private final List<String> lines;
+    private final int words;
     private StyleEnum style;
     private FormatEnum format;
-    private int words;
 
-    private int getNumWords() {
+    private int get_num_words() {
         int res = 0;
         
         for(String line : this.lines)
@@ -25,47 +27,47 @@ public class LineBlock {
 
     public LineBlock(List<String> lines) {
         this.lines = lines;
-        this.words = getNumWords();
+        this.words = get_num_words();
     }
 
-    public String getStatsAsString() {
-        return "Lines: " + this.lines.size() + ", Words: " + getWords();
+    public String get_stats_as_string() {
+        return "Lines: " + this.lines.size() + ", Words: " + get_words();
     }
 
-    public void setStyle(StyleEnum style) {
+    public void set_style(StyleEnum style) {
         this.style = style;
     }
-    public void setFormat(FormatEnum format) {
+    public void set_format(FormatEnum format) {
         this.format = format;
     }
 
-    public StyleEnum getStyle() {
+    public StyleEnum get_style() {
         return this.style;
     }
-    public FormatEnum getFormat() {
+    public FormatEnum get_format() {
         return this.format;
     }
 
-    public List<String> getLines() {
+    public List<String> get_lines() {
         return this.lines;
     }
 
-    public int getWords() {
+    public int get_words() {
         return this.words;
     }
 
-    public boolean startsWith(String prefix) {
+    public boolean starts_with(String prefix) {
         return this.lines.get(0).contains(prefix);
     }
 
-    public boolean isCapital() {
+    public boolean is_capital() {
         for(String line : this.lines)
             if(!line.equals(line.toUpperCase()))
                 return false;
         return true;
     }
 
-    public String replaceFirst(String prefix, String new_prefix) {
+    public String replace_first(String prefix, String new_prefix) {
         /* TODO -> CHECK WHERE IS THIS USED AT */
         this.lines.set(0, this.lines.get(0).replaceFirst(prefix, new_prefix));
         return this.lines.get(0);

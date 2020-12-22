@@ -13,68 +13,63 @@ import datamodel.buildingblocks.LineBlock;
 import datamodel.rules.RuleInPosition;
 
 /**
- * @class: TestRuleInPosition
+ * @class TestRuleInPosition
  */
 public class TestRuleInPosition {
-    
+
     @Test
     public final void test_toString() {
-        RuleInPosition ruleApi = new RuleInPosition(new ArrayList<LineBlock>(), new ArrayList<Integer>());
+        RuleInPosition ruleApi = new RuleInPosition(new ArrayList<>(), new ArrayList<>());
         assertEquals("RuleInPosition", ruleApi.toString());
     }
 
     @Test
-    public final void test_isValid_for_invalid_lineblock() {
-        RuleInPosition ruleApi = new RuleInPosition(new ArrayList<LineBlock>(), new ArrayList<Integer>());
-        assertFalse(ruleApi.isValid(new LineBlock(new ArrayList<String>())));
+    public final void test_is_valid_for_invalid_line_block() {
+        RuleInPosition ruleApi = new RuleInPosition(new ArrayList<>(), new ArrayList<>());
+        assertFalse(ruleApi.is_valid(new LineBlock(new ArrayList<>())));
     }
 
     @Test
-    public final void test_isValid_for_correct_lineblock() {
-        List<LineBlock> lineblocks = new ArrayList<LineBlock>();
+    public final void test_is_valid_for_correct_line_block() {
+        List<LineBlock> line_blocks = new ArrayList<>();
 
-        List<String> block = new ArrayList<String>();
+        List<String> block = new ArrayList<>();
         block.add("paragraph 1");
         block.add("sub 1.1");
         block.add("sub 1.2");
-        lineblocks.add(new LineBlock(block));
+        line_blocks.add(new LineBlock(block));
 
-        block = new ArrayList<String>();
+        block = new ArrayList<>();
         block.add("paragraph 2");
         block.add("sub 2.1");
-        lineblocks.add(new LineBlock(block));
+        line_blocks.add(new LineBlock(block));
 
-        block = new ArrayList<String>();
+        block = new ArrayList<>();
         block.add("paragraph 3");
-        lineblocks.add(new LineBlock(block));
+        line_blocks.add(new LineBlock(block));
 
-        block = new ArrayList<String>();
+        block = new ArrayList<>();
         block.add("paragraph 4");
-        lineblocks.add(new LineBlock(block));
+        line_blocks.add(new LineBlock(block));
 
-        block = new ArrayList<String>();
+        block = new ArrayList<>();
         block.add("paragraph 5");
-        lineblocks.add(new LineBlock(block));
+        line_blocks.add(new LineBlock(block));
 
-        block = new ArrayList<String>();
+        block = new ArrayList<>();
         block.add("paragraph 6");
-        lineblocks.add(new LineBlock(block));
+        line_blocks.add(new LineBlock(block));
 
-        List<String> omList = new ArrayList<String>();
-        omList.add("OMIT");
-        omList.add("POSITIONS");
-        omList.add("4,5");
-
-        ArrayList<Integer> positions = new ArrayList<Integer>();
+        ArrayList<Integer> positions = new ArrayList<>();
         positions.add(4);
         positions.add(5);
-        RuleInPosition ruleApi = new RuleInPosition(lineblocks, positions);
+        RuleInPosition ruleApi = new RuleInPosition(line_blocks, positions);
 
-        assertFalse(ruleApi.isValid(lineblocks.get(0)));
-        assertFalse(ruleApi.isValid(lineblocks.get(1)));
-        assertFalse(ruleApi.isValid(lineblocks.get(2)));
-        assertFalse(ruleApi.isValid(lineblocks.get(3)));
-        assertTrue(ruleApi.isValid(lineblocks.get(4)));
-        assertTrue(ruleApi.isValid(lineblocks.get(5)));
+        assertFalse(ruleApi.is_valid(line_blocks.get(0)));
+        assertFalse(ruleApi.is_valid(line_blocks.get(1)));
+        assertFalse(ruleApi.is_valid(line_blocks.get(2)));
+        assertFalse(ruleApi.is_valid(line_blocks.get(3)));
+        assertTrue(ruleApi.is_valid(line_blocks.get(4)));
+        assertTrue(ruleApi.is_valid(line_blocks.get(5)));
     }
 }

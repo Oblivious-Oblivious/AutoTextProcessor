@@ -2,11 +2,12 @@ package test.exporters;
 
 import static org.junit.Assert.assertEquals;
 
+import dataload.ILoader;
+import exporters.IExporter;
 import org.junit.Test;
 
 import dataload.RawFileLineLoader;
 import datamodel.buildingblocks.Document;
-import datamodel.buildingblocks.Document.DocumentRawType;
 import exporters.MarkdownExporter;
 
 /**
@@ -14,27 +15,28 @@ import exporters.MarkdownExporter;
  */
 public class TestMarkdownExporter {
     private Document getDocument(String filename) {
-        Document doc = new Document(filename, DocumentRawType.RAW);
+        Document doc = new Document();
+        doc.set_doc_type("RAW");
 
         /* Load the file */
-        RawFileLineLoader loader = new RawFileLineLoader();
-        loader.load(filename, doc.getLineblocks());
+        ILoader loader = new RawFileLineLoader();
+        loader.load(filename, doc.get_line_blocks());
 
         return doc;
     }
 
     @Test
     public final void export_hippo_txt() {
-        Document doc = getDocument("C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\hippocratesOath.txt");
-        MarkdownExporter ex = new MarkdownExporter(doc, "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\Outputs\\hippoTxt.md");
+        Document doc = getDocument("Resources/SampleDocs/hippocratesOath.txt");
+        IExporter ex = new MarkdownExporter(doc, "Resources/Outputs/hippoTxt.md");
 
         assertEquals(17, ex.export());
     }
 
     @Test
     public final void export_hippo_html() {
-        Document doc = getDocument("C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\SampleDocs\\hippocratesOath.html");
-        MarkdownExporter ex = new MarkdownExporter(doc, "C:\\Users\\roott\\Documents\\C++\\uoi\\java\\Panos\\2020\\project\\Resources\\Outputs\\hippo.md");
+        Document doc = getDocument("Resources/SampleDocs/hippocratesOath.html");
+        IExporter ex = new MarkdownExporter(doc, "Resources/Outputs/hippo.md");
 
         assertEquals(17, ex.export());
     }

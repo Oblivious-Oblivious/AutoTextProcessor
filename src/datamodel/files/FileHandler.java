@@ -5,48 +5,46 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileWriter;
 
-/* TODO -> CHECK THAT FILES ONLY APPEND */
-/* TODO -> MAKE FILEHANDLER MORE PORTABLE */
-/* TODO -> FAIL ON FILE EXISTANCE */
+/* TODO -> FAIL ON FILE EXISTENCE */
 
 /**
- * @class: FileHandler
- * @desc: Implements the funcitons of reading data from and writing to a file
- * @param reader A reader file object
- * @param writer A writer file object
- * @param fd The buffered reader file descriptor
- * @param filename the filename we want to either read or write to
+ * @class FileHandler
+ * @brief Implements the functions of reading data from and writing to a file
  */
 public class FileHandler {
+    /**
+     * reader -> A reader file object
+     * writer -> A writer file object
+     * fd -> The buffered reader file descriptor
+     * filename -> the filename we want to either read or write to
+     */
     private FileReader reader;
     private FileWriter writer;
     private BufferedReader fd;
-    private String filename;
+    private final String filename;
 
     /**
-     * @func: writeLineToFile
-     * @desc: Manages the errors of writing data to a file
+     * @message write_line_to_file
+     * @brief Manages the errors of writing data to a file
      * @param data the data to write
      */
-    private int writeLineToFile(String data) {
+    private void write_line_to_file(String data) {
         try {
             /* Reset the file stream */
             this.writer.write(data);
             this.writer.write("\n");
-            return 0;
         }
         catch(Exception e) {
             System.out.println("There was an error with writing data to the output file. | `" + this.filename + '`');
-            return -1;
         }
     }
 
     /**
-     * @func: readLineFromFile
-     * @desc: Manages the errors of reading data from a file
+     * @message read_line_from_file
+     * @brief Manages the errors of reading data from a file
      * @return the line read
      */
-    private String readLineFromFile() {
+    private String read_line_from_file() {
         try {
             /* Reset the file stream */
             return this.fd.readLine();
@@ -58,10 +56,10 @@ public class FileHandler {
     }
 
     /**
-     * @func: createWriterFD
-     * @desc: Manages the errors of creating a writer file object
+     * @message create_writer_fd
+     * @brief Manages the errors of creating a writer file object
      */
-    private FileWriter createWriterFD() {
+    private FileWriter create_writer_fd() {
         try {
             File f = new File(this.filename);
             if(f.exists())
@@ -76,10 +74,10 @@ public class FileHandler {
     }
 
     /**
-     * @func: createReaderFD
-     * @desc: Manages the errors of creating a reader file object as well as its buffered reader
+     * @message create_reader_fd
+     * @brief Manages the errors of creating a reader file object as well as its buffered reader
      */
-    private FileReader createReaderFD() {
+    private FileReader create_reader_fd() {
         try {
             File f = new File(this.filename);
             if(!f.exists())
@@ -103,43 +101,40 @@ public class FileHandler {
         this.fd = null;
 
         if(w)
-            this.writer = createWriterFD();
+            this.writer = create_writer_fd();
         else
-            this.reader = createReaderFD();
+            this.reader = create_reader_fd();
     }
 
     /**
-     * @func: readLine
-     * @desc: Read data from a file
+     * @message read_line
+     * @brief Read data from a file
      * @return The data captured from the file descriptor 
      */
-    public String readLine() {
-        return readLineFromFile();
+    public String read_line() {
+        return read_line_from_file();
     }
 
     /**
-     * @func: appendLine
-     * @desc: Appends a new line to the file without ovewritting
-     * @return -> The result of write
+     * @message append_line
+     * @brief Appends a new line to the file without overwriting
      */
-    public int appendLine(String data) {
-        return writeLineToFile(data);
+    public void append_line(String data) {
+        write_line_to_file(data);
     }
 
     /**
-     * @func: closeFD()
-     * @desc: Close all file descriptors after flushing any data remaining
+     * @message close_fd
+     * @brief Close all file descriptors after flushing any data remaining
      */
-    public int closeFD() {
+    public void close_fd() {
         try {
             if(this.writer != null) writer.flush();
             if(this.reader != null) reader.close();
             if(this.writer != null) writer.close();
-            return 0;
         }
         catch(Exception e) {
             System.out.println("There was an error with closing the files. | `" + this.filename + '`');
-            return -1;
         }
     }
 }

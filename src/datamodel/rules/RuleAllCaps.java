@@ -2,12 +2,12 @@ package datamodel.rules;
 
 import datamodel.buildingblocks.LineBlock;
 
-public class RuleAllCaps extends AbstractRule {
+public class RuleAllCaps implements IRule {
 	public RuleAllCaps() {}
 	
 	@Override
-	public boolean isValid(LineBlock paragraph) {
-		return paragraph.isCapital();
+	public boolean is_valid(LineBlock paragraph) {
+		return paragraph.is_capital();
 	}
 
 	@Override

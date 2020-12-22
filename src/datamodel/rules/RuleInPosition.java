@@ -4,18 +4,18 @@ import java.util.List;
 
 import datamodel.buildingblocks.LineBlock;
 
-public class RuleInPosition extends AbstractRule {
-    private List<LineBlock> pLineblocks;
-    private List<Integer> pPositions;
+public class RuleInPosition implements IRule {
+    private final List<LineBlock> p_line_blocks;
+    private final List<Integer> p_positions;
 
-    public RuleInPosition(List<LineBlock> pLineblocks, List<Integer> pPositions) {
-        this.pLineblocks = pLineblocks;
-        this.pPositions = pPositions;
+    public RuleInPosition(List<LineBlock> p_line_blocks, List<Integer> p_positions) {
+        this.p_line_blocks = p_line_blocks;
+        this.p_positions = p_positions;
     }
 
     @Override
-    public boolean isValid(LineBlock paragraph) {
-        return pPositions.contains(this.pLineblocks.indexOf(paragraph));
+    public boolean is_valid(LineBlock paragraph) {
+        return p_positions.contains(this.p_line_blocks.indexOf(paragraph));
     }
 
     @Override

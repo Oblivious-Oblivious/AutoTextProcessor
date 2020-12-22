@@ -7,74 +7,72 @@ import datamodel.buildingblocks.StyleEnum;
 import datamodel.files.FileHandler;
 import datamodel.files.WriteHandler;
 
-/* TODO -> TURN STYLE AND FORMAT NOTATION INTO A SINGLE CHECK */
-public class MarkdownExporter {
-    private Document document;
-    private String outputFileName;
-    private FileHandler handler;
+public class MarkdownExporter implements IExporter {
+    private final Document document;
+    private final String outputFileName;
+    private final FileHandler handler;
 
-    private FileHandler createOutputFileHandler() {
+    private FileHandler create_output_file_handler() {
         return new WriteHandler(this.outputFileName);
     }
 
-    private String getStyleNotation(LineBlock l) {
-        if(l.getStyle() == StyleEnum.H1)
+    private String get_styleNotation(LineBlock l) {
+        if(l.get_style() == StyleEnum.H1)
             return "#";
-        if(l.getStyle() == StyleEnum.H2)
+        if(l.get_style() == StyleEnum.H2)
             return "##";
-        if(l.getStyle() == StyleEnum.OMITTED)
+        if(l.get_style() == StyleEnum.OMITTED)
             return null;
         
         /* NORMAL */
         return "";
     }
 
-    private String getFormatNotation(LineBlock l) {
-        if(l.getFormat() == FormatEnum.BOLD)
+    private String get_formatNotation(LineBlock l) {
+        if(l.get_format() == FormatEnum.BOLD)
             return "**";
-        if(l.getFormat() == FormatEnum.ITALICS)
+        if(l.get_format() == FormatEnum.ITALICS)
             return "_";
         
         /* REGULAR */
         return "";
     }
 
-    private void addParagraph(LineBlock l) {
+    private int addParagraph(LineBlock l) {
         StringBuilder parBlock = new StringBuilder();
 
-        for(String block : l.getLines())
-            parBlock.append(block + " ");
+        for(String block : l.get_lines())
+            parBlock.append(block)
+                    .append(" ");
 
-        String styleNotation = getStyleNotation(l);
-        String formatNotation = getFormatNotation(l);
+        String styleNotation = get_styleNotation(l);
+        String formatNotation = get_formatNotation(l);
 
-        /* TODO -> UGLY CODE */
-        if(styleNotation != null) { /* OMMITED */
+        if(styleNotation != null) { /* OMITTED */
             if(styleNotation.equals("")) /* NORMAL */
-                handler.appendLine(formatNotation + parBlock + formatNotation);
+                handler.append_line(formatNotation + parBlock + formatNotation);
             else
-                handler.appendLine(styleNotation + parBlock);
-            handler.appendLine("");
+                handler.append_line(styleNotation + parBlock);
+            handler.append_line("");
+            return 1;
         }
+        return 0;
     }
 
     public MarkdownExporter(Document document, String outputFileName) {
         this.document = document;
         this.outputFileName = outputFileName;
-        this.handler = createOutputFileHandler();
+        this.handler = create_output_file_handler();
     }
 
     public int export() {
         int par = 0;
 
-        for(LineBlock l : this.document.getLineblocks()) {
-            addParagraph(l);
-            par++;
+        for(LineBlock l : this.document.get_line_blocks()) {
+            par += addParagraph(l);
         }
 
-        /* TODO -> IF BELOW IS REMOVED FILE HANDLING CRASHES */
-        /* TODO -> JAVA GARBAGE COLLECTOR DOESNT WORK WTF ?!? */
-        this.handler.closeFD();
+        this.handler.close_fd();
 
         return par;
     }

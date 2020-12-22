@@ -8,17 +8,17 @@ import datamodel.buildingblocks.LineBlock;
  * @author pvassil
  *
  */
-public abstract class AbstractRule {
+public interface IRule {
 	/**
 	 * Decides if the paragraph abides by the rule
 	 * 
-	 * @param paragraph the LineBlock under test
+	 * @param paragraph -> the LineBlock under test
 	 * @return true if the the LineBlock abides by the test of the rule
 	 */
-	public abstract boolean isValid(LineBlock paragraph);
+	boolean is_valid(LineBlock paragraph);
 	
 	/**
 	 * For debugging and testing purposes: outputs a string on what the rule does
 	 */
-	public abstract String toString();
+	String toString();
 }

@@ -10,29 +10,29 @@ import datamodel.buildingblocks.LineBlock;
  * For each concrete subclass, the factory comes with one method.
  * Thus, the clients of the package need only work with
  * (a) the current factory for rule creation
- * (b) the AbstractRule abstract class for the actual work of a specific rule (rule validation)
+ * (b) the IRule abstract class for the actual work of a specific rule (rule validation)
  *  
  * @author pvassil
  * @version 0.1
  */
 public class ConcreteRuleFactory {
-	public AbstractRule createRuleUndefined() {
+	public IRule create_rule_undefined() {
 		return new RuleUndefined();	
 	}
 	
-	public AbstractRule createRuleAllCaps() {
+	public IRule create_rule_all_caps() {
 		return new RuleAllCaps();
 	}
 
-	public AbstractRule createRuleInPosition(List<LineBlock> pLineblocks, List<Integer> pPositions) {
-		if((pLineblocks == null) || (pPositions == null)) {
+	public IRule create_rule_in_position(List<LineBlock> p_line_blocks, List<Integer> pPositions) {
+		if((p_line_blocks == null) || (pPositions == null)) {
 			System.err.println("[ConcreteRuleFactory] createRuleInPosition with empty parameters");
 			return new RuleUndefined();
 		}
-		return new RuleInPosition(pLineblocks, pPositions);
+		return new RuleInPosition(p_line_blocks, pPositions);
 	}
 
-	public AbstractRule createRuleStartWith(String prefix) {
+	public IRule create_rule_start_with(String prefix) {
 		if(prefix == null) {
 			System.err.println("[ConcreteRuleFactory] createRuleStartWith with empty parameters");
 			return new RuleUndefined();

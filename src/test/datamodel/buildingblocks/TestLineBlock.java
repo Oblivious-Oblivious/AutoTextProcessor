@@ -21,8 +21,8 @@ public class TestLineBlock {
     List<String> block;
 
     @Before
-    public final void setuplbApi() {
-        this.block = new ArrayList<String>();
+    public final void setup_lb_api() {
+        this.block = new ArrayList<>();
         this.block.add("paragraph 1");
         this.block.add("sub 1.1");
         this.block.add("sub 1.2");
@@ -31,58 +31,58 @@ public class TestLineBlock {
     }
 
     @Test
-    public final void test_getStatsAsString_not_null() {
-        assertNotNull(this.lbApi.getStatsAsString());
+    public final void test_get_stats_as_string_not_null() {
+        assertNotNull(this.lbApi.get_stats_as_string());
     }
 
     @Test
-    public final void test_getStatsAsString_on_lb() {
-        assertEquals("Lines: 3, Words: 6", this.lbApi.getStatsAsString());
+    public final void test_get_stats_as_string_on_lb() {
+        assertEquals("Lines: 3, Words: 6", this.lbApi.get_stats_as_string());
     }
 
     @Test
-    public final void test_getWords_is_six() {
-        assertEquals(6, this.lbApi.getWords());
+    public final void test_get_words_is_six() {
+        assertEquals(6, this.lbApi.get_words());
     }
 
     @Test
-    public final void test_getLines_same_size() {
-        assertEquals(this.block.size(), this.lbApi.getLines().size());
+    public final void test_get_lines_same_size() {
+        assertEquals(this.block.size(), this.lbApi.get_lines().size());
     }
 
     @Test
-    public final void test_getLines_same_content() {
-        assertEquals(this.block.get(0), this.lbApi.getLines().get(0));
-        assertEquals(this.block.get(1), this.lbApi.getLines().get(1));
-        assertEquals(this.block.get(2), this.lbApi.getLines().get(2));
+    public final void test_get_lines_same_content() {
+        assertEquals(this.block.get(0), this.lbApi.get_lines().get(0));
+        assertEquals(this.block.get(1), this.lbApi.get_lines().get(1));
+        assertEquals(this.block.get(2), this.lbApi.get_lines().get(2));
     }
 
     @Test
-    public final void test_startsWith_correct() {
-        assertFalse(this.lbApi.startsWith("not this"));
+    public final void test_starts_with_correct() {
+        assertFalse(this.lbApi.starts_with("not this"));
         
-        assertTrue(this.lbApi.startsWith(""));
-        assertTrue(this.lbApi.startsWith("p"));
-        assertTrue(this.lbApi.startsWith("pa"));
-        assertTrue(this.lbApi.startsWith("par"));
-        assertTrue(this.lbApi.startsWith("para"));
-        assertTrue(this.lbApi.startsWith("parag"));
-        assertTrue(this.lbApi.startsWith("paragr"));
-        assertTrue(this.lbApi.startsWith("paragra"));
-        assertTrue(this.lbApi.startsWith("paragrap"));
-        assertTrue(this.lbApi.startsWith("paragraph"));
-        assertTrue(this.lbApi.startsWith("paragraph "));
-        assertTrue(this.lbApi.startsWith("paragraph 1"));
+        assertTrue(this.lbApi.starts_with(""));
+        assertTrue(this.lbApi.starts_with("p"));
+        assertTrue(this.lbApi.starts_with("pa"));
+        assertTrue(this.lbApi.starts_with("par"));
+        assertTrue(this.lbApi.starts_with("para"));
+        assertTrue(this.lbApi.starts_with("parag"));
+        assertTrue(this.lbApi.starts_with("paragr"));
+        assertTrue(this.lbApi.starts_with("paragra"));
+        assertTrue(this.lbApi.starts_with("paragrap"));
+        assertTrue(this.lbApi.starts_with("paragraph"));
+        assertTrue(this.lbApi.starts_with("paragraph "));
+        assertTrue(this.lbApi.starts_with("paragraph 1"));
     }
 
     @Test
-    public final void test_replaceFirst_not_null() {
-        assertNotNull(this.lbApi.replaceFirst("stuff", "new stuff"));
+    public final void test_replace_first_not_null() {
+        assertNotNull(this.lbApi.replace_first("stuff", "new stuff"));
     }
 
     @Test
-    public final void test_replaceFirst_correct() {
-        this.lbApi.replaceFirst("paragraph", "block");
-        assertEquals("block 1", this.lbApi.getLines().get(0));
+    public final void test_replace_first_correct() {
+        this.lbApi.replace_first("paragraph", "block");
+        assertEquals("block 1", this.lbApi.get_lines().get(0));
     }
 }
