@@ -1,79 +1,55 @@
 package exporters;
 
 import datamodel.Document;
-import datamodel.FormatEnum;
 import datamodel.LineBlock;
-import datamodel.StyleEnum;
-import files.FileHandler;
+
 import files.WriteHandler;
 
+/**
+ * @class MarkdownExporter
+ * @brief Controller for handling the export_markdown to a markdown type file
+ */
 public class MarkdownExporter implements IExporter {
+    /**
+     * document -> The document containing all information for the export_markdown
+     * output_filename -> The file name to export_markdown to
+     */
     private final Document document;
-    private final String outputFileName;
-    private final FileHandler handler;
+    private final String output_filename;
 
-    private FileHandler create_output_file_handler() {
-        return new WriteHandler(this.outputFileName);
-    }
+    /**
+     * @message count_and_export
+     * @brief a method that opens a new file writer and and handles exporting
+     * @return The exported number of paragraphs (skips omitted)
+     */
+    private int count_and_export() {
+        WriteHandler writer = new WriteHandler();
+        int num_of_paragraphs = 0;
 
-    private String get_styleNotation(LineBlock l) {
-        if(l.get_style() == StyleEnum.H1)
-            return "#";
-        if(l.get_style() == StyleEnum.H2)
-            return "##";
-        if(l.get_style() == StyleEnum.OMITTED)
-            return null;
-        
-        /* NORMAL */
-        return "";
-    }
-
-    private String get_formatNotation(LineBlock l) {
-        if(l.get_format() == FormatEnum.BOLD)
-            return "**";
-        if(l.get_format() == FormatEnum.ITALICS)
-            return "_";
-        
-        /* REGULAR */
-        return "";
-    }
-
-    private int addParagraph(LineBlock l) {
-        StringBuilder parBlock = new StringBuilder();
-
-        for(String block : l.get_lines())
-            parBlock.append(block)
-                    .append(" ");
-
-        String styleNotation = get_styleNotation(l);
-        String formatNotation = get_formatNotation(l);
-
-        if(styleNotation != null) { /* OMITTED */
-            if(styleNotation.equals("")) /* NORMAL */
-                handler.append_line(formatNotation + parBlock + formatNotation);
-            else
-                handler.append_line(styleNotation + parBlock);
-            handler.append_line("");
-            return 1;
+        if(writer.open(this.output_filename)) {
+            for(LineBlock paragraph : document.get_line_blocks())
+                num_of_paragraphs += paragraph.export_markdown(writer);
+            writer.close();
         }
-        return 0;
+
+        return num_of_paragraphs;
     }
 
-    public MarkdownExporter(Document document, String outputFileName) {
+    /**
+     * @Constructor
+     */
+    public MarkdownExporter(Document document, String output_filename) {
         this.document = document;
-        this.outputFileName = outputFileName;
-        this.handler = create_output_file_handler();
+        this.output_filename = output_filename;
     }
 
+    /**
+     * @message export_markdown
+     * @brief main interface method that gets called from engine
+     * @return The number of paragraphs
+     */
+    @Override
     public int export() {
-        int par = 0;
-
-        for(LineBlock l : this.document.get_line_blocks()) {
-            par += addParagraph(l);
-        }
-
-        this.handler.close_fd();
-
-        return par;
+        return count_and_export();
     }
 }

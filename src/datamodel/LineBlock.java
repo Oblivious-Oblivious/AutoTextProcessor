@@ -1,5 +1,12 @@
 package datamodel;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import files.BothWriter;
+import files.ParagraphWriter;
+import files.StartWriter;
+import files.WriteHandler;
+
 import java.util.List;
 
 /**
@@ -23,6 +30,20 @@ public class LineBlock {
             res += line.strip().split(" ").length;
         
         return res;
+    }
+
+    /**
+     * @message lines_to_string
+     * @brief Turns each paragraph into a single string with spaces
+     * @return The newly created string
+     */
+    private String lines_to_string() {
+        StringBuilder total = new StringBuilder();
+
+        for(String line : this.get_lines())
+            total.append(line).append(" ");
+
+        return total.toString();
     }
 
     public LineBlock(List<String> lines) {
@@ -71,5 +92,57 @@ public class LineBlock {
         /* TODO -> CHECK WHERE IS THIS USED AT */
         this.lines.set(0, this.lines.get(0).replaceFirst(prefix, new_prefix));
         return this.lines.get(0);
+    }
+
+    /**
+     * @message export_markdown
+     * @brief Factory method that produces Writer objects according to style and format
+     * @param write_handler -> The handler to pass to the Writer actor
+     */
+    public int export_markdown(WriteHandler write_handler) {
+        if(this.style == StyleEnum.H1)
+            return new StartWriter().write_to_file("#", this, write_handler);
+        else if(this.style == StyleEnum.H2)
+            return new StartWriter().write_to_file("##", this, write_handler);
+        else if(this.style == StyleEnum.OMITTED)
+            return 0;
+        else if(this.format == FormatEnum.BOLD)
+            return new BothWriter().write_to_file("**", this, write_handler);
+        else if(this.format == FormatEnum.ITALICS)
+            return new BothWriter().write_to_file("_", this, write_handler);
+        else
+            return new StartWriter().write_to_file("", this, write_handler);
+    }
+
+    /**
+     * @message export_pdf
+     * @brief Factory method for creating Pdf Writer objects according to style and format
+     * @param pdf_document -> A document for writing to pdf files (tested in itext library)
+     */
+    public int export_pdf(com.itextpdf.text.Document pdf_document) {
+        if(this.style == StyleEnum.H1) {
+            /* We choose a specific font family combined with size and style */
+            Font font = new Font(Font.FontFamily.COURIER, 32, Font.NORMAL);
+            return new ParagraphWriter().write_to_file(pdf_document, this.lines_to_string(), font);
+        }
+        else if(this.style == StyleEnum.H2) {
+            Font font = new Font(Font.FontFamily.COURIER, 20, Font.NORMAL);
+            return new ParagraphWriter().write_to_file(pdf_document, this.lines_to_string(), font);
+        }
+        else if(this.style == StyleEnum.OMITTED) {
+            return 0;
+        }
+        else if(this.format == FormatEnum.BOLD) {
+            Font font = new Font(Font.FontFamily.COURIER, 12, Font.BOLD);
+            return new ParagraphWriter().write_to_file(pdf_document, this.lines_to_string(), font);
+        }
+        else if(this.format == FormatEnum.ITALICS) {
+            Font font = new Font(Font.FontFamily.COURIER, 12, Font.ITALIC);
+            return new ParagraphWriter().write_to_file(pdf_document, this.lines_to_string(), font);
+        }
+        else {
+            Font font = new Font(Font.FontFamily.COURIER, 12, Font.NORMAL);
+            return new ParagraphWriter().write_to_file(pdf_document, this.lines_to_string(), font);
+        }
     }
 }

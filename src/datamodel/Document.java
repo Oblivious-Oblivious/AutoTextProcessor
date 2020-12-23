@@ -21,7 +21,6 @@ public class Document {
     public DocumentLoadType get_doc_type() {
         return this.doc_type;
     }
-
     public void set_doc_type(String p_input_type) {
         this.doc_type = p_input_type.equalsIgnoreCase("ANNOTATED")
                 ? DocumentLoadType.ANNOTATED

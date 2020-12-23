@@ -146,12 +146,12 @@ public class CommandLine implements IMain {
     
     /**
      * @message export_to_filetype
-     * @brief Option to export the edited file to pdf or md
+     * @brief Option to export_markdown the edited file to pdf or md
      * @return true if all compiles correctly else exit with an error message
      */
     @Override
 	public boolean export_to_filetype() {
-        String output_type = input("Please input the output type to export to (MD|PDF): ");
+        String output_type = input("Please input the output type to export_markdown to (MD|PDF): ");
         String output_file_name = input("Please input an output file name: ");
 
         figure_out_export(output_type, output_file_name);

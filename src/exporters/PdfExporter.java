@@ -1,99 +1,67 @@
 package exporters;
 
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-import com.itextpdf.text.Font;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Font.FontFamily;
-import com.itextpdf.text.pdf.PdfWriter;
-
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.*;
 import datamodel.Document;
-import datamodel.FormatEnum;
 import datamodel.LineBlock;
-import datamodel.StyleEnum;
 
 /**
- * PdfExporter
+ * @class PdfExporter
+ * @brief Controller for handling the export_markdown to a pdf type file
  */
 public class PdfExporter implements IExporter {
+    /**
+     * document -> The document containing all information for the export_markdown
+     * output_filename -> The file name to export_markdown to
+     */
     private final Document document;
-    private final String outputFileName;
-    private com.itextpdf.text.Document pdfDoc;
+    private final String output_filename;
 
-    private Font getFont(LineBlock l) {
-        if(l.get_style() == StyleEnum.OMITTED) /* OMITTED */
-            return null;
-        else if(l.get_style() == StyleEnum.H1)
-            return new Font(FontFamily.HELVETICA, 28);
-        else if(l.get_style() == StyleEnum.H2)
-            return new Font(FontFamily.HELVETICA, 20);
-        else if(l.get_format() == FormatEnum.BOLD)
-            return new Font(FontFamily.HELVETICA, 12, Font.BOLD);
-        else if(l.get_format() == FormatEnum.ITALICS)
-            return new Font(FontFamily.HELVETICA, 12, Font.ITALIC);
-        else /* REGULAR */
-            return new Font(FontFamily.HELVETICA, 12);
-    }
-
-    private int addParagraph(LineBlock l) {
-        StringBuilder parBlock = new StringBuilder();
-
-        Font format = getFont(l);
-        if(format == null)
-            return 0;
-
-        for(String block : l.get_lines())
-            parBlock.append(block)
-                    .append(" ");
-
-        try {
-            this.pdfDoc.add(new Paragraph(parBlock.toString(), format));
-            this.pdfDoc.add(new Paragraph());
-            this.pdfDoc.add(new Phrase("\n"));
-        }
-        catch(Exception e) {
-            System.out.println("Error in creating a PDF handler: " + e);
-        }
-
-        return 1;
-    }
-
-    private int addContent() {
-        int par = 0;
-
-        for(LineBlock l : this.document.get_line_blocks())
-            par += addParagraph(l);
-
-        return par;
-    }
-
-    private void createPdfHandler() {
-        this.pdfDoc = new com.itextpdf.text.Document();
-
-        try {
-            PdfWriter.getInstance(this.pdfDoc, new FileOutputStream(this.outputFileName));
-            this.pdfDoc.open();
-        }
-        catch(Exception e) {
-            System.out.println("Error in creating a PDF handler");
-        }
-    }
-
-    private void closePdfHandler() {
-        this.pdfDoc.close();
-    }
-
-    public PdfExporter(Document document, String outputFileName) {
+    /**
+     * @Constructor
+     */
+    public PdfExporter(Document document, String output_filename) {
         this.document = document;
-        this.outputFileName = outputFileName;
+        this.output_filename = output_filename;
     }
 
-    public int export() {
-        createPdfHandler();
-        int par = addContent();
-        closePdfHandler();
+    /**
+     * @message count_and_export
+     * @brief a method that opens a new pdf writer and handles exporting
+     * @return The exported number of paragraphs (skips omitted)
+     */
+    public int count_and_export() {
+        int num_of_paragraphs = 0;
+        com.itextpdf.text.Document pdf_document = new com.itextpdf.text.Document();
 
-        return par;
+        try {
+            /* We get an instance of a writer in order to properly work */
+            /* pdf_document is a throwable */
+            PdfWriter.getInstance(pdf_document, new FileOutputStream(this.output_filename));
+            pdf_document.open();
+
+            for(LineBlock paragraph : document.get_line_blocks())
+                num_of_paragraphs += paragraph.export_pdf(pdf_document);
+
+            pdf_document.close();
+        }
+        catch(FileNotFoundException | DocumentException e) {
+            e.printStackTrace();
+        }
+
+        return num_of_paragraphs;
+    }
+
+    /**
+     * @message export_markdown
+     * @brief main interface method that gets called from engine
+     * @return The number of paragraphs
+     */
+    @Override
+    public int export() {
+        return count_and_export();
     }
 }

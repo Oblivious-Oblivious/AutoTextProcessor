@@ -15,7 +15,7 @@ import dataload.RawFileLineLoader;
 import datamodel.Document;
 import datamodel.LineBlock;
 import datamodel.DocumentLoadType;
-import files.FileHandler;
+
 import files.WriteHandler;
 
 /**
@@ -50,25 +50,23 @@ public class TestDocument {
     public static void setup_files() {
         /* Handle files */
         File file;
-        try {
-            file = new File("test_document_raw.txt"); 
-            file.delete();
+        file = new File("test_document_raw.txt");
+        file.delete();
 
-            file = new File("test_document_annotated.html");
-            file.delete();
-        }
-        catch(Exception e) {
-            System.out.println("Error in deleting: `" + e + "`");
-        }
+        file = new File("test_document_annotated.html");
+        file.delete();
 
         System.out.println("Working Directory = " + System.getProperty("user.dir"));
-        FileHandler handler = new WriteHandler("test_document_raw.txt");
-        handler.append_line("TITLE AND STUFF\n\nparagraph1\nsub1.1\nsub1.2\n\nparagraph2\nsub2.1\n\nparagraph3\n\nparagraph4 line4\n\n");
-        handler.close_fd();
+        WriteHandler handler = new WriteHandler();
+        handler.open("test_document_raw.txt");
 
-        handler = new WriteHandler("test_document_annotated.html");
-        handler.append_line("<H1>TITLE AND STUFF\n\n<p>paragraph1\nsub1.1\nsub1.2\n\n<p>paragraph2\nsub2.1\n\n<p>paragraph3\n\n<p>paragraph4 line4\n\n");
-        handler.close_fd();
+        handler.write_line("TITLE AND STUFF\n\nparagraph1\nsub1.1\nsub1.2\n\nparagraph2\nsub2.1\n\nparagraph3\n\nparagraph4 line4\n\n");
+        handler.close();
+
+        handler = new WriteHandler();
+        handler.open("test_document_annotated.html");
+        handler.write_line("<H1>TITLE AND STUFF\n\n<p>paragraph1\nsub1.1\nsub1.2\n\n<p>paragraph2\nsub2.1\n\n<p>paragraph3\n\n<p>paragraph4 line4\n\n");
+        handler.close();
     }
 
     @Test

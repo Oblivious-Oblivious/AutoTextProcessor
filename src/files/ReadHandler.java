@@ -20,11 +20,10 @@ public class ReadHandler {
     private BufferedReader buffered_reader;
     private String filepath;
 
-    public ReadHandler() {}
-
     /**
      * @message open
      * @brief Open a file in read mode
+     * @param filepath -> The path to open
      * @return -> a boolean signaling if the opening was successful
      */
     public boolean open(String filepath) {
@@ -56,7 +55,7 @@ public class ReadHandler {
             return buffered_reader.readLine();
         }
         catch(IOException e) {
-            System.out.println("Error on readLine");
+            System.out.println("There was an error with reading a line from the input file. | `" + this.filepath + '`');
             return null;
         }
     }
@@ -71,7 +70,7 @@ public class ReadHandler {
             buffered_reader.close();
         }
         catch(IOException e) {
-            System.out.println("There was an error with closing the file descriptors. | `" + this.filepath + '`');
+            System.out.println("There was an error with closing the file descriptor. | `" + this.filepath + '`');
         }
     }
 }
