@@ -1,4 +1,4 @@
-package test.datamodel.rules;
+package test.rules;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -17,16 +17,16 @@ import rules.RuleAllCaps;
  * @class TestRuleAllCaps
  */
 public class TestRuleAllCaps {
-    RuleAllCaps ruleApi;
+    RuleAllCaps rule_api;
 
     @Before
     public final void setup_rule_api() {
-        this.ruleApi = new RuleAllCaps();
+        this.rule_api = new RuleAllCaps();
     }
     
     @Test
     public final void test_toString() {
-        assertEquals("RuleAllCaps", this.ruleApi.toString());
+        assertEquals("RuleAllCaps", this.rule_api.toString());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class TestRuleAllCaps {
         block.add("more stuff underneath");
         LineBlock lineblock = new LineBlock(block);
 
-        assertFalse(this.ruleApi.is_valid(lineblock));
+        assertFalse(this.rule_api.is_valid(lineblock));
     }
 
     @Test
@@ -46,6 +46,6 @@ public class TestRuleAllCaps {
         block.add("AND MORE");
         LineBlock lineblock = new LineBlock(block);
         
-        assertTrue(this.ruleApi.is_valid(lineblock));
+        assertTrue(this.rule_api.is_valid(lineblock));
     }
 }

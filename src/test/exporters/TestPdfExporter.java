@@ -13,7 +13,7 @@ import exporters.PdfExporter;
  * TestPdfExporter
  */
 public class TestPdfExporter {
-    private Document getDocument(String filename) {
+    private Document get_document(String filename) {
         Document doc = new Document();
         doc.set_doc_type("RAW");
 
@@ -26,7 +26,7 @@ public class TestPdfExporter {
 
     @Test
     public final void export_hippo_txt() {
-        Document doc = getDocument("Resources/SampleDocs/hippocratesOath.txt");
+        Document doc = get_document("Resources/SampleDocs/hippocratesOath.txt");
         PdfExporter ex = new PdfExporter(doc, "Resources/Outputs/hippoTxt.pdf");
 
         assertEquals(17, ex.export());
@@ -34,7 +34,7 @@ public class TestPdfExporter {
 
     @Test
     public final void export_hippo_html() {
-        Document doc = getDocument("Resources/SampleDocs/hippocratesOath.html");
+        Document doc = get_document("Resources/SampleDocs/hippocratesOath.html");
         PdfExporter ex = new PdfExporter(doc, "Resources/Outputs/hippo.pdf");
 
         assertEquals(17, ex.export());

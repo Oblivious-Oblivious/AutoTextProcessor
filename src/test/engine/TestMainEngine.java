@@ -15,7 +15,6 @@ import org.apache.commons.io.FileUtils;
 
 import engine.IMainEngine;
 
-
 /**
  * Test class to test the back-end, server class MainEngine of the project
  * 
@@ -26,10 +25,10 @@ import engine.IMainEngine;
  * 
  */
 public class TestMainEngine {
-	private static List<String> omList; 
-	private static List<String> h1List; 
-	private static List<String> h2List; 
-	private static List<String> boldList; 
+	private static List<String> omList;
+	private static List<String> h1List;
+	private static List<String> h2List;
+	private static List<String> boldList;
 	private static List<String> italicsList;
 	private static List<List<String>> inputSpec;
 	private static IMainEngine engine;
@@ -53,7 +52,7 @@ public class TestMainEngine {
 		h1List = new ArrayList<>(); inputSpec.add(h1List);
 		h1List.add("H1");h1List.add("STARTS_WITH"); h1List.add("OATH AND");
 		omList = new ArrayList<>(); inputSpec.add(omList);
-		omList.add("OMIT");omList.add("POSITIONS");omList.add("0,3");	
+		omList.add("OMIT");omList.add("POSITIONS");omList.add("0,3");
 		h2List = new ArrayList<>(); inputSpec.add(h2List);
 		h2List.add("H2");h2List.add("ALL_CAPS");
 		italicsList = new ArrayList<>(); inputSpec.add(italicsList);
@@ -70,6 +69,19 @@ public class TestMainEngine {
 		italicsList.add("<I>");italicsList.add("STARTS_WITH"); italicsList.add("<i>");
 		boldList = new ArrayList<>(); inputSpec.add(boldList);
 		boldList.add("<B>");boldList.add("STARTS_WITH"); boldList.add("<b>");
+	}
+
+	private Boolean compareFiles(File outputFile, File outputFileRef, String caller) {
+		boolean localComparison = false;
+
+		try {
+			localComparison = FileUtils.contentEquals(outputFile, outputFileRef);
+		}
+		catch (IOException e) {
+			System.err.println("[TestMainEngine] IO Exception at "+ caller);
+			e.printStackTrace();
+		}
+		return localComparison;
 	}
 
 	@Test
@@ -143,8 +155,6 @@ public class TestMainEngine {
 		int outputParagraphs = engine.export_pdf(outputFileName);
 		assertEquals(17,outputParagraphs);
 	}
-
-	
 	
 	@Test
 	public final void testLoadProcessWriteMarkupHTMLHippo() {
@@ -161,17 +171,4 @@ public class TestMainEngine {
 		int outputParagraphs = engine.export_markdown(outputFileName);
 		assertEquals(17,outputParagraphs);
 	}
-	
-	
-	private Boolean compareFiles(File outputFile, File outputFileRef, String caller) {
-		boolean localComparison = false;
-		try {
-			localComparison = FileUtils.contentEquals(outputFile, outputFileRef);
-		} catch (IOException e) {
-			System.err.println("[TestMainEngine] IO Exception at "+ caller);
-			e.printStackTrace();
-		}
-		return localComparison;
-	}//end compareFiles
-
-}//end class
+}

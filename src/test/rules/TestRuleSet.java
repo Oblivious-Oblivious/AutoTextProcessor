@@ -1,4 +1,4 @@
-package test.datamodel.ruleset;
+package test.rules;
 
 import static org.junit.Assert.assertEquals;
 
@@ -17,8 +17,8 @@ import rules.RuleSetCreator;
  * TestRuleSet
  */
 public class TestRuleSet {
-    private RuleSet create_rule_set(List<LineBlock> line_blocks, List<List<String>> inputSpec, String name) {
-        return new RuleSetCreator(line_blocks, inputSpec, name).create_rule_set();
+    private RuleSet create_rule_set(List<LineBlock> line_blocks, List<List<String>> input_spec, String name) {
+        return new RuleSetCreator(line_blocks, input_spec, name).create_rule_set();
     }
 
     @Test
@@ -40,14 +40,14 @@ public class TestRuleSet {
         boldList.add("ALL_CAPS");
         boldList.add("");
         
-        List<List<String>> inputSpec = new ArrayList<>();
-        inputSpec.add(h1List);
-        inputSpec.add(boldList);
+        List<List<String>> input_spec = new ArrayList<>();
+        input_spec.add(h1List);
+        input_spec.add(boldList);
 
-        RuleSet result = create_rule_set(line_blocks, inputSpec, "rule_h1_bold_all_caps");
+        RuleSet result = create_rule_set(line_blocks, input_spec, "rule_h1_bold_all_caps");
 
-        assertEquals(FormatEnum.BOLD, result.determineFormatStatus(line_blocks.get(0)));
-        assertEquals(StyleEnum.H1, result.determineHeadingStatus(line_blocks.get(0)));
+        assertEquals(FormatEnum.BOLD, result.determine_format_status(line_blocks.get(0)));
+        assertEquals(StyleEnum.H1, result.determine_heading_status(line_blocks.get(0)));
     }
 
     @Test
@@ -64,13 +64,13 @@ public class TestRuleSet {
         h1List.add("STARTS_WITH");
         h1List.add("para");
         
-        List<List<String>> inputSpec = new ArrayList<>();
-        inputSpec.add(h1List);
+        List<List<String>> input_spec = new ArrayList<>();
+        input_spec.add(h1List);
 
-        RuleSet result = create_rule_set(line_blocks, inputSpec, "rule_h1_starts_with_para");
+        RuleSet result = create_rule_set(line_blocks, input_spec, "rule_h1_starts_with_para");
 
-        assertEquals(FormatEnum.REGULAR, result.determineFormatStatus(line_blocks.get(0)));
-        assertEquals(StyleEnum.H1, result.determineHeadingStatus(line_blocks.get(0)));
+        assertEquals(FormatEnum.REGULAR, result.determine_format_status(line_blocks.get(0)));
+        assertEquals(StyleEnum.H1, result.determine_heading_status(line_blocks.get(0)));
     }
 
     @Test
@@ -109,16 +109,16 @@ public class TestRuleSet {
         omList.add("POSITIONS");
         omList.add("4,5");
         
-        List<List<String>> inputSpec = new ArrayList<>();
-        inputSpec.add(omList);
+        List<List<String>> input_spec = new ArrayList<>();
+        input_spec.add(omList);
 
-        RuleSet result = create_rule_set(line_blocks, inputSpec, "rule_omit_positions_4,5");
+        RuleSet result = create_rule_set(line_blocks, input_spec, "rule_omit_positions_4,5");
 
-        assertEquals(StyleEnum.NORMAL, result.determineHeadingStatus(line_blocks.get(0)));
-        assertEquals(StyleEnum.NORMAL, result.determineHeadingStatus(line_blocks.get(1)));
-        assertEquals(StyleEnum.NORMAL, result.determineHeadingStatus(line_blocks.get(2)));
-        assertEquals(StyleEnum.NORMAL, result.determineHeadingStatus(line_blocks.get(3)));
-        assertEquals(StyleEnum.OMITTED, result.determineHeadingStatus(line_blocks.get(4)));
-        assertEquals(StyleEnum.OMITTED, result.determineHeadingStatus(line_blocks.get(5)));
+        assertEquals(StyleEnum.NORMAL, result.determine_heading_status(line_blocks.get(0)));
+        assertEquals(StyleEnum.NORMAL, result.determine_heading_status(line_blocks.get(1)));
+        assertEquals(StyleEnum.NORMAL, result.determine_heading_status(line_blocks.get(2)));
+        assertEquals(StyleEnum.NORMAL, result.determine_heading_status(line_blocks.get(3)));
+        assertEquals(StyleEnum.OMITTED, result.determine_heading_status(line_blocks.get(4)));
+        assertEquals(StyleEnum.OMITTED, result.determine_heading_status(line_blocks.get(5)));
     }
 }

@@ -24,12 +24,12 @@ public class ConcreteRuleFactory {
 		return new RuleAllCaps();
 	}
 
-	public IRule create_rule_in_position(List<LineBlock> p_line_blocks, List<Integer> pPositions) {
-		if((p_line_blocks == null) || (pPositions == null)) {
+	public IRule create_rule_in_position(List<LineBlock> line_blocks, List<Integer> positions) {
+		if((line_blocks == null) || (positions == null)) {
 			System.err.println("[ConcreteRuleFactory] createRuleInPosition with empty parameters");
 			return new RuleUndefined();
 		}
-		return new RuleInPosition(p_line_blocks, pPositions);
+		return new RuleInPosition(line_blocks, positions);
 	}
 
 	public IRule create_rule_start_with(String prefix) {
@@ -39,5 +39,4 @@ public class ConcreteRuleFactory {
 		}
 		return new RuleStartWith(prefix);
 	}
-	
 }

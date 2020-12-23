@@ -10,10 +10,10 @@ import engine.MainEngine;
  */
 public class CommandLine implements IMain {
     /**
-     * mainEngine_api -> The MainEngine object to use for implementing the use cases
+     * main_engine_api -> The MainEngine object to use for implementing the use cases
      * s -> A scanner object for talking to the user
      */
-    private MainEngine mainEngine_api;
+    private MainEngine main_engine_api;
     private final Scanner s = new Scanner(System.in);
 
     /**
@@ -32,7 +32,7 @@ public class CommandLine implements IMain {
      * @brief Setup engine variables
      */
     private void create_engine_api(String p_input_type) {
-        this.mainEngine_api = new MainEngine(p_input_type);
+        this.main_engine_api = new MainEngine(p_input_type);
     }
 
     private void add_rule(List<List<String>> input_spec, String input_string) {
@@ -63,14 +63,14 @@ public class CommandLine implements IMain {
     }
 
     private void register_raw(List<List<String>> input_spec) {
-        this.mainEngine_api.register_input_rule_set_for_plain_files(input_spec);
+        this.main_engine_api.register_input_rule_set_for_plain_files(input_spec);
     }
 
     private void register_annotated(List<List<String>> input_spec) {
         List<String> prefixes = new ArrayList<>();
         String prefixes_string = input("Input a list of html prefixes separated by a space: ");
         Collections.addAll(prefixes, prefixes_string.split(" "));
-        this.mainEngine_api.register_input_rule_set_for_annotated_files(input_spec, prefixes);
+        this.main_engine_api.register_input_rule_set_for_annotated_files(input_spec, prefixes);
     }
 
     private void figure_out_registration(List<List<String>> input_spec) {
@@ -89,8 +89,8 @@ public class CommandLine implements IMain {
 
     private void figure_out_export(String output_type, String output_file_name) {
         switch(output_type.toUpperCase()) {
-            case "MD" -> this.mainEngine_api.export_markdown(output_file_name);
-            case "PDF" -> this.mainEngine_api.export_pdf(output_file_name);
+            case "MD" -> this.main_engine_api.export_markdown(output_file_name);
+            case "PDF" -> this.main_engine_api.export_pdf(output_file_name);
             default -> System.out.println("WRONG EXPORT TYPE");
         }
     }
@@ -129,7 +129,7 @@ public class CommandLine implements IMain {
 	public boolean load_data() {
         String filepath = input("Input the path of the input document: ");
 
-	    return this.mainEngine_api.load_file_and_characterize_blocks(filepath) > 0;
+	    return this.main_engine_api.load_file_and_characterize_blocks(filepath) > 0;
     }
     
     /**
@@ -139,7 +139,7 @@ public class CommandLine implements IMain {
      */
     @Override
 	public boolean get_report() {
-        for(String line : this.mainEngine_api.report_with_stats())
+        for(String line : this.main_engine_api.report_with_stats())
             System.out.println(line);
 		return true;
     }

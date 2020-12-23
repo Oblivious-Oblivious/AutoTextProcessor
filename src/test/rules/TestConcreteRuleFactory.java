@@ -1,4 +1,4 @@
-package test.datamodel.rules;
+package test.rules;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -34,9 +34,9 @@ public class TestConcreteRuleFactory {
 
     @Test
     public final void test_createRuleInPosition() {
-        List<LineBlock> p_line_blocks = new ArrayList<>();
-        List<Integer> pPositions = new ArrayList<>();
-        assertNotNull(this.ruleApi.create_rule_in_position(p_line_blocks, pPositions));
+        List<LineBlock> line_blocks = new ArrayList<>();
+        List<Integer> positions = new ArrayList<>();
+        assertNotNull(this.ruleApi.create_rule_in_position(line_blocks, positions));
     }
 
     @Test

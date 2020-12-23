@@ -1,4 +1,4 @@
-package test.datamodel.rules;
+package test.rules;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -16,17 +16,16 @@ import rules.RuleInPosition;
  * @class TestRuleInPosition
  */
 public class TestRuleInPosition {
-
     @Test
     public final void test_toString() {
-        RuleInPosition ruleApi = new RuleInPosition(new ArrayList<>(), new ArrayList<>());
-        assertEquals("RuleInPosition", ruleApi.toString());
+        RuleInPosition rule_api = new RuleInPosition(new ArrayList<>(), new ArrayList<>());
+        assertEquals("RuleInPosition", rule_api.toString());
     }
 
     @Test
     public final void test_is_valid_for_invalid_line_block() {
-        RuleInPosition ruleApi = new RuleInPosition(new ArrayList<>(), new ArrayList<>());
-        assertFalse(ruleApi.is_valid(new LineBlock(new ArrayList<>())));
+        RuleInPosition rule_api = new RuleInPosition(new ArrayList<>(), new ArrayList<>());
+        assertFalse(rule_api.is_valid(new LineBlock(new ArrayList<>())));
     }
 
     @Test
@@ -63,13 +62,13 @@ public class TestRuleInPosition {
         ArrayList<Integer> positions = new ArrayList<>();
         positions.add(4);
         positions.add(5);
-        RuleInPosition ruleApi = new RuleInPosition(line_blocks, positions);
+        RuleInPosition rule_api = new RuleInPosition(line_blocks, positions);
 
-        assertFalse(ruleApi.is_valid(line_blocks.get(0)));
-        assertFalse(ruleApi.is_valid(line_blocks.get(1)));
-        assertFalse(ruleApi.is_valid(line_blocks.get(2)));
-        assertFalse(ruleApi.is_valid(line_blocks.get(3)));
-        assertTrue(ruleApi.is_valid(line_blocks.get(4)));
-        assertTrue(ruleApi.is_valid(line_blocks.get(5)));
+        assertFalse(rule_api.is_valid(line_blocks.get(0)));
+        assertFalse(rule_api.is_valid(line_blocks.get(1)));
+        assertFalse(rule_api.is_valid(line_blocks.get(2)));
+        assertFalse(rule_api.is_valid(line_blocks.get(3)));
+        assertTrue(rule_api.is_valid(line_blocks.get(4)));
+        assertTrue(rule_api.is_valid(line_blocks.get(5)));
     }
 }

@@ -1,4 +1,4 @@
-package test.datamodel.buildingblocks;
+package test.datamodel;
 
 import static org.junit.Assert.assertNotNull;
 

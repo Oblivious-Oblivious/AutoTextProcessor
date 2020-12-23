@@ -14,7 +14,7 @@ import exporters.MarkdownExporter;
  * TestMarkdownExporter
  */
 public class TestMarkdownExporter {
-    private Document getDocument(String filename) {
+    private Document get_document(String filename) {
         Document doc = new Document();
         doc.set_doc_type("RAW");
 
@@ -27,7 +27,7 @@ public class TestMarkdownExporter {
 
     @Test
     public final void export_hippo_txt() {
-        Document doc = getDocument("Resources/SampleDocs/hippocratesOath.txt");
+        Document doc = get_document("Resources/SampleDocs/hippocratesOath.txt");
         IExporter ex = new MarkdownExporter(doc, "Resources/Outputs/hippoTxt.md");
 
         assertEquals(17, ex.export());
@@ -35,7 +35,7 @@ public class TestMarkdownExporter {
 
     @Test
     public final void export_hippo_html() {
-        Document doc = getDocument("Resources/SampleDocs/hippocratesOath.html");
+        Document doc = get_document("Resources/SampleDocs/hippocratesOath.html");
         IExporter ex = new MarkdownExporter(doc, "Resources/Outputs/hippo.md");
 
         assertEquals(17, ex.export());

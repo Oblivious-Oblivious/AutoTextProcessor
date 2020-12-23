@@ -34,8 +34,8 @@ public class Reporter implements IReporter {
     }
 
     public List<String> generate_report() {
-        int numParagraphs = this.line_blocks.size();
-        this.report.add("\n"+ "Total number of paragraphs: " + numParagraphs);
+        int num_of_paragraphs = this.line_blocks.size();
+        this.report.add("\n"+ "Total number of paragraphs: " + num_of_paragraphs);
 
         int num_words = setup_num_words();
         this.report.set(1, "\nTotal number of words: " + num_words);

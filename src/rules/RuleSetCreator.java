@@ -74,28 +74,26 @@ public class RuleSetCreator {
      * @return the RuleSet to be generated
      */
     public RuleSet create_rule_set() {
-        String lastParameter;
+        String last_parameter;
 
         for(List<String> l : this.input_spec) {
             IRule current_rule = factory.create_rule_undefined();
 
             switch(l.get(1).strip().toUpperCase()) {
                 case "STARTS_WITH" -> {
-                    lastParameter = l.get(2);
-                    current_rule = factory.create_rule_start_with(lastParameter);
+                    last_parameter = l.get(2);
+                    current_rule = factory.create_rule_start_with(last_parameter);
                 }
                 case "ALL_CAPS" -> current_rule = factory.create_rule_all_caps();
                 case "POSITIONS" -> {
-                    lastParameter = l.get(2);
-                    List<String> stringList
-                            = new ArrayList<>(Arrays.asList(lastParameter.split("\\s*,\\s*")));
-                    List<Integer> intList
-                            = stringList
+                    last_parameter = l.get(2);
+                    List<Integer> int_list =
+                            new ArrayList<>(Arrays.asList(last_parameter.split("\\s*,\\s*")))
                             .stream()
                             .map(Integer::parseInt)
                             .collect(Collectors.toList());
 
-                    current_rule = factory.create_rule_in_position(this.line_blocks, intList);
+                    current_rule = factory.create_rule_in_position(this.line_blocks, int_list);
                 }
             }
 

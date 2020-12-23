@@ -43,8 +43,8 @@ public class LoaderEngine {
 	 */
 	private void characterize_raw_file(List<LineBlock> line_blocks, RuleSet rule_set) {
 		for(LineBlock l : line_blocks) {
-			l.set_style(rule_set.determineHeadingStatus(l));
-			l.set_format(rule_set.determineFormatStatus(l));
+			l.set_style(rule_set.determine_heading_status(l));
+			l.set_format(rule_set.determine_format_status(l));
 			/* TODO -> MAKE API THE SAME */
 		}
 	}
@@ -57,8 +57,8 @@ public class LoaderEngine {
 	 */
 	private void characterize_annotated_file(List<LineBlock> line_blocks, RuleSet rule_set) {
 		for(LineBlock l : line_blocks) {
-			l.set_style(rule_set.determineHeadingStatus(l));
-			l.set_format(rule_set.determineFormatStatus(l));
+			l.set_style(rule_set.determine_heading_status(l));
+			l.set_format(rule_set.determine_format_status(l));
 			replace_prefixes(l); /* TODO -> REVERSE */
 		}
 	}
