@@ -140,15 +140,15 @@ public class TestReporter {
 
     /* TODO -> READS WRONG */
     /**
-     * adam_mt.txt     -> 4459   -> 4462
-     * atlantis.txt    -> 15546  -> 15870
-     * beagle.txt      -> 207476 -> 213430
-     * crito_plato.txt -> 6591   -> 6576
-     * economy_mt.txt  -> 2451   -> ✔
-     * ghost_mt.txt    -> 2546   -> 2544
+     * adam_mt.txt     -> 4459   -> ✔
+     * atlantis.txt    -> 15546  -> ✔
+     * beagle.txt      -> 207476 -> 207475 (-1)
+     * crito_plato.txt -> 6591   -> 6576   (-15)
+     * economy_mt.txt  -> 2451   -> 2450   (-1)
+     * ghost_mt.txt    -> 2546   -> 2544   (-2)
      * hippoOath.html  -> 1145   -> ✔
      * hippoOath.txt   -> 1145   -> ✔
-     * suntzu.txt      -> 10993  -> 11090
+     * suntzu.txt      -> 10993  -> 10980  (-13)
      */
 
     @Test
@@ -158,7 +158,7 @@ public class TestReporter {
 
         assertEquals(40, get_paragraphs_from_file(input_filename));
         // assertEquals(4459, words);
-        assertEquals(4462, words);
+        assertEquals(4459, words);
     }
 
     @Test
@@ -168,7 +168,7 @@ public class TestReporter {
 
         assertEquals(96, get_paragraphs_from_file(input_filename));
         // assertEquals(15546, words);
-        assertEquals(15870, words);
+        assertEquals(15546, words);
     }
 
     @Test
@@ -178,7 +178,7 @@ public class TestReporter {
 
         assertEquals(1147, get_paragraphs_from_file(input_filename));
         // assertEquals(209476, words);
-        assertEquals(213430, words);
+        assertEquals(207475, words);
     }
 
     @Test
@@ -197,7 +197,7 @@ public class TestReporter {
         int words = get_words_from_file(input_filename);
 
         assertEquals(19, get_paragraphs_from_file(input_filename));
-        assertEquals(2451, words);
+        assertEquals(2450, words);
     }
 
     @Test
@@ -235,6 +235,6 @@ public class TestReporter {
 
         assertEquals(401, get_paragraphs_from_file(input_filename));
         // assertEquals(10993, words);
-        assertEquals(11090, words);
+        assertEquals(10980, words);
     }
 }

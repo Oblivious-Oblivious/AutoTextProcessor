@@ -1,17 +1,31 @@
 package engine;
 
-import dataload.ILoader;
 import dataload.RawFileLineLoader;
 
 import datamodel.Document;
 import datamodel.LineBlock;
-import rules.RuleSet;
 
 import java.util.List;
 import java.util.Objects;
 
-public class LoaderEngine {
+/**
+ * @class LoaderEngine
+ * @brief A helper controller for the engine, that performs loading actions
+ */
+public class LoaderEngine implements IEngine<Integer> {
+	/**
+	 * document -> The main document that stores the data used
+	 */
 	private final Document document;
+
+	/**
+	 * @message document
+	 * @brief Getter for document
+	 * @return document
+	 */
+	private Document document() {
+		return this.document;
+	}
 
 	/**
 	 * @message load_raw_document
@@ -19,54 +33,66 @@ public class LoaderEngine {
 	 * @param filepath -> The file to load from
 	 */
 	private void load_raw_document(String filepath) {
-		ILoader loader = new RawFileLineLoader();
-		loader.load(filepath, this.document.get_line_blocks());
+		new RawFileLineLoader().load(filepath, document().line_blocks());
 	}
 
-	private void load_file(String filepath) {
-        if(this.document.get_line_blocks().size() == 0)
-			load_raw_document(filepath);
-		System.out.println(filepath);
+	/**
+	 * @message load_file
+	 * @brief Loads a raw document file if the line_blocks are not yet set
+	 */
+	private void load_file() {
+        if(document().line_blocks().size() == 0)
+			load_raw_document(document().input_filename());
+		System.out.println(document().input_filename());
 	}
 
+	/**
+	 * @message replace_prefixes
+	 * @brief Iterate through the lines of the line_block and remove prefixes
+	 * @param l -> The line_block to process
+	 */
 	private void replace_prefixes(LineBlock l) {
-		for(String prefix : this.document.get_prefixes())
-			if(l.get_lines().get(0).startsWith(prefix))
-				l.get_lines().set(0, l.get_lines().get(0).replaceFirst(prefix, ""));
+		document().prefixes().forEach(prefix -> {
+			if(l.lines().get(0).startsWith(prefix))
+				l.lines().set(0, l.lines().get(0).replaceFirst(prefix, ""));
+		});
 	}
 
 	/**
 	 * @message characterize_raw_file
 	 * @brief Set the style and format of the each line in the line_blocks List
 	 * @param line_blocks -> The List of line_blocks to modify
-	 * @param rule_set -> The rule_set according to which we characterize
 	 */
-	private void characterize_raw_file(List<LineBlock> line_blocks, RuleSet rule_set) {
-		for(LineBlock l : line_blocks) {
-			l.set_style(rule_set.determine_heading_status(l));
-			l.set_format(rule_set.determine_format_status(l));
+	private void characterize_raw_file(List<LineBlock> line_blocks) {
+		line_blocks.forEach(l -> {
+			l.style_eq(document().rule_set().determine_heading_status(l));
+			l.format_eq(document().rule_set().determine_format_status(l));
 			/* TODO -> MAKE API THE SAME */
-		}
+		});
 	}
 
 	/**
 	 * @message characterize_annotated_file
 	 * @brief Set style, format and prefix
 	 * @param line_blocks -> The List of line_blocks to modify
-	 * @param rule_set -> The rule_set according to which we characterize
 	 */
-	private void characterize_annotated_file(List<LineBlock> line_blocks, RuleSet rule_set) {
-		for(LineBlock l : line_blocks) {
-			l.set_style(rule_set.determine_heading_status(l));
-			l.set_format(rule_set.determine_format_status(l));
+	private void characterize_annotated_file(List<LineBlock> line_blocks) {
+		line_blocks.forEach(l -> {
+			l.style_eq(document().rule_set().determine_heading_status(l));
+			l.format_eq(document().rule_set().determine_format_status(l));
 			replace_prefixes(l); /* TODO -> REVERSE */
-		}
+		});
 	}
 
-	private void produce_characterize_message(Document document, RuleSet rule_set, List<LineBlock> line_blocks) {
-		switch(document.get_doc_type()) {
-			case RAW -> characterize_raw_file(line_blocks, rule_set);
-			case ANNOTATED -> characterize_annotated_file(line_blocks, rule_set);
+	/**
+	 * @message produce_characterize_message
+	 * @brief Factory method that calls the correct characterize method
+	 * @param line_blocks -> The safe line_blocks after being checked for nulls
+	 */
+	private void produce_characterize_message(List<LineBlock> line_blocks) {
+		switch(document.doc_type()) {
+			case RAW -> characterize_raw_file(line_blocks);
+			case ANNOTATED -> characterize_annotated_file(line_blocks);
 			default -> {
 				System.err.println("   WRONG FILE TYPE !!!");
 				System.exit(-100);
@@ -74,36 +100,60 @@ public class LoaderEngine {
 		}
 	}
 
-	private List<LineBlock> get_safe_line_blocks(Document document, RuleSet rule_set) {
-		List<LineBlock> line_blocks = document.get_line_blocks();
-		Objects.requireNonNull(document);
+	/**
+	 * @message get_safe_line_blocks
+	 * @brief Checks the line_blocks inside document for nullity errors
+	 * @return Null safe line_blocks
+	 */
+	private List<LineBlock> get_safe_line_blocks() {
+		List<LineBlock> line_blocks = document().line_blocks();
+		Objects.requireNonNull(document());
 		Objects.requireNonNull(line_blocks);
-		Objects.requireNonNull(rule_set);
+		Objects.requireNonNull(document().rule_set());
 		return line_blocks;
 	}
 
 	/**
-	 * @message characterize_line_blocks
+	 * @message set_format_and_prefixes
 	 * @brief Change format and prefixes for the document
 	 */
-	private void characterize_line_blocks(Document document, RuleSet rule_set) {
-		List<LineBlock> line_blocks = get_safe_line_blocks(document, rule_set);
-		produce_characterize_message(document, rule_set, line_blocks);
+	private void set_format_and_prefixes() {
+		List<LineBlock> line_blocks = get_safe_line_blocks();
+		produce_characterize_message(line_blocks);
 	}
 
-	private int characterize_blocks_and_get_size() {
-		if(this.document.get_rule_set() != null)
-			characterize_line_blocks(this.document, this.document.get_rule_set());
-
-		return this.document.get_line_blocks().size();
+	/**
+	 * @message characterize_blocks
+	 * @brief If the rule set is safe, it characterizes the line_blocks then calculates their size
+	 */
+	private void characterize_blocks() {
+		if(document().rule_set() != null)
+			set_format_and_prefixes();
 	}
 
+	/**
+	 * @message get_blocks_size
+	 * @brief Finds the size of the line_block list
+	 * @return The size of the line_blocks list
+	 */
+	private int get_blocks_size() {
+		return document().line_blocks().size();
+	}
+
+	/** @Constructor **/
 	public LoaderEngine(Document document) {
 		this.document = document;
 	}
 
-    public int perform_task() {
-        load_file(this.document.get_input_filename());
-		return characterize_blocks_and_get_size();
+	/**
+	 * @message perform_task
+	 * @brief Loads file, characterizes blocks, and gets their size
+	 * @return The number of line_blocks loaded
+	 */
+	@Override
+    public Integer perform_task() {
+        load_file();
+        characterize_blocks();
+        return get_blocks_size();
     }
 }

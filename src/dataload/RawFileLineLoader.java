@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import datamodel.LineBlock;
+
 import files.ReadHandler;
 
 /**
@@ -16,8 +17,42 @@ public class RawFileLineLoader implements ILoader {
      * arraylist -> A List of Strings that will compose the
      *              paragraph lines before inserted into the LineBlock List
      */
-    private final ReadHandler handler;
-    private ArrayList<String> arraylist;
+    private ReadHandler handler;
+    private List<String> arraylist;
+
+    /**
+     * @message handler
+     * @brief Getter for handler
+     * @return handler
+     */
+    private ReadHandler handler() {
+        return this.handler;
+    }
+    /**
+     * @message handler_eq
+     * @brief Setter for handler
+     * @param handler -> New value to set
+     */
+    private void handler_eq(ReadHandler handler) {
+        this.handler = handler;
+    }
+
+    /**
+     * @message arraylist
+     * @brief Getter for arraylist
+     * @return arraylist
+     */
+    private List<String> arraylist() {
+        return this.arraylist;
+    }
+    /**
+     * @message arraylist_eq
+     * @brief Setter for arraylist
+     * @param arraylist -> New value to set
+     */
+    private void arraylist_eq(List<String> arraylist) {
+        this.arraylist = arraylist;
+    }
 
     /**
      * @message process_line
@@ -30,23 +65,23 @@ public class RawFileLineLoader implements ILoader {
 
         /* EOF */
         if(line == null) {
-            if(this.arraylist.size() != 0)
-                line_blocks.add(new LineBlock(this.arraylist));
+            if(arraylist().size() != 0)
+                line_blocks.add(new LineBlock(arraylist()));
             return false;
         }
 
         /* New Paragraph */
         else if(line.equals("")) {
-            if(this.arraylist.size() > 0) {
-                line_blocks.add(new LineBlock(this.arraylist));
-                this.arraylist = new ArrayList<>();
+            if(arraylist().size() > 0) {
+                line_blocks.add(new LineBlock(arraylist()));
+                arraylist_eq(new ArrayList<>());
             }
             return true;
         }
 
         /* Regular line in the middle of a paragraph */
         else {
-            arraylist.add(line);
+            arraylist().add(line);
             return true;
         }
     }
@@ -56,12 +91,13 @@ public class RawFileLineLoader implements ILoader {
      * @brief Processes all lines and fills the line_block list object with paragraphs
      */
     private void fill_line_blocks(List<LineBlock> line_blocks) {
-        while(process_line(this.handler.read_line(), line_blocks));
+        while(process_line(handler().read_line(), line_blocks));
     }
 
+    /** @Constructor **/
     public RawFileLineLoader() {
-        this.handler = new ReadHandler();
-        this.arraylist = new ArrayList<>();
+        handler_eq(new ReadHandler());
+        arraylist_eq(new ArrayList<>());
     }
 
     /**
@@ -72,9 +108,9 @@ public class RawFileLineLoader implements ILoader {
      */
     @Override
     public void load(String filepath, List<LineBlock> line_blocks) {
-        if(this.handler.open(filepath)) {
+        if(handler().open(filepath)) {
             fill_line_blocks(line_blocks);
-            this.handler.close();
+            handler().close();
         }
     }
 }

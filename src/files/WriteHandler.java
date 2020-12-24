@@ -19,6 +19,34 @@ public class WriteHandler {
     private String filepath;
 
     /**
+     * @message file_writer
+     * @brief Getter for file_writer
+     * @return file_writer
+     */
+    private FileWriter file_writer() {
+        return this.file_writer;
+    }
+
+    /**
+     * @message filepath
+     * @brief Getter for filepath
+     * @return filepath
+     */
+    private String filepath() {
+        return this.filepath;
+    }
+
+    /**
+     * @message delete_previous_file
+     * @brief Delete any previous instance of the file
+     * @param filepath -> The filepath to delete
+     */
+    private void delete_previous_file(String filepath) {
+        File f = new File(filepath);
+        f.delete();
+    }
+
+    /**
      * @message open
      * @brief Open the file in write_line node
      * @param filepath -> The file to open
@@ -27,16 +55,14 @@ public class WriteHandler {
     public boolean open(String filepath) {
         this.filepath = filepath;
 
-        /* Delete any previous instance of the file */
-        File f = new File(filepath);
-        f.delete();
+        delete_previous_file(filepath);
 
         try {
             this.file_writer = new FileWriter(filepath, true);
             return true;
         }
         catch(IOException e) {
-            System.out.println("There was an error with creating the output file. | `" + this.filepath + '`');
+            System.out.println("There was an error with creating the output file. | `" + filepath() + '`');
             return false;
         }
     }
@@ -48,10 +74,10 @@ public class WriteHandler {
      */
     public void write(String str) {
         try {
-            this.file_writer.write(str);
+            file_writer().write(str);
         }
         catch(IOException e) {
-            System.out.println("There was an error with writing data to the output file. | `" + this.filepath + '`');
+            System.out.println("There was an error with writing data to the output file. | `" + filepath() + '`');
         }
     }
 
@@ -62,11 +88,11 @@ public class WriteHandler {
      */
     public void write_line(String line) {
         try {
-            this.file_writer.write(line);
-            this.file_writer.write("\n");
+            file_writer().write(line);
+            file_writer().write("\n");
         }
         catch(IOException e) {
-            System.out.println("There was an error with writing data to the output file. | `" + this.filepath + '`');
+            System.out.println("There was an error with writing data to the output file. | `" + filepath() + '`');
         }
     }
 
@@ -76,8 +102,7 @@ public class WriteHandler {
      * @param block -> The line_block containing the lines
      */
     public void write_all_lines(LineBlock block) {
-        for(String line : block.get_lines())
-            this.write(line + " ");
+        block.lines().forEach(line -> write(line + " "));
     }
 
     /**
@@ -86,10 +111,10 @@ public class WriteHandler {
      */
     public void close() {
         try {
-            file_writer.close();
+            file_writer().close();
         }
         catch(IOException e) {
-            System.out.println("There was an error with closing the file descriptor. | `" + this.filepath + '`');
+            System.out.println("There was an error with closing the file descriptor. | `" + filepath() + '`');
         }
     }
 }

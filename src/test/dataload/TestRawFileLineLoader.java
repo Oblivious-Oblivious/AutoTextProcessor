@@ -30,4 +30,18 @@ public class TestRawFileLineLoader {
         this.raw_api.load("doesnotexist.txt", line_blocks);
         assertEquals(0, line_blocks.size());
     }
+
+    @Test
+    public final void test_load_line_block_17_blocks() {
+        List<LineBlock> line_blocks = new ArrayList<>();
+        this.raw_api.load("Resources/SampleDocs/hippocratesOath.txt", line_blocks);
+        assertEquals(17, line_blocks.size());
+    }
+
+    @Test
+    public final void test_load_line_block_96_blocks() {
+        List<LineBlock> line_blocks = new ArrayList<>();
+        this.raw_api.load("Resources/SampleDocs/atlantis.txt", line_blocks);
+        assertEquals(96, line_blocks.size());
+    }
 }

@@ -4,18 +4,31 @@ import java.util.List;
 
 import datamodel.LineBlock;
 
+/**
+ * @class RuleInPosition
+ * @brief Factory component for the POSITIONS rule
+ */
 public class RuleInPosition implements IRule {
-    private final List<LineBlock> p_line_blocks;
-    private final List<Integer> p_positions;
+    /**
+     * line_blocks -> The list of LineBlock objects to check
+     * positions -> The positions to check for
+     */
+    private final List<LineBlock> line_blocks;
+    private final List<Integer> positions;
 
-    public RuleInPosition(List<LineBlock> p_line_blocks, List<Integer> p_positions) {
-        this.p_line_blocks = p_line_blocks;
-        this.p_positions = p_positions;
+    /** @Constructor **/
+    public RuleInPosition(List<LineBlock> line_blocks, List<Integer> positions) {
+        this.line_blocks = line_blocks;
+        this.positions = positions;
     }
 
+    /**
+	 * @message is_valid
+	 * @brief Delegate to line_block
+	 */
     @Override
     public boolean is_valid(LineBlock paragraph) {
-        return p_positions.contains(this.p_line_blocks.indexOf(paragraph));
+        return paragraph.is_in_position(this.line_blocks, this.positions);
     }
 
     @Override

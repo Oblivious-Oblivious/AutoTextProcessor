@@ -3,15 +3,14 @@ package rules;
 import datamodel.LineBlock;
 
 /**
- * Abstract class to be concreted by specific subclasses for the handling of paragraph characterization
- * 
- * @author pvassil
- *
+ * @interface IRule
+ * @brief Abstract class to be concreted by specific subclasses
+ * 		  for the handling of paragraph characterization
  */
 public interface IRule {
 	/**
-	 * Decides if the paragraph abides by the rule
-	 * 
+	 * @message is_valid
+	 * @brief Decides if the paragraph abides by the rule
 	 * @param paragraph -> the LineBlock under test
 	 * @return true if the the LineBlock abides by the test of the rule
 	 */

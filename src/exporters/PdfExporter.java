@@ -5,8 +5,8 @@ import java.io.FileOutputStream;
 
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.*;
+
 import datamodel.Document;
-import datamodel.LineBlock;
 
 /**
  * @class PdfExporter
@@ -21,11 +21,21 @@ public class PdfExporter implements IExporter {
     private final String output_filename;
 
     /**
-     * @Constructor
+     * @message document
+     * @brief Getter for document
+     * @return document
      */
-    public PdfExporter(Document document, String output_filename) {
-        this.document = document;
-        this.output_filename = output_filename;
+    private Document document() {
+        return this.document;
+    }
+
+    /**
+     * @message output_filename
+     * @brief Getter for output_filename
+     * @return output_filename
+     */
+    private String output_filename() {
+        return this.output_filename;
     }
 
     /**
@@ -33,18 +43,21 @@ public class PdfExporter implements IExporter {
      * @brief a method that opens a new pdf writer and handles exporting
      * @return The exported number of paragraphs (skips omitted)
      */
-    public int count_and_export() {
+    private int count_and_export() {
         int num_of_paragraphs = 0;
         com.itextpdf.text.Document pdf_document = new com.itextpdf.text.Document();
 
         try {
             /* We get an instance of a writer in order to properly work */
             /* pdf_document is a throwable */
-            PdfWriter.getInstance(pdf_document, new FileOutputStream(this.output_filename));
+            PdfWriter.getInstance(pdf_document, new FileOutputStream(output_filename()));
             pdf_document.open();
 
-            for(LineBlock paragraph : document.get_line_blocks())
-                num_of_paragraphs += paragraph.export_pdf(pdf_document);
+            num_of_paragraphs = document()
+                    .line_blocks()
+                    .stream()
+                    .mapToInt(paragraph -> paragraph.export_pdf(pdf_document))
+                    .sum();
 
             pdf_document.close();
         }
@@ -53,6 +66,14 @@ public class PdfExporter implements IExporter {
         }
 
         return num_of_paragraphs;
+    }
+
+    /**
+     * @Constructor
+     */
+    public PdfExporter(Document document, String output_filename) {
+        this.document = document;
+        this.output_filename = output_filename;
     }
 
     /**

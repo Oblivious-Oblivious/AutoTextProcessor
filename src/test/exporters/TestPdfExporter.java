@@ -3,6 +3,7 @@ package test.exporters;
 import static org.junit.Assert.assertEquals;
 
 import dataload.ILoader;
+import datamodel.DocumentLoadType;
 import org.junit.Test;
 
 import dataload.RawFileLineLoader;
@@ -15,11 +16,11 @@ import exporters.PdfExporter;
 public class TestPdfExporter {
     private Document get_document(String filename) {
         Document doc = new Document();
-        doc.set_doc_type("RAW");
+        doc.doc_type_eq(DocumentLoadType.RAW);
 
         /* Load the file */
         ILoader loader = new RawFileLineLoader();
-        loader.load(filename, doc.get_line_blocks());
+        loader.load(filename, doc.line_blocks());
 
         return doc;
     }

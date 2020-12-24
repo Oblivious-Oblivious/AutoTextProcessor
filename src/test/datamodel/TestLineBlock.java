@@ -42,19 +42,19 @@ public class TestLineBlock {
 
     @Test
     public final void test_get_words_is_six() {
-        assertEquals(6, this.lb_api.get_words());
+        assertEquals(6, this.lb_api.words());
     }
 
     @Test
     public final void test_get_lines_same_size() {
-        assertEquals(this.block.size(), this.lb_api.get_lines().size());
+        assertEquals(this.block.size(), this.lb_api.lines().size());
     }
 
     @Test
     public final void test_get_lines_same_content() {
-        assertEquals(this.block.get(0), this.lb_api.get_lines().get(0));
-        assertEquals(this.block.get(1), this.lb_api.get_lines().get(1));
-        assertEquals(this.block.get(2), this.lb_api.get_lines().get(2));
+        assertEquals(this.block.get(0), this.lb_api.lines().get(0));
+        assertEquals(this.block.get(1), this.lb_api.lines().get(1));
+        assertEquals(this.block.get(2), this.lb_api.lines().get(2));
     }
 
     @Test
@@ -75,14 +75,14 @@ public class TestLineBlock {
         assertTrue(this.lb_api.starts_with("paragraph 1"));
     }
 
-    @Test
-    public final void test_replace_first_not_null() {
-        assertNotNull(this.lb_api.replace_first("stuff", "new stuff"));
-    }
-
-    @Test
-    public final void test_replace_first_correct() {
-        this.lb_api.replace_first("paragraph", "block");
-        assertEquals("block 1", this.lb_api.get_lines().get(0));
-    }
+//    @Test
+//    public final void test_replace_first_not_null() {
+//        assertNotNull(this.lb_api.replace_first("stuff", "new stuff"));
+//    }
+//
+//    @Test
+//    public final void test_replace_first_correct() {
+//        this.lb_api.replace_first("paragraph", "block");
+//        assertEquals("block 1", this.lb_api.lines().get(0));
+//    }
 }

@@ -5,67 +5,86 @@ import rules.RuleSet;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @message Document
+ * @brief Model for storing data about the current document we are editing
+ */
 public class Document {
+    /**
+     * doc_type -> The current load type
+     * export_type -> The current export type
+     * line_blocks -> The current state of the line blocks loaded
+     * input_filename -> The input filename to read from
+     * output_filename -> The output filename to export to
+     * input_spec -> The list of rules before being edited
+     * prefixes -> The list of prefixes to replace
+     * rule_set -> The produced rule set for the current document
+     */
     private DocumentLoadType doc_type;
-    private List<LineBlock> line_blocks;
+    private DocumentExportType export_type;
+    private final List<LineBlock> line_blocks;
     private String input_filename;
     private String output_filename;
     private List<List<String>> input_spec;
     private List<String> prefixes;
     private RuleSet rule_set;
 
+    /** @Constructor **/
     public Document() {
         this.line_blocks = new ArrayList<>();
     }
 
-    public DocumentLoadType get_doc_type() {
+    /* ACCESSORS FOR ALL FIELDS */
+    public DocumentLoadType doc_type() {
         return this.doc_type;
     }
-    public void set_doc_type(String p_input_type) {
-        this.doc_type = p_input_type.equalsIgnoreCase("ANNOTATED")
-                ? DocumentLoadType.ANNOTATED
-				: DocumentLoadType.RAW;
+    public void doc_type_eq(DocumentLoadType doc_type) {
+        this.doc_type = doc_type;
     }
 
-    public List<LineBlock> get_line_blocks() {
+    public DocumentExportType export_type() {
+        return this.export_type;
+    }
+    public void export_type_eq(DocumentExportType export_type) {
+        this.export_type = export_type;
+    }
+
+    public List<LineBlock> line_blocks() {
         return this.line_blocks;
     }
-    public void set_line_blocks(List<LineBlock> line_blocks) {
-        this.line_blocks = line_blocks;
-    }
 
-    public String get_input_filename() {
+    public String input_filename() {
         return input_filename;
     }
-    public void set_input_filename(String input_filename) {
+    public void input_filename_eq(String input_filename) {
         this.input_filename = input_filename;
     }
 
-    public String get_output_filename() {
+    public String output_filename() {
         return output_filename;
     }
-    public void set_output_filename(String output_filename) {
+    public void output_filename_eq(String output_filename) {
         this.output_filename = output_filename;
     }
 
-    public List<List<String>> get_input_spec() {
+    public List<List<String>> input_spec() {
         return input_spec;
     }
-    public void set_input_spec(List<List<String>> input_spec) {
+    public void input_spec_eq(List<List<String>> input_spec) {
         this.input_spec = input_spec;
     }
 
-    public List<String> get_prefixes() {
+    public List<String> prefixes() {
         return prefixes;
     }
-    public void set_prefixes(List<String> prefixes) {
+    public void prefixes_eq(List<String> prefixes) {
         this.prefixes = prefixes;
     }
 
-    public RuleSet get_rule_set() {
+    public RuleSet rule_set() {
         return rule_set;
     }
-    public void set_rule_set(RuleSet rule_set) {
+    public void rule_set_eq(RuleSet rule_set) {
         this.rule_set = rule_set;
     }
 }

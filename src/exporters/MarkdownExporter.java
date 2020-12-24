@@ -1,7 +1,6 @@
 package exporters;
 
 import datamodel.Document;
-import datamodel.LineBlock;
 
 import files.WriteHandler;
 
@@ -18,6 +17,24 @@ public class MarkdownExporter implements IExporter {
     private final String output_filename;
 
     /**
+     * @message document
+     * @brief Getter for document
+     * @return document
+     */
+    private Document document() {
+        return this.document;
+    }
+
+    /**
+     * @message output_filename
+     * @brief Getter for output_filename
+     * @return output_filename
+     */
+    private String output_filename() {
+        return this.output_filename;
+    }
+
+    /**
      * @message count_and_export
      * @brief a method that opens a new file writer and and handles exporting
      * @return The exported number of paragraphs (skips omitted)
@@ -26,9 +43,12 @@ public class MarkdownExporter implements IExporter {
         WriteHandler writer = new WriteHandler();
         int num_of_paragraphs = 0;
 
-        if(writer.open(this.output_filename)) {
-            for(LineBlock paragraph : document.get_line_blocks())
-                num_of_paragraphs += paragraph.export_markdown(writer);
+        if(writer.open(output_filename())) {
+            num_of_paragraphs = document()
+                    .line_blocks()
+                    .stream()
+                    .mapToInt(paragraph -> paragraph.export_markdown(writer))
+                    .sum();
             writer.close();
         }
 

@@ -21,6 +21,44 @@ public class ReadHandler {
     private String filepath;
 
     /**
+     * @message file_reader
+     * @brief Getter for file_reader
+     * @return file_reader
+     */
+    private FileReader file_reader() {
+        return this.file_reader;
+    }
+
+    /**
+     * @message buffered_reader
+     * @brief Getter for buffered_reader
+     * @return buffered_reader
+     */
+    private BufferedReader buffered_reader() {
+        return this.buffered_reader;
+    }
+
+    /**
+     * @message filepath
+     * @brief Getter for filepath
+     * @return filepath
+     */
+    private String filepath() {
+        return this.filepath;
+    }
+
+    /**
+     * @message file_does_not_exist
+     * @brief Check if the path file in the filesystem
+     * @return true if it does not exist
+     */
+    private boolean file_does_not_exist() {
+        /* Check beforehand if the file file_does_not_exist */
+        File file = new File(filepath());
+        return !file.exists();
+    }
+
+    /**
      * @message open
      * @brief Open a file in read mode
      * @param filepath -> The path to open
@@ -29,18 +67,15 @@ public class ReadHandler {
     public boolean open(String filepath) {
         this.filepath = filepath;
 
-        /* Check beforehand if the file exists */
-        File file = new File(this.filepath);
-        if(!file.exists())
-            return false;
+        if(file_does_not_exist()) return false;
 
         try {
-            this.file_reader = new FileReader(this.filepath);
-            this.buffered_reader = new BufferedReader(file_reader);
+            this.file_reader = new FileReader(filepath());
+            this.buffered_reader = new BufferedReader(file_reader());
             return true;
         }
         catch(FileNotFoundException e) {
-            System.out.println("There was an error with creating the input file. | `" + this.filepath + '`');
+            System.out.println("There was an error with creating the input file. | `" + filepath() + '`');
             return false;
         }
     }
@@ -52,10 +87,10 @@ public class ReadHandler {
      */
     public String read_line() {
         try {
-            return buffered_reader.readLine();
+            return buffered_reader().readLine();
         }
         catch(IOException e) {
-            System.out.println("There was an error with reading a line from the input file. | `" + this.filepath + '`');
+            System.out.println("There was an error with reading a line from the input file. | `" + filepath() + '`');
             return null;
         }
     }
@@ -66,11 +101,11 @@ public class ReadHandler {
      */
     public void close() {
         try {
-            file_reader.close();
-            buffered_reader.close();
+            file_reader().close();
+            buffered_reader().close();
         }
         catch(IOException e) {
-            System.out.println("There was an error with closing the file descriptor. | `" + this.filepath + '`');
+            System.out.println("There was an error with closing the file descriptor. | `" + filepath() + '`');
         }
     }
 }

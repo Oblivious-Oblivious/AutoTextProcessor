@@ -2,12 +2,18 @@ package rules;
 
 import datamodel.LineBlock;
 
+/**
+ * @class RuleAllCaps
+ * @brief Factory component for the ALL_CAPS rule
+ */
 public class RuleAllCaps implements IRule {
-	public RuleAllCaps() {}
-	
+	/**
+	 * @message is_valid
+	 * @brief Delegate to line_block
+	 */
 	@Override
 	public boolean is_valid(LineBlock paragraph) {
-		return paragraph.is_capital();
+		return paragraph.is_all_caps();
 	}
 
 	@Override
