@@ -17,7 +17,7 @@ public class RawFileLineLoader implements ILoader {
      * arraylist -> A List of Strings that will compose the
      *              paragraph lines before inserted into the LineBlock List
      */
-    private ReadHandler handler;
+    private final ReadHandler handler;
     private List<String> arraylist;
 
     /**
@@ -27,14 +27,6 @@ public class RawFileLineLoader implements ILoader {
      */
     private ReadHandler handler() {
         return this.handler;
-    }
-    /**
-     * @message handler_eq
-     * @brief Setter for handler
-     * @param handler -> New value to set
-     */
-    private void handler_eq(ReadHandler handler) {
-        this.handler = handler;
     }
 
     /**
@@ -96,8 +88,8 @@ public class RawFileLineLoader implements ILoader {
 
     /** @Constructor **/
     public RawFileLineLoader() {
-        handler_eq(new ReadHandler());
-        arraylist_eq(new ArrayList<>());
+        this.handler = new ReadHandler();
+        this.arraylist = new ArrayList<>();
     }
 
     /**
