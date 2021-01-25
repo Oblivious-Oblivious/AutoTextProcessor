@@ -8,6 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="libs/commons-io-2.6.jar"/>
-	<classpathentry kind="lib" path="libs/itext5-itextpdf-5.5.12.jar"/>
+	 <classpathentry kind="lib" path="libs/itext5-itextpdf-5.5.12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
