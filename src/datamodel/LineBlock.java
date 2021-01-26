@@ -172,12 +172,6 @@ public class LineBlock {
 		return false; /* ALWAYS RETURNS FALSE */
 	}
 
-    /* TODO -> CHECK WHERE IS THIS USED AT */
-//    public String replace_first(String prefix, String new_prefix) {
-//        lines().set(0, lines().get(0).replaceFirst(prefix, new_prefix));
-//        return lines().get(0);
-//    }
-
     /* TODO -> MAKE THEM LOOK MORE ALIKE USING DEPENDENCY INJECTION */
     /**
      * @message export_markdown

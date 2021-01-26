@@ -3,7 +3,7 @@ package files;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Font;
 
-/* TODO -> Make the class conform into the GeneralWriter API */
+/* TODO -> MAKE THE CLASS CONFORM TO THE GENERALWRITER API */
 
 /**
  * @class ParagraphWriter
